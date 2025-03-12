@@ -110,15 +110,17 @@ mixin AppTheme {
             ),
           ),
         ),
-        tabBarTheme: const TabBarTheme(
+        tabBarTheme: TabBarTheme(
           labelColor: AppColors.tabActive,
-          labelStyle: TextStyle(
+          labelStyle: const TextStyle(
             fontSize: 11,
             // height: 18 / 12,
           ),
+          splashFactory: NoSplash.splashFactory,
+          overlayColor: WidgetStateProperty.all(Colors.transparent),
           labelPadding: EdgeInsets.zero,
           unselectedLabelColor: AppColors.base400,
-          unselectedLabelStyle: TextStyle(
+          unselectedLabelStyle: const TextStyle(
             fontSize: 11,
             // height: 18 / 12,
           ),

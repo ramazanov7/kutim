@@ -15,67 +15,33 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
-  /// File path: assets/icons/application-active.svg
-  SvgGenImage get applicationActive =>
-      const SvgGenImage('assets/icons/application-active.svg');
-
-  /// File path: assets/icons/application-inactive.svg
-  SvgGenImage get applicationInactive =>
-      const SvgGenImage('assets/icons/application-inactive.svg');
-
-  /// File path: assets/icons/back-auth.svg
-  SvgGenImage get backAuth => const SvgGenImage('assets/icons/back-auth.svg');
-
-  /// File path: assets/icons/back.svg
-  SvgGenImage get back => const SvgGenImage('assets/icons/back.svg');
-
-  /// File path: assets/icons/car-active.svg
-  SvgGenImage get carActive => const SvgGenImage('assets/icons/car-active.svg');
-
-  /// File path: assets/icons/car-inactive.svg
-  SvgGenImage get carInactive =>
-      const SvgGenImage('assets/icons/car-inactive.svg');
-
-  /// File path: assets/icons/clear.svg
-  SvgGenImage get clear => const SvgGenImage('assets/icons/clear.svg');
-
   /// File path: assets/icons/eye.svg
   SvgGenImage get eye => const SvgGenImage('assets/icons/eye.svg');
 
   /// File path: assets/icons/hide-eye.svg
   SvgGenImage get hideEye => const SvgGenImage('assets/icons/hide-eye.svg');
 
-  /// File path: assets/icons/main-active.svg
-  SvgGenImage get mainActive =>
-      const SvgGenImage('assets/icons/main-active.svg');
+  /// File path: assets/icons/main-tab.svg
+  SvgGenImage get mainTab => const SvgGenImage('assets/icons/main-tab.svg');
 
-  /// File path: assets/icons/main-inactive.svg
-  SvgGenImage get mainInactive =>
-      const SvgGenImage('assets/icons/main-inactive.svg');
+  /// File path: assets/icons/profile-tab.png
+  AssetGenImage get profileTab =>
+      const AssetGenImage('assets/icons/profile-tab.png');
 
-  /// File path: assets/icons/profile-active.svg
-  SvgGenImage get profileActive =>
-      const SvgGenImage('assets/icons/profile-active.svg');
+  /// File path: assets/icons/scan-tab.svg
+  SvgGenImage get scanTab => const SvgGenImage('assets/icons/scan-tab.svg');
 
-  /// File path: assets/icons/profile-inactive.svg
-  SvgGenImage get profileInactive =>
-      const SvgGenImage('assets/icons/profile-inactive.svg');
+  /// File path: assets/icons/search-tab.svg
+  SvgGenImage get searchTab => const SvgGenImage('assets/icons/search-tab.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [
-    applicationActive,
-    applicationInactive,
-    backAuth,
-    back,
-    carActive,
-    carInactive,
-    clear,
+  List<dynamic> get values => [
     eye,
     hideEye,
-    mainActive,
-    mainInactive,
-    profileActive,
-    profileInactive,
+    mainTab,
+    profileTab,
+    scanTab,
+    searchTab,
   ];
 }
 

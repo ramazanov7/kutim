@@ -105,86 +105,88 @@ class _BaseTabBottomNavbarState extends State<BaseTabBottomNavbar> {
   int lastTab = 0;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
       padding: EdgeInsets.only(
-        top: 2,
+        left: 16,
+        right: 16,
         bottom: MediaQuery.viewPaddingOf(context).bottom,
       ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        // borderRadius: BorderRadius.only(
-        //   topLeft: Radius.circular(16),
-        //   topRight: Radius.circular(16),
-        // ),
-        boxShadow: [
-          BoxShadow(
-            color: Color.fromRGBO(16, 5, 5, 0.078),
-            blurRadius: 80,
-          ),
-        ],
-      ),
-      child: TabBar(
-        dividerColor: Colors.transparent,
-        controller: widget.tabController,
-        enableFeedback: false,
-        // dividerHeight: 0,
-        unselectedLabelStyle: AppTextStyles.fs12w400,
-        labelStyle: AppTextStyles.fs12w400,
-        // indicatorSize: TabBarIndicatorSize.tab,
-        indicator: TabDotIndicator(),
-        onTap: (value) {
-          HapticFeedback.mediumImpact();
-          if (widget.tabsRouter.activeIndex == value) {
-            widget.tabsRouter.maybePopTop();
-            lastTab = value;
-          } else {
-            widget.tabsRouter.setActiveIndex(value);
-            lastTab = value;
-          }
-          // if (value == 2 && !context.appBloc.isAuthenticated) {
-          //   context.router.push(
-          //     const RegisterRoute(),
-          //   );
-          //   widget.tabController.index = lastTab;
-          // } else if (widget.tabsRouter.activeIndex == value) {
-          //   widget.tabsRouter.maybePopTop();
-          //   lastTab = value;
-          // } else {
-          //   widget.tabsRouter.setActiveIndex(value);
-          //   lastTab = value;
-          // }
-        },
-        tabs: [
-          CustomTabWidget(
-            icon: Assets.icons.mainInactive.path,
-            activeIcon: Assets.icons.mainActive.path,
-            title: context.localized.main,
-            currentIndex: widget.tabController.index,
-            tabIndex: 0,
-          ),
-          CustomTabWidget(
-            icon: Assets.icons.carInactive.path,
-            activeIcon: Assets.icons.carActive.path,
-            title: context.localized.catalog,
-            // title: 'Каталог',
-            currentIndex: widget.tabController.index,
-            tabIndex: 1,
-          ),
-          CustomTabWidget(
-            icon: Assets.icons.applicationInactive.path,
-            activeIcon: Assets.icons.applicationActive.path,
-            title: context.localized.profile,
-            currentIndex: widget.tabController.index,
-            tabIndex: 2,
-          ),
-          CustomTabWidget(
-            icon: Assets.icons.profileInactive.path,
-            activeIcon: Assets.icons.profileActive.path,
-            title: context.localized.profile,
-            currentIndex: widget.tabController.index,
-            tabIndex: 3,
-          ),
-        ],
+      child: Container(
+        padding: const EdgeInsets.only(top: 7, bottom: 7),
+        decoration: BoxDecoration(
+          color: AppColors.backgroundColor2,
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: const [
+            BoxShadow(
+              color: Color.fromRGBO(16, 5, 5, 0.078),
+              blurRadius: 80,
+            ),
+          ],
+        ),
+        child: TabBar(
+          dividerColor: Colors.transparent,
+          controller: widget.tabController,
+          enableFeedback: true,
+          // dividerHeight: 0,
+          unselectedLabelStyle: AppTextStyles.fs12w400,
+          labelStyle: AppTextStyles.fs12w400,
+          indicatorSize: TabBarIndicatorSize.tab,
+          indicator: TabDotIndicator(),
+          onTap: (value) {
+            HapticFeedback.mediumImpact();
+            if (widget.tabsRouter.activeIndex == value) {
+              widget.tabsRouter.maybePopTop();
+              lastTab = value;
+            } else {
+              widget.tabsRouter.setActiveIndex(value);
+              lastTab = value;
+            }
+            // if (value == 2 && !context.appBloc.isAuthenticated) {
+            //   context.router.push(
+            //     const RegisterRoute(),
+            //   );
+            //   widget.tabController.index = lastTab;
+            // } else if (widget.tabsRouter.activeIndex == value) {
+            //   widget.tabsRouter.maybePopTop();
+            //   lastTab = value;
+            // } else {
+            //   widget.tabsRouter.setActiveIndex(value);
+            //   lastTab = value;
+            // }
+          },
+          tabs: [
+            CustomTabWidget(
+              icon: Assets.icons.mainTab.path,
+              activeIcon: Assets.icons.mainTab.path,
+              title: context.localized.main,
+              currentIndex: widget.tabController.index,
+              tabIndex: 0,
+            ),
+            CustomTabWidget(
+              icon: Assets.icons.searchTab.path,
+              activeIcon: Assets.icons.searchTab.path,
+              title: context.localized.catalog,
+              // title: 'Каталог',
+              currentIndex: widget.tabController.index,
+              tabIndex: 1,
+            ),
+            CustomTabWidget(
+              icon: Assets.icons.scanTab.path,
+              activeIcon: Assets.icons.scanTab.path,
+              title: context.localized.profile,
+              currentIndex: widget.tabController.index,
+              tabIndex: 2,
+            ),
+            CustomTabWidget(
+              isNotSvg: true,
+              icon: Assets.icons.profileTab.path,
+              activeIcon: Assets.icons.profileTab.path,
+              title: context.localized.profile,
+              currentIndex: widget.tabController.index,
+              tabIndex: 3,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -99,16 +99,17 @@ class _LauncherState extends State<Launcher> with WidgetsBindingObserver {
           onTap: () async {},
         ),
         inApp: () => const BaseTab(),
-        notAuthorized: () => _isFirstLaunch
-            ? OnboardingPage(
-                onGoAuthPressed: () {
-                  setState(() {
-                    _isFirstLaunch = false;
-                  });
-                },
-              )
-            : const LoginPage(),
-        // notAuthorized: () => const LoginPage(),
+        notAuthorized: () => const BaseTab(),
+
+        // notAuthorized: () => _isFirstLaunch
+        //     ? OnboardingPage(
+        //         onGoAuthPressed: () {
+        //           setState(() {
+        //             _isFirstLaunch = false;
+        //           });
+        //         },
+        //       )
+        //     : const LoginPage(),
         // notAuthorized: () => BlocProvider(
         //   create: (context) => RegisterCubit(repository: context.repository.authRepository),
         //   child: const LoginPage(),

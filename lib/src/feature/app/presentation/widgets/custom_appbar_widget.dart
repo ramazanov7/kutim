@@ -32,18 +32,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       leadingWidth: 57,
-      leading: IconButton(
-        padding: EdgeInsets.zero,
-        onPressed: () {
-          context.router.maybePop();
-        },
-        splashRadius: 21,
-        icon: isBackButton
-            ? SvgPicture.asset(svg ?? Assets.icons.back.path)
-            : Container(
-                width: 74,
-              ),
-      ),
+      // leading: IconButton(
+      //   padding: EdgeInsets.zero,
+      //   onPressed: () {
+      //     context.router.maybePop();
+      //   },
+      //   splashRadius: 21,
+      //   icon: isBackButton
+      //       ? SvgPicture.asset(svg ?? Assets.icons.back.path)
+      //       : Container(
+      //           width: 74,
+      //         ),
+      // ),
       centerTitle: true,
       title: title != null
           ? Text(title!, style: textStyle ?? AppTextStyles.fs16w700.copyWith(color: AppColors.text))

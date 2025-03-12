@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kutim/src/core/theme/resources.dart';
 
 class CustomTabWidget extends StatelessWidget {
   final String icon;
@@ -9,6 +8,7 @@ class CustomTabWidget extends StatelessWidget {
   final int currentIndex;
   final int tabIndex;
   final int? count;
+  final bool? isNotSvg;
   const CustomTabWidget({
     super.key,
     required this.icon,
@@ -17,17 +17,23 @@ class CustomTabWidget extends StatelessWidget {
     required this.currentIndex,
     required this.tabIndex,
     this.count,
+    this.isNotSvg,
   });
 
   @override
   Widget build(BuildContext context) {
     return Tab(
-      text: title,
-      iconMargin: const EdgeInsets.only(bottom: 8),
-      icon: SvgPicture.asset(
-        tabIndex == currentIndex ? activeIcon : icon,
-      ),
-    );
+        // text: title,
+        iconMargin: const EdgeInsets.only(bottom: 8),
+        icon: isNotSvg == true
+            ? Image.asset(
+                height: 28,
+                tabIndex == currentIndex ? activeIcon : icon,
+              )
+            : SvgPicture.asset(
+                height: 22,
+                tabIndex == currentIndex ? activeIcon : icon,
+              ));
   }
 }
 

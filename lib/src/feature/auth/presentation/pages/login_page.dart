@@ -19,6 +19,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final ValueNotifier<bool> _obscureText = ValueNotifier(true);
@@ -61,119 +62,122 @@ class _LoginPageState extends State<LoginPage> {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Gap(120),
-                      Text(
-                        'Sign in to Kutim',
-                        style: AppTextStyles.fs20w600.copyWith(color: AppColors.mainColor),
-                      ),
-                      const Gap(56),
-                      SizedBox(
-                        height: 46,
-                        child: CustomTextField(
-                          controller: emailController,
-                          label: const Text(
-                            'Email',
-                            style: AppTextStyles.fs14w400,
-                          ),
-                          floatingLabelStyle: AppTextStyles.fs16w400,
-                          keyboardType: TextInputType.emailAddress,
-                          fillColor: AppColors.white,
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide: const BorderSide(color: AppColors.textFieldBorder)),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide: const BorderSide(color: AppColors.textFieldBorder)),
-                          onChanged: (value) {
-                            setState(() {});
-                          },
+            child: Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Gap(120),
+                        Text(
+                          'Sign in to Kutim',
+                          style: AppTextStyles.fs20w600.copyWith(color: AppColors.mainColor),
                         ),
-                      ),
-                      const Gap(26),
-                      SizedBox(
-                        height: 46,
-                        child: ValueListenableBuilder(
-                          valueListenable: _obscureText,
-                          builder: (context, v, c) {
-                            return CustomValidatorTextfield(
-                              obscureText: _obscureText,
-                              controller: passwordController,
-                              valueListenable: _passwordError,
-                              label: const Text(
-                                'Password',
-                                style: AppTextStyles.fs14w400,
+                        const Gap(56),
+                        SizedBox(
+                          height: 46,
+                          child: CustomTextField(
+                            controller: emailController,
+                            label: const Text(
+                              'Email',
+                              style: AppTextStyles.fs14w400,
+                            ),
+                            floatingLabelStyle: AppTextStyles.fs16w400,
+                            keyboardType: TextInputType.emailAddress,
+                            fillColor: AppColors.white,
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                borderSide: const BorderSide(color: AppColors.textFieldBorder)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                borderSide: const BorderSide(color: AppColors.textFieldBorder)),
+                            onChanged: (value) {
+                              setState(() {});
+                            },
+                          ),
+                        ),
+                        const Gap(26),
+                        SizedBox(
+                          height: 46,
+                          child: ValueListenableBuilder(
+                            valueListenable: _obscureText,
+                            builder: (context, v, c) {
+                              return CustomValidatorTextfield(
+                                obscureText: _obscureText,
+                                controller: passwordController,
+                                valueListenable: _passwordError,
+                                label: const Text(
+                                  'Password',
+                                  style: AppTextStyles.fs14w400,
+                                ),
+                                floatingLabelStyle: AppTextStyles.fs16w400,
+                                onChanged: (value) {
+                                  checkAllowTapButton();
+                                },
+                                validator: (String? value) {
+                                  return null;
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                        const Gap(12),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                context.router.push(const PasswordRecoveryRoute());
+                              },
+                              child: Text(
+                                'Forgot Password?',
+                                style: AppTextStyles.fs14w300.copyWith(color: AppColors.textFieldBorder),
                               ),
-                              floatingLabelStyle: AppTextStyles.fs16w400,
-                              onChanged: (value) {
-                                checkAllowTapButton();
-                              },
-                              validator: (String? value) {
-                                return null;
-                              },
-                            );
-                          },
+                            ),
+                          ],
                         ),
-                      ),
-                      const Gap(12),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              context.router.push(const PasswordRecoveryRoute());
-                            },
-                            child: Text(
-                              'Forgot Password?',
-                              style: AppTextStyles.fs14w300.copyWith(color: AppColors.textFieldBorder),
-                            ),
-                          ),
-                        ],
-                      ),
-                      // const Gap(34),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8, right: 8),
-                        child: CustomButton(
-                            onPressed: () {},
-                            style: CustomButtonStyles.mainButtonStyle(context, elevation: 5),
-                            child: const Text(
-                              'Sign in',
+                        // const Gap(34),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8, right: 8),
+                          child: CustomButton(
+                              onPressed: () {},
+                              style: CustomButtonStyles.mainButtonStyle(context, elevation: 5),
+                              child: const Text(
+                                'Sign in',
+                                style: AppTextStyles.fs16w500,
+                              )),
+                        ),
+                        const Gap(13),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "Don't have an Account?",
                               style: AppTextStyles.fs16w500,
-                            )),
-                      ),
-                      const Gap(13),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            "Don't have an Account?",
-                            style: AppTextStyles.fs16w500,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              context.router.push(const RegisterRoute());
-                            },
-                            child: Text(
-                              '   Sign up',
-                              style: AppTextStyles.fs16w500.copyWith(color: AppColors.mainColor),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
-                  )
-                ],
+                            GestureDetector(
+                              onTap: () {
+                                context.router.push(const RegisterRoute());
+                              },
+                              child: Text(
+                                '   Sign up',
+                                style: AppTextStyles.fs16w500.copyWith(color: AppColors.mainColor),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),

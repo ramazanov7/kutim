@@ -96,6 +96,16 @@ flutter:
     - assets/icons/
     - assets/images/
 
+  fonts:
+     - family: Poppins
+       fonts:
+         - asset: assets/fonts/Poppins/Poppins-Black.ttf
+         - asset: assets/fonts/Poppins/Poppins-Bold.ttf
+         - asset: assets/fonts/Poppins/Poppins-ExtraBold.ttf
+         - asset: assets/fonts/Poppins/Poppins-Medium.ttf
+         - asset: assets/fonts/Poppins/Poppins-Regular.ttf
+         - asset: assets/fonts/Poppins/Poppins-Semibold.ttf
+
 flutter_gen:
   output: lib/src/core/gen
   integrations:

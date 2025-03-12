@@ -2,7 +2,7 @@ part of 'resources.dart';
 
 mixin AppTextStyles {
   static TextStyle fs12w400 = const TextStyle(
-    // fontFamily: FontFamily.golosText,
+    fontFamily: 'Poppins',
     fontSize: 12.0,
     fontWeight: FontWeight.w400,
     height: 1.2, // line-height = 16.8px / font-size = 12px
@@ -37,14 +37,14 @@ mixin AppTextStyles {
   );
 
   static const TextStyle fs14w300 = TextStyle(
-    // fontFamily: 'SF Pro Display',
+    fontFamily: 'Poppins',
     fontSize: 14.0,
     fontWeight: FontWeight.w300,
     height: 1.2, // line-height = 19.6px / font-size = 14px
   );
 
   static const TextStyle fs14w400 = TextStyle(
-    // fontFamily: 'SF Pro Display',
+    fontFamily: 'Poppins',
     fontSize: 14.0,
     fontWeight: FontWeight.w400,
     height: 1.2, // line-height = 19.6px / font-size = 14px
@@ -86,7 +86,7 @@ mixin AppTextStyles {
   );
 
   static const TextStyle fs16w500 = TextStyle(
-    // fontFamily: 'SF Pro Display',
+    fontFamily: 'Poppins',
     fontSize: 16.0,
     fontWeight: FontWeight.w500,
     height: 1.2, // line-height = 19.09px / font-size = 16px
@@ -107,7 +107,7 @@ mixin AppTextStyles {
   );
 
   static const TextStyle fs16w700 = TextStyle(
-    // fontFamily: 'SF Pro Display',
+    fontFamily: 'Poppins',
     fontSize: 16.0,
     fontWeight: FontWeight.w700,
     height: 1.6, // line-height = 25.6px / font-size = 16px
@@ -133,7 +133,7 @@ mixin AppTextStyles {
   );
 
   static const TextStyle fs20w600 = TextStyle(
-    // fontFamily: 'SF Pro Display',
+    fontFamily: 'Poppins',
     fontSize: 20.0,
     fontWeight: FontWeight.w600,
     height: 1.19, // line-height = 23.87px / font-size = 20px

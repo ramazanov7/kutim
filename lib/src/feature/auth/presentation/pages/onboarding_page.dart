@@ -1,10 +1,7 @@
-import 'dart:async';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:kutim/src/core/gen/assets.gen.dart';
 import 'package:kutim/src/core/presentation/widgets/buttons/custom_button.dart';
 import 'package:kutim/src/core/theme/resources.dart';
-import 'package:kutim/src/feature/app/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -45,9 +42,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 2), () {
-      context.replaceRoute(LauncherRoute());
-    });
+    // Future.delayed(const Duration(seconds: 2), () {
+    //   context.replaceRoute(LauncherRoute());
+    // });
   }
 
   @override
