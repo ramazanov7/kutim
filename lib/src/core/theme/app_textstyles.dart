@@ -36,6 +36,13 @@ mixin AppTextStyles {
     height: 1.2, // line-height = 16.8px / font-size = 12px
   );
 
+  static const TextStyle fs14w300 = TextStyle(
+    // fontFamily: 'SF Pro Display',
+    fontSize: 14.0,
+    fontWeight: FontWeight.w300,
+    height: 1.2, // line-height = 19.6px / font-size = 14px
+  );
+
   static const TextStyle fs14w400 = TextStyle(
     // fontFamily: 'SF Pro Display',
     fontSize: 14.0,

@@ -37,9 +37,12 @@ class AppColors {
 
   static const Color grey969696 = Color(0xFF969696);
 
-  /// <-- Primary colors -->
+  /// <--`Primary colors` -->
   static const Color mainColor = Color(0xFF13505b);
-  static const Color mainMuteColor = Color.fromRGBO(164, 32, 56, 0.5);
+
+  static const Color textFieldBorder = Color(0xFF9e9898);
+
+  // --------------------
 
   /// <-- Dark Theme -->
   static const Color text = Color(0xFF21252C);

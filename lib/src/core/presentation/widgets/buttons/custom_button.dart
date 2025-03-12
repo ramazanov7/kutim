@@ -121,7 +121,7 @@ class CustomButtonStyles {
     double elevation = 0,
     double radius = 16,
     double height = 51,
-    Color? backgroundColor = AppColors.mainMuteColor,
+    Color? backgroundColor = AppColors.white,
     Color? foregroundColor = Colors.white,
     Color? disabledForegroundColor = Colors.white,
     Color? disabledBackgroundColor,

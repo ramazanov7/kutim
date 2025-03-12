@@ -21,6 +21,8 @@ class CustomValidatorTextfield extends StatelessWidget {
     this.keyboardType,
     this.focusNode,
     this.style = AppTextStyles.fs16w400,
+    this.label,
+    this.floatingLabelStyle,
   });
 
   final TextEditingController? controller;
@@ -37,6 +39,8 @@ class CustomValidatorTextfield extends StatelessWidget {
   final TextInputType? keyboardType;
   final FocusNode? focusNode;
   final TextStyle? style;
+  final Widget? label;
+  final TextStyle? floatingLabelStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +59,8 @@ class CustomValidatorTextfield extends StatelessWidget {
                   autofocus: autofocus,
                   autocorrect: false,
                   focusNode: focusNode,
-                  obscureText: false,
-                  obscuringCharacter: '*',
+                  obscureText: obscureText?.value ?? false,
+                  obscuringCharacter: '●',
                   style: style,
                   inputFormatters: inputFormatters,
                   textAlignVertical: TextAlignVertical.center,
@@ -67,14 +71,15 @@ class CustomValidatorTextfield extends StatelessWidget {
                   cursorColor: AppColors.barrierColor,
                   validator: validator,
                   decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: AppColors.base400Black),
-                        borderRadius: BorderRadius.circular(12)),
                     errorBorder:
                         OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(12)),
-                    enabledBorder:
-                        OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(12)),
-                    fillColor: AppColors.textFieldB,
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: const BorderSide(color: AppColors.textFieldBorder)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: const BorderSide(color: AppColors.textFieldBorder)),
+                    fillColor: AppColors.white,
                     suffixIcon: obscureText != null
                         ? PasswordEyeSuffixIcon(
                             valueListenable: obscureText!,
@@ -82,6 +87,9 @@ class CustomValidatorTextfield extends StatelessWidget {
                           )
                         : suffixIcon,
                     hintText: hintText,
+                    filled: true,
+                    label: label,
+                    floatingLabelStyle: floatingLabelStyle,
                     hintStyle: AppTextStyles.fs16w400.copyWith(color: AppColors.base500),
                     errorStyle: const TextStyle(
                       height: 0,

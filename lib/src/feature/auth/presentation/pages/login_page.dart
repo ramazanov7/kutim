@@ -1,15 +1,13 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:kutim/src/core/presentation/widgets/textfields/custom_textfield.dart';
+import 'package:kutim/src/core/utils/input/validator_util.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:kutim/src/core/presentation/widgets/buttons/custom_button.dart';
 import 'package:kutim/src/core/presentation/widgets/other/custom_loading_overlay_widget.dart';
 import 'package:kutim/src/core/presentation/widgets/textfields/custom_validator_textfield.dart';
 import 'package:kutim/src/core/theme/resources.dart';
-import 'package:kutim/src/core/utils/extensions/context_extension.dart';
 import 'package:kutim/src/feature/app/router/app_router.dart';
 
 @RoutePage()
@@ -21,77 +19,31 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final ValueNotifier<String?> _phoneError = ValueNotifier(null);
-  final ValueNotifier<String?> _passwordError = ValueNotifier(null);
   final ValueNotifier<bool> _obscureText = ValueNotifier(true);
+  final ValueNotifier<String?> _passwordError = ValueNotifier(null);
   final ValueNotifier<bool> _allowTapButton = ValueNotifier(false);
-  final ValueNotifier<String?> _emailError = ValueNotifier(null);
-  final String _prefix = "+7(7";
-  final FocusNode _focusNode = FocusNode();
-  final FocusNode _focusNode2 = FocusNode();
-
-  bool suffixIconVisible = false;
-
-  MaskTextInputFormatter maskPhoneFormatter = MaskTextInputFormatter(
-    mask: '+7(7##) ###-##-##',
-    filter: {"#": RegExp('[0-9]')},
-  );
-
-  @override
-  void initState() {
-    _focusNode.addListener(() {
-      if (_focusNode.hasFocus) {
-        // Когда поле получает фокус, вставляем "+7(7"
-        if (phoneController.text.isEmpty) {
-          phoneController.text = _prefix;
-        }
-        // Ставим курсор после "+7(7"
-        phoneController.selection = TextSelection.fromPosition(
-          TextPosition(offset: phoneController.text.length),
-        );
-      } else {
-        // Если поле теряет фокус и введено только "+7(7", очищаем его
-        if (phoneController.text == _prefix) {
-          phoneController.clear();
-        }
-      }
-      setState(() {}); // Обновляем UI
-    });
-    // _focusNode2.addListener(() {
-    //   if (_focusNode2.hasFocus) {
-    //     suffixIconVisible = true;
-    //   } else {
-    //     suffixIconVisible = false;
-    //   }
-    //   setState(() {}); // Обновляем UI
-    // });
-    super.initState();
-  }
 
   @override
   void dispose() {
-    phoneController.dispose();
+    emailController.dispose();
     passwordController.dispose();
     _obscureText.dispose();
-    _passwordError.dispose();
-    _phoneError.dispose();
-    _emailError.dispose();
     _allowTapButton.dispose();
-    _focusNode.dispose();
-    _focusNode2.dispose();
+    _passwordError.dispose();
     super.dispose();
   }
 
   bool checkAllowTapButton() {
-    // Validate email and password fields
     final isPasswordValid = passwordController.text.isNotEmpty;
-    final isPhoneValid = phoneController.text.length == 17;
+    final isEmailValid = ValidatorUtil.emailValidator(
+          emailController.text,
+          errorLabel: 'Неверный логин',
+        ) ==
+        null;
 
-    // Enable the button only if both fields are valid
-    return _allowTapButton.value = isPasswordValid && isPhoneValid;
+    return _allowTapButton.value = isPasswordValid && isEmailValid;
   }
 
   @override
@@ -102,138 +54,75 @@ class _LoginPageState extends State<LoginPage> {
       child: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
-          suffixIconVisible = false;
         },
         onPanDown: (details) {
           FocusScope.of(context).unfocus();
-          suffixIconVisible = false;
         },
         child: Scaffold(
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CustomButton(
-                  // allowTapButton: _allowTapButton,
-                  onPressed: () {
-                    // if (!_formKey.currentState!.validate()) return;
-                    if (checkAllowTapButton() == true) {
-                      log('message');
-                    }
-                    // BlocProvider.of<LoginCubit>(context).login(
-                    //   email: phoneController.text,
-                    //   password: passwordController.text,
-                    //   deviceType: Platform.isAndroid ? 'Android' : 'IOS',
-                    // );
-                  },
-                  style: checkAllowTapButton()
-                      ? CustomButtonStyles.mainButtonStyle(context)
-                      : CustomButtonStyles.greyButtonStyle(context),
-                  text: 'Войти',
-                  child: null,
-                ),
-                const Gap(12),
-                Text(
-                  'Зарегистрироваться',
-                  style: AppTextStyles.fs16w600.copyWith(color: AppColors.mainColor),
-                ),
-              ],
-            ),
-          ),
-          body: SingleChildScrollView(
-            child: SafeArea(
-              bottom: true,
-              child: Form(
-                key: _formKey,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
+          resizeToAvoidBottomInset: false,
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Gap(16),
+                      const Gap(120),
                       Text(
-                        'Вход',
-                        style: AppTextStyles.fs24w700.copyWith(height: 1.25),
+                        'Sign in to Kutim',
+                        style: AppTextStyles.fs20w600.copyWith(color: AppColors.mainColor),
                       ),
-                      const Gap(24),
-                      Text(
-                        'Номер телефона',
-                        style: AppTextStyles.fs14w500.copyWith(height: 1.3),
-                      ),
-                      const Gap(4),
+                      const Gap(56),
                       SizedBox(
-                        height: 48,
-                        child: CustomValidatorTextfield(
-                          controller: phoneController,
-                          valueListenable: _emailError,
-                          inputFormatters: [maskPhoneFormatter],
-                          hintText: 'Введите номер телефона',
-                          keyboardType: TextInputType.phone,
-                          focusNode: _focusNode,
+                        height: 46,
+                        child: CustomTextField(
+                          controller: emailController,
+                          label: const Text(
+                            'Email',
+                            style: AppTextStyles.fs14w400,
+                          ),
+                          floatingLabelStyle: AppTextStyles.fs16w400,
+                          keyboardType: TextInputType.emailAddress,
+                          fillColor: AppColors.white,
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: const BorderSide(color: AppColors.textFieldBorder)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: const BorderSide(color: AppColors.textFieldBorder)),
                           onChanged: (value) {
-                            checkAllowTapButton();
                             setState(() {});
                           },
-                          validator: (String? value) {
-                            return null;
+                        ),
+                      ),
+                      const Gap(26),
+                      SizedBox(
+                        height: 46,
+                        child: ValueListenableBuilder(
+                          valueListenable: _obscureText,
+                          builder: (context, v, c) {
+                            return CustomValidatorTextfield(
+                              obscureText: _obscureText,
+                              controller: passwordController,
+                              valueListenable: _passwordError,
+                              label: const Text(
+                                'Password',
+                                style: AppTextStyles.fs14w400,
+                              ),
+                              floatingLabelStyle: AppTextStyles.fs16w400,
+                              onChanged: (value) {
+                                checkAllowTapButton();
+                              },
+                              validator: (String? value) {
+                                return null;
+                              },
+                            );
                           },
                         ),
                       ),
                       const Gap(12),
-                      Text(
-                        'Пароль',
-                        style: AppTextStyles.fs14w500.copyWith(height: 1.3),
-                      ),
-                      const Gap(4),
-                      ValueListenableBuilder(
-                        valueListenable: _obscureText,
-                        builder: (context, v, c) {
-                          return CustomValidatorTextfield(
-                            // obscureText: _obscureText,
-                            controller: passwordController,
-                            // suffixIcon: !suffixIconVisible
-                            //     ? Padding(
-                            //         padding: const EdgeInsets.only(top: 14, bottom: 14),
-                            //         child: GestureDetector(
-                            //             onTap: () {
-                            //               log('message');
-                            //               passwordController.clear();
-                            //               suffixIconVisible = true;
-                            //               setState(() {});
-                            //             },
-                            //             child: SvgPicture.asset(Assets.icons.clear.path)),
-                            //       )
-                            //     : const SizedBox(
-                            //         height: 22,
-                            //         width: 22,
-                            //       ),
-                            valueListenable: _passwordError,
-                            focusNode: _focusNode2,
-                            hintText: 'Введите пароль',
-                            // onTap: () {
-                            //   if (passwordController.text.isNotEmpty) {
-                            //     suffixIconVisible = true;
-                            //   }
-                            //   setState(() {});
-                            // },
-                            // onChanged: (value) {
-                            //   // if (passwordController.text.isNotEmpty) {
-                            //   suffixIconVisible = true;
-                            //   // }
-
-                            //   checkAllowTapButton();
-                            //   setState(() {});
-                            // },
-                            validator: (String? value) {
-                              return null;
-                            },
-                          );
-                        },
-                      ),
-
-                      const Gap(4),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -242,8 +131,8 @@ class _LoginPageState extends State<LoginPage> {
                               context.router.push(const PasswordRecoveryRoute());
                             },
                             child: Text(
-                              context.localized.forgotYourPassword,
-                              style: AppTextStyles.fs14w500.copyWith(height: 1.3, color: AppColors.mainColor),
+                              'Forgot Password?',
+                              style: AppTextStyles.fs14w300.copyWith(color: AppColors.textFieldBorder),
                             ),
                           ),
                         ],
@@ -251,7 +140,40 @@ class _LoginPageState extends State<LoginPage> {
                       // const Gap(34),
                     ],
                   ),
-                ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8, right: 8),
+                        child: CustomButton(
+                            onPressed: () {},
+                            style: CustomButtonStyles.mainButtonStyle(context, elevation: 5),
+                            child: const Text(
+                              'Sign in',
+                              style: AppTextStyles.fs16w500,
+                            )),
+                      ),
+                      const Gap(13),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "Don't have an Account?",
+                            style: AppTextStyles.fs16w500,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              context.router.push(const RegisterRoute());
+                            },
+                            child: Text(
+                              '   Sign up',
+                              style: AppTextStyles.fs16w500.copyWith(color: AppColors.mainColor),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  )
+                ],
               ),
             ),
           ),

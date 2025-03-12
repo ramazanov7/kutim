@@ -102,7 +102,6 @@ class _LauncherState extends State<Launcher> with WidgetsBindingObserver {
         notAuthorized: () => _isFirstLaunch
             ? OnboardingPage(
                 onGoAuthPressed: () {
-                  // log('message');
                   setState(() {
                     _isFirstLaunch = false;
                   });

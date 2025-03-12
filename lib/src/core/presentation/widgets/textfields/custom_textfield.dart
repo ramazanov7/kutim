@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:kutim/src/core/gen/assets.gen.dart';
 import 'package:kutim/src/core/theme/resources.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -50,6 +52,7 @@ class CustomTextField extends StatelessWidget {
     this.onTapSuffixIcon,
     this.prefixIconWidget,
     this.isEmptyImage = true,
+    this.floatingLabelStyle,
   });
   final bool? obscureText;
   final Widget? suffixIcon;
@@ -77,6 +80,7 @@ class CustomTextField extends StatelessWidget {
   final VoidCallback? onEditingComplete;
   final BorderRadius? borderR;
   final Widget? label;
+  final TextStyle? floatingLabelStyle;
   final bool autofocus;
   final FocusNode? focusNode;
   final EdgeInsetsGeometry? contentPadding;
@@ -148,6 +152,7 @@ class CustomTextField extends StatelessWidget {
                   counterText: showMaxLengthLabel ? counterText : '',
                   suffixIconConstraints: suffixIconConstraints,
                   label: label,
+                  floatingLabelStyle: floatingLabelStyle,
                   hintStyle: hintStyle,
                   contentPadding: contentPadding,
                   hintText: hintText,

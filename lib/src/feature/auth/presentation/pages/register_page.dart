@@ -296,6 +296,31 @@ class _RegisterPageState extends State<RegisterPage> {
                           context.localized.enterThePassword,
                           style: AppTextStyles.fs14w500.copyWith(height: 1.3),
                         ),
+                        // Row(
+                        //   crossAxisAlignment: CrossAxisAlignment.end,
+                        //   children: [
+                        //     Checkbox(
+                        //       checkColor: AppColors.white,
+                        //       value: isChecked,
+                        //       fillColor: WidgetStateProperty.resolveWith((states) {
+                        //         if (states.contains(WidgetState.selected)) {
+                        //           return AppColors.mainColor;
+                        //         }
+                        //         return AppColors.mainColor;
+                        //       }),
+                        //       shape: RoundedRectangleBorder(
+                        //           borderRadius: BorderRadius.circular(4),
+                        //           side: const BorderSide(width: 0.5, color: AppColors.mainColor)),
+                        //       onChanged: (value) {
+                        //         setState(() {
+                        //           isChecked = value!;
+                        //         });
+                        //       },
+                        //     ),
+                        //      Expanded(
+                        //         child: Text('I have read and agree to the Terms & Conditions and Privacy Policy', st))
+                        //   ],
+                        // )
                         const Gap(6),
                         ValueListenableBuilder(
                           valueListenable: _obscureText,

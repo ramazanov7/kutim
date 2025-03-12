@@ -39,6 +39,12 @@ class $AssetsIconsGen {
   /// File path: assets/icons/clear.svg
   SvgGenImage get clear => const SvgGenImage('assets/icons/clear.svg');
 
+  /// File path: assets/icons/eye.svg
+  SvgGenImage get eye => const SvgGenImage('assets/icons/eye.svg');
+
+  /// File path: assets/icons/hide-eye.svg
+  SvgGenImage get hideEye => const SvgGenImage('assets/icons/hide-eye.svg');
+
   /// File path: assets/icons/main-active.svg
   SvgGenImage get mainActive =>
       const SvgGenImage('assets/icons/main-active.svg');
@@ -64,6 +70,8 @@ class $AssetsIconsGen {
     carActive,
     carInactive,
     clear,
+    eye,
+    hideEye,
     mainActive,
     mainInactive,
     profileActive,
