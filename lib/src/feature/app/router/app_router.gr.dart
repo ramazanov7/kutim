@@ -177,6 +177,22 @@ class EnterSmsCodeRouteArgs {
 }
 
 /// generated route for
+/// [InformationPage]
+class InformationRoute extends PageRouteInfo<void> {
+  const InformationRoute({List<PageRouteInfo>? children})
+    : super(InformationRoute.name, initialChildren: children);
+
+  static const String name = 'InformationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const InformationPage();
+    },
+  );
+}
+
+/// generated route for
 /// [Launcher]
 class LauncherRoute extends PageRouteInfo<LauncherRouteArgs> {
   LauncherRoute({Key? key, int? initialTabIndex, List<PageRouteInfo>? children})

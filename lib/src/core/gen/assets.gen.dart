@@ -15,6 +15,9 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/calendar.svg
+  SvgGenImage get calendar => const SvgGenImage('assets/icons/calendar.svg');
+
   /// File path: assets/icons/eye.svg
   SvgGenImage get eye => const SvgGenImage('assets/icons/eye.svg');
 
@@ -36,6 +39,7 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<dynamic> get values => [
+    calendar,
     eye,
     hideEye,
     mainTab,
@@ -47,6 +51,30 @@ class $AssetsIconsGen {
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
+
+  /// File path: assets/images/face-type1.png
+  AssetGenImage get faceType1 =>
+      const AssetGenImage('assets/images/face-type1.png');
+
+  /// File path: assets/images/face-type2.png
+  AssetGenImage get faceType2 =>
+      const AssetGenImage('assets/images/face-type2.png');
+
+  /// File path: assets/images/face-type3.png
+  AssetGenImage get faceType3 =>
+      const AssetGenImage('assets/images/face-type3.png');
+
+  /// File path: assets/images/face-type4.png
+  AssetGenImage get faceType4 =>
+      const AssetGenImage('assets/images/face-type4.png');
+
+  /// File path: assets/images/information-image.png
+  AssetGenImage get informationImage =>
+      const AssetGenImage('assets/images/information-image.png');
+
+  /// File path: assets/images/instruction.png
+  AssetGenImage get instruction =>
+      const AssetGenImage('assets/images/instruction.png');
 
   /// File path: assets/images/onboarding-first-image.png
   AssetGenImage get onboardingFirstImage =>
@@ -66,6 +94,12 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
+    faceType1,
+    faceType2,
+    faceType3,
+    faceType4,
+    informationImage,
+    instruction,
     onboardingFirstImage,
     onboardingSecondImage,
     onboardingThirdImage,

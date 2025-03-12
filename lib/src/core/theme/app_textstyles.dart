@@ -1,6 +1,12 @@
 part of 'resources.dart';
 
 mixin AppTextStyles {
+  static TextStyle fs12w200 = const TextStyle(
+    // fontFamily: 'Poppins',
+    fontSize: 12.0,
+    fontWeight: FontWeight.w200,
+    height: 1.2, // line-height = 16.8px / font-size = 12px
+  );
   static TextStyle fs12w400 = const TextStyle(
     fontFamily: 'Poppins',
     fontSize: 12.0,
@@ -34,6 +40,20 @@ mixin AppTextStyles {
     fontSize: 18.0,
     fontWeight: FontWeight.w700,
     height: 1.2, // line-height = 16.8px / font-size = 12px
+  );
+
+  static const TextStyle fs14w100 = TextStyle(
+    // fontFamily: 'Poppins',
+    fontSize: 14.0,
+    fontWeight: FontWeight.w300,
+    height: 1.2, // line-height = 19.6px / font-size = 14px
+  );
+
+  static const TextStyle fs14w200 = TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 14.0,
+    fontWeight: FontWeight.w200,
+    height: 1.2, // line-height = 19.6px / font-size = 14px
   );
 
   static const TextStyle fs14w300 = TextStyle(
@@ -72,9 +92,16 @@ mixin AppTextStyles {
   );
 
   static const TextStyle fs15w400 = TextStyle(
-    // fontFamily: 'SF Pro Text',
+    fontFamily: 'Poppins',
     fontSize: 15.0,
     fontWeight: FontWeight.w400,
+    height: 1.33, // line-height = 20px / font-size = 15px
+    // letterSpacing: -0.24, // letter-spacing = -0.23999999463558197px
+  );
+
+  static const TextStyle fs15w500 = TextStyle(
+    fontSize: 15.0,
+    fontWeight: FontWeight.w500,
     height: 1.33, // line-height = 20px / font-size = 15px
     // letterSpacing: -0.24, // letter-spacing = -0.23999999463558197px
   );

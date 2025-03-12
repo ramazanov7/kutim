@@ -148,7 +148,9 @@ class _LoginPageState extends State<LoginPage> {
                         Padding(
                           padding: const EdgeInsets.only(left: 8, right: 8),
                           child: CustomButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                context.router.push(const MainRoute());
+                              },
                               style: CustomButtonStyles.mainButtonStyle(context, elevation: 5),
                               child: const Text(
                                 'Sign in',

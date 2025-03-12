@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:gap/gap.dart';
+import 'package:kutim/src/core/presentation/widgets/buttons/custom_button.dart';
 import 'package:kutim/src/core/theme/resources.dart';
 import 'package:kutim/src/core/utils/extensions/context_extension.dart';
 import 'package:kutim/src/feature/app/presentation/widgets/custom_appbar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:kutim/src/feature/app/router/app_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -32,15 +35,31 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.white,
-        appBar: CustomAppBar(
-          title: context.localized.profile,
-          isBackButton: false,
-          shape: const Border(
-            bottom: BorderSide(
-              color: AppColors.dividerColor,
-              width: 0.5,
-            ),
-          ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // const Gap(23),
+            // const Padding(
+            //   padding: EdgeInsets.only(left: 27),
+            //   child: Text(
+            //     'Profile',
+            //     style: AppTextStyles.fs16w500,
+            //   ),
+            // ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 27),
+              child: CustomButton(
+                  onPressed: () {
+                    context.router.push(OnboardingRoute(
+                      onGoAuthPressed: () {
+                        context.router.push(const LoginRoute());
+                      },
+                    ));
+                  },
+                  style: CustomButtonStyles.mainButtonStyle(context),
+                  child: const Text('Show Authorization')),
+            )
+          ],
         ),
       ),
     );

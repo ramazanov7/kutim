@@ -8,6 +8,7 @@ import 'package:kutim/src/feature/app/presentation/pages/temp_page.dart';
 import 'package:kutim/src/feature/auth/models/user_dto.dart';
 import 'package:kutim/src/feature/auth/presentation/auth.dart';
 import 'package:kutim/src/feature/main/presentation/main.dart';
+import 'package:kutim/src/feature/main/presentation/pages/information_page.dart';
 import 'package:kutim/src/feature/profile/presentation/profile.dart';
 
 part 'app_router.gr.dart';
@@ -87,6 +88,7 @@ class AppRouter extends RootStackRouter {
 
         /// Profile
         AutoRoute(page: ProfileRoute.page),
+        AutoRoute(page: InformationRoute.page),
         AutoRoute(page: EditProfileRoute.page),
       ];
 }
