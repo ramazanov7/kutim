@@ -74,19 +74,29 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// Directory path: assets/images/png
-  $AssetsImagesPngGen get png => const $AssetsImagesPngGen();
-}
+  /// File path: assets/images/onboarding-first-image.png
+  AssetGenImage get onboardingFirstImage =>
+      const AssetGenImage('assets/images/onboarding-first-image.png');
 
-class $AssetsImagesPngGen {
-  const $AssetsImagesPngGen();
+  /// File path: assets/images/onboarding-second-image.png
+  AssetGenImage get onboardingSecondImage =>
+      const AssetGenImage('assets/images/onboarding-second-image.png');
 
-  /// File path: assets/images/png/splash-logo.png
+  /// File path: assets/images/onboarding-third-image.png
+  AssetGenImage get onboardingThirdImage =>
+      const AssetGenImage('assets/images/onboarding-third-image.png');
+
+  /// File path: assets/images/splash-logo.png
   AssetGenImage get splashLogo =>
-      const AssetGenImage('assets/images/png/splash-logo.png');
+      const AssetGenImage('assets/images/splash-logo.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [splashLogo];
+  List<AssetGenImage> get values => [
+    onboardingFirstImage,
+    onboardingSecondImage,
+    onboardingThirdImage,
+    splashLogo,
+  ];
 }
 
 class Assets {

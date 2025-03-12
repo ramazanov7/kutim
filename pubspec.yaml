@@ -94,9 +94,6 @@ flutter:
 
   assets:
     - assets/icons/
-    - assets/images/svg/
-    - assets/images/png/
-    - assets/images/webp/
     - assets/images/
 
 flutter_gen:

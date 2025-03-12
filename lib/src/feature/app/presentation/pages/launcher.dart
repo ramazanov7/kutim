@@ -10,6 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kutim/src/core/presentation/widgets/other/custom_loading_widget.dart';
 import 'package:kutim/src/feature/app/bloc/app_bloc.dart';
 import 'package:kutim/src/feature/app/presentation/pages/force_update_page.dart';
+import 'package:kutim/src/feature/auth/presentation/pages/onboarding_page.dart';
 
 @RoutePage(name: 'LauncherRoute')
 class Launcher extends StatefulWidget {
@@ -21,6 +22,8 @@ class Launcher extends StatefulWidget {
 }
 
 class _LauncherState extends State<Launcher> with WidgetsBindingObserver {
+  bool _isFirstLaunch = true;
+
   @override
   void initState() {
     FToast().init(context);
@@ -82,37 +85,10 @@ class _LauncherState extends State<Launcher> with WidgetsBindingObserver {
       listener: (context, state) {
         state.whenOrNull(
           inApp: () {
+            _isFirstLaunch = false;
             // BlocProvider.of<AppBloc>(context).add(const AppEvent.sendDeviceToken());
             // BlocProvider.of<ProfileBLoC>(context).add(const ProfileEvent.getProfile());
-
-            // if (context.repository.authRepository.user?.language?.id != null &&
-            //     context.repository.authRepository.user?.language?.id != 0) {
-            //   SettingsScope.of(context).add(
-            //     AppSettingsEvent.updateAppSettings(
-            //       appSettings: SettingsScope.settingsOf(context).copyWith(
-            //         locale: Locale(context.repository.authRepository.user?.language?.id == 2
-            //             ? 'kk'
-            //             : context.repository.authRepository.user?.language?.id == 1
-            //                 ? 'ru'
-            //                 : context.repository.authRepository.user?.language?.id == 4
-            //                     ? 'uz'
-            //                     : context.repository.authRepository.user?.language?.id == 3
-            //                         ? 'en'
-            //                         : 'ru'),
-            //       ),
-            //     ),
-            //   );
-            // }
           },
-          // notAuthorized: () {
-          //   SettingsScope.of(context).add(
-          //     AppSettingsEvent.updateAppSettings(
-          //       appSettings: SettingsScope.settingsOf(context).copyWith(
-          //         locale: const Locale('ru'),
-          //       ),
-          //     ),
-          //   );
-          // },
         );
       },
       builder: (context, state) => state.when(
@@ -123,7 +99,17 @@ class _LauncherState extends State<Launcher> with WidgetsBindingObserver {
           onTap: () async {},
         ),
         inApp: () => const BaseTab(),
-        notAuthorized: () => const LoginPage(),
+        notAuthorized: () => _isFirstLaunch
+            ? OnboardingPage(
+                onGoAuthPressed: () {
+                  // log('message');
+                  setState(() {
+                    _isFirstLaunch = false;
+                  });
+                },
+              )
+            : const LoginPage(),
+        // notAuthorized: () => const LoginPage(),
         // notAuthorized: () => BlocProvider(
         //   create: (context) => RegisterCubit(repository: context.repository.authRepository),
         //   child: const LoginPage(),

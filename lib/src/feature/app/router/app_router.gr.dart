@@ -301,18 +301,42 @@ class NewPasswordRouteArgs {
 
 /// generated route for
 /// [OnboardingPage]
-class OnboardingRoute extends PageRouteInfo<void> {
-  const OnboardingRoute({List<PageRouteInfo>? children})
-    : super(OnboardingRoute.name, initialChildren: children);
+class OnboardingRoute extends PageRouteInfo<OnboardingRouteArgs> {
+  OnboardingRoute({
+    Key? key,
+    required VoidCallback onGoAuthPressed,
+    List<PageRouteInfo>? children,
+  }) : super(
+         OnboardingRoute.name,
+         args: OnboardingRouteArgs(key: key, onGoAuthPressed: onGoAuthPressed),
+         initialChildren: children,
+       );
 
   static const String name = 'OnboardingRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const OnboardingPage();
+      final args = data.argsAs<OnboardingRouteArgs>();
+      return OnboardingPage(
+        key: args.key,
+        onGoAuthPressed: args.onGoAuthPressed,
+      );
     },
   );
+}
+
+class OnboardingRouteArgs {
+  const OnboardingRouteArgs({this.key, required this.onGoAuthPressed});
+
+  final Key? key;
+
+  final VoidCallback onGoAuthPressed;
+
+  @override
+  String toString() {
+    return 'OnboardingRouteArgs{key: $key, onGoAuthPressed: $onGoAuthPressed}';
+  }
 }
 
 /// generated route for
