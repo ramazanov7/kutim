@@ -42,6 +42,10 @@ class AppColors {
 
   static const Color textFieldBorder = Color(0xFF9e9898);
 
+  static const Color backContainer = Color(0xFFbfbdbd);
+
+  static const Color percent = Color(0xFFece7e7);
+
   // --------------------
 
   /// <-- Dark Theme -->

@@ -18,6 +18,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/calendar.svg
   SvgGenImage get calendar => const SvgGenImage('assets/icons/calendar.svg');
 
+  /// File path: assets/icons/daily-icon.png
+  AssetGenImage get dailyIcon =>
+      const AssetGenImage('assets/icons/daily-icon.png');
+
   /// File path: assets/icons/eye.svg
   SvgGenImage get eye => const SvgGenImage('assets/icons/eye.svg');
 
@@ -40,6 +44,7 @@ class $AssetsIconsGen {
   /// List of all assets
   List<dynamic> get values => [
     calendar,
+    dailyIcon,
     eye,
     hideEye,
     mainTab,

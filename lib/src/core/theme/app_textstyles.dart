@@ -84,6 +84,13 @@ mixin AppTextStyles {
     height: 1.4, // line-height = 19.6px / font-size = 14px
   );
 
+  static const TextStyle fs14w700 = TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 14.0,
+    fontWeight: FontWeight.w700,
+    height: 1.4, // line-height = 19.6px / font-size = 14px
+  );
+
   static const TextStyle fs14w800 = TextStyle(
     // fontFamily: 'SF Pro Display',
     fontSize: 14.0,
@@ -120,7 +127,7 @@ mixin AppTextStyles {
   );
 
   static const TextStyle fs16w600 = TextStyle(
-    // fontFamily: 'SF Pro Display',
+    fontFamily: 'Poppins',
     fontSize: 16.0,
     fontWeight: FontWeight.w600,
     height: 1.19, // line-height = 19.09px / font-size = 16px
@@ -184,6 +191,13 @@ mixin AppTextStyles {
     fontSize: 26.0,
     fontWeight: FontWeight.w600,
     height: 1.23, // line-height = 30px / font-size = 24px
+  );
+
+  static const TextStyle fs24w400 = TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 24.0,
+    fontWeight: FontWeight.w400,
+    height: 1.19, // line-height = 28.64px / font-size = 24px
   );
 
   static const TextStyle fs24w700 = TextStyle(
