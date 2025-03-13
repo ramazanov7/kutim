@@ -46,6 +46,8 @@ class AppColors {
 
   static const Color percent = Color(0xFFece7e7);
 
+  static const Color circle = Color(0xFFd9d9d9);
+
   // --------------------
 
   /// <-- Dark Theme -->

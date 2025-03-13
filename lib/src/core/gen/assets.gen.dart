@@ -93,6 +93,10 @@ class $AssetsImagesGen {
   AssetGenImage get onboardingThirdImage =>
       const AssetGenImage('assets/images/onboarding-third-image.png');
 
+  /// File path: assets/images/products.png
+  AssetGenImage get products =>
+      const AssetGenImage('assets/images/products.png');
+
   /// File path: assets/images/splash-logo.png
   AssetGenImage get splashLogo =>
       const AssetGenImage('assets/images/splash-logo.png');
@@ -108,6 +112,7 @@ class $AssetsImagesGen {
     onboardingFirstImage,
     onboardingSecondImage,
     onboardingThirdImage,
+    products,
     splashLogo,
   ];
 }

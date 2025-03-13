@@ -91,6 +91,22 @@ class BaseProfileTab extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [DailyRoutinePage]
+class DailyRoutineRoute extends PageRouteInfo<void> {
+  const DailyRoutineRoute({List<PageRouteInfo>? children})
+    : super(DailyRoutineRoute.name, initialChildren: children);
+
+  static const String name = 'DailyRoutineRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DailyRoutinePage();
+    },
+  );
+}
+
+/// generated route for
 /// [EditProfilePage]
 class EditProfileRoute extends PageRouteInfo<EditProfileRouteArgs> {
   EditProfileRoute({Key? key, UserDTO? user, List<PageRouteInfo>? children})

@@ -1,12 +1,26 @@
 part of 'resources.dart';
 
 mixin AppTextStyles {
+  static TextStyle fs11w300 = const TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 11.0,
+    fontWeight: FontWeight.w300,
+    height: 1.2, // line-height = 16.8px / font-size = 12px
+  );
   static TextStyle fs12w200 = const TextStyle(
-    // fontFamily: 'Poppins',
+    fontFamily: 'Poppins',
     fontSize: 12.0,
     fontWeight: FontWeight.w200,
     height: 1.2, // line-height = 16.8px / font-size = 12px
   );
+
+  static TextStyle fs12w300 = const TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 12.0,
+    fontWeight: FontWeight.w300,
+    height: 1.2, // line-height = 16.8px / font-size = 12px
+  );
+
   static TextStyle fs12w400 = const TextStyle(
     fontFamily: 'Poppins',
     fontSize: 12.0,
@@ -150,6 +164,13 @@ mixin AppTextStyles {
   static const TextStyle fs18w500 = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w500,
+    height: 1.55, // line-height = 28px / font-size = 18px
+  );
+
+  static const TextStyle fs18w600 = TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
     height: 1.55, // line-height = 28px / font-size = 18px
   );
 

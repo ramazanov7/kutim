@@ -66,7 +66,7 @@ class _MainPageState extends State<MainPage> {
                 margin: const EdgeInsets.only(left: 21, right: 21),
                 decoration: const BoxDecoration(boxShadow: [
                   BoxShadow(
-                    color: Colors.black12,
+                    color: Color.fromRGBO(217, 217, 217, 1),
                     blurRadius: 4,
                     spreadRadius: 0,
                     offset: Offset(0, 4),
@@ -76,7 +76,9 @@ class _MainPageState extends State<MainPage> {
                   color: Colors.transparent,
                   borderRadius: BorderRadius.circular(10),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      context.router.push(const DailyRoutineRoute());
+                    },
                     borderRadius: BorderRadius.circular(10),
                     child: Padding(
                       padding: const EdgeInsets.only(top: 13, left: 13, bottom: 11, right: 20),
