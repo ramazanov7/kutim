@@ -28,11 +28,17 @@ class $AssetsIconsGen {
   /// File path: assets/icons/eye.svg
   SvgGenImage get eye => const SvgGenImage('assets/icons/eye.svg');
 
+  /// File path: assets/icons/help.svg
+  SvgGenImage get help => const SvgGenImage('assets/icons/help.svg');
+
   /// File path: assets/icons/hide-eye.svg
   SvgGenImage get hideEye => const SvgGenImage('assets/icons/hide-eye.svg');
 
   /// File path: assets/icons/main-tab.svg
   SvgGenImage get mainTab => const SvgGenImage('assets/icons/main-tab.svg');
+
+  /// File path: assets/icons/person.svg
+  SvgGenImage get person => const SvgGenImage('assets/icons/person.svg');
 
   /// File path: assets/icons/profile-tab.png
   AssetGenImage get profileTab =>
@@ -56,8 +62,10 @@ class $AssetsIconsGen {
     close,
     dailyIcon,
     eye,
+    help,
     hideEye,
     mainTab,
+    person,
     profileTab,
     right,
     scanTab,

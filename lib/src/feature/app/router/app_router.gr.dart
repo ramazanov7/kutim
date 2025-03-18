@@ -107,6 +107,42 @@ class DailyRoutineRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [DetailAvatarPage]
+class DetailAvatarRoute extends PageRouteInfo<DetailAvatarRouteArgs> {
+  DetailAvatarRoute({Key? key, String? image, List<PageRouteInfo>? children})
+    : super(
+        DetailAvatarRoute.name,
+        args: DetailAvatarRouteArgs(key: key, image: image),
+        initialChildren: children,
+      );
+
+  static const String name = 'DetailAvatarRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<DetailAvatarRouteArgs>(
+        orElse: () => const DetailAvatarRouteArgs(),
+      );
+      return DetailAvatarPage(key: args.key, image: args.image);
+    },
+  );
+}
+
+class DetailAvatarRouteArgs {
+  const DetailAvatarRouteArgs({this.key, this.image});
+
+  final Key? key;
+
+  final String? image;
+
+  @override
+  String toString() {
+    return 'DetailAvatarRouteArgs{key: $key, image: $image}';
+  }
+}
+
+/// generated route for
 /// [EditProfilePage]
 class EditProfileRoute extends PageRouteInfo<EditProfileRouteArgs> {
   EditProfileRoute({Key? key, UserDTO? user, List<PageRouteInfo>? children})
