@@ -22,10 +22,8 @@ class EnterSmsCodePage extends StatefulWidget implements AutoRouteWrapper {
   const EnterSmsCodePage({
     super.key,
     required this.email,
-    required this.token,
   });
   final String email;
-  final String token;
 
   @override
   State<EnterSmsCodePage> createState() => _EnterSmsCodePageState();
@@ -58,11 +56,30 @@ class _EnterSmsCodePageState extends State<EnterSmsCodePage> {
   late Timer timer;
   final ValueNotifier<bool> forceErrorState = ValueNotifier(false);
 
+  late int start;
+
+  final Duration onsec = const Duration(seconds: 1);
+  void startTimer({int? delay}) {
+    start = delay ?? 60;
+    Timer.periodic(onsec, (timer) {
+      if (start == 0) {
+        setState(() {
+          timer.cancel();
+        });
+      } else if (mounted) {
+        setState(() {
+          start--;
+        });
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    start = -1;
     pinputController.addListener(checkAllowTapButton);
-    // startTimer();
+    startTimer(delay: 15);
   }
 
   final defaultPinTheme = PinTheme(
@@ -70,9 +87,9 @@ class _EnterSmsCodePageState extends State<EnterSmsCodePage> {
     // height: 55,
     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 25),
     decoration: BoxDecoration(
-      borderRadius: const BorderRadius.all(Radius.circular(16)),
-      color: AppColors.backgroundInputGrey,
-      border: Border.all(color: AppColors.line2),
+      borderRadius: const BorderRadius.all(Radius.circular(12)),
+      color: AppColors.white,
+      border: Border.all(color: AppColors.textFieldBorder),
     ),
     textStyle: const TextStyle(
       color: AppColors.text,
@@ -87,9 +104,9 @@ class _EnterSmsCodePageState extends State<EnterSmsCodePage> {
     // height: 55,
     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 25),
     decoration: BoxDecoration(
-      borderRadius: const BorderRadius.all(Radius.circular(16)),
+      borderRadius: const BorderRadius.all(Radius.circular(12)),
       color: AppColors.backgroundInputGrey,
-      border: Border.all(color: AppColors.text),
+      border: Border.all(color: AppColors.mainColor),
     ),
     textStyle: const TextStyle(
       color: AppColors.text,
@@ -104,7 +121,7 @@ class _EnterSmsCodePageState extends State<EnterSmsCodePage> {
     // height: 55,
     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 25),
     decoration: BoxDecoration(
-      borderRadius: const BorderRadius.all(Radius.circular(16)),
+      borderRadius: const BorderRadius.all(Radius.circular(12)),
       color: AppColors.muteRed,
       border: Border.all(color: AppColors.red),
     ),
@@ -166,17 +183,25 @@ class _EnterSmsCodePageState extends State<EnterSmsCodePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Gap(70),
-                      Text(
-                        context.localized.enterYourCode,
+                      const Gap(30),
+                      const Text(
+                        'Check your email',
                         textAlign: TextAlign.start,
                         style: AppTextStyles.fs26w700,
                       ),
                       const Gap(12),
-                      Text(
-                        '${context.localized.weHaveSent}:  ${widget.email}', //weHaveSent
-                        textAlign: TextAlign.start,
-                        style: AppTextStyles.fs14w500.copyWith(color: const Color(0xff555555)),
+                      RichText(
+                        text: TextSpan(
+                          text: 'We have sent a confirmation code to your email address: ',
+                          style:
+                              AppTextStyles.fs14w500.copyWith(color: AppColors.textFieldBorder, letterSpacing: -0.41),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: ' ${widget.email}', // Bold text
+                              style: AppTextStyles.fs14w500.copyWith(letterSpacing: -0.41, color: Colors.black),
+                            ),
+                          ],
+                        ),
                       ),
                       const Gap(20),
                       Center(
@@ -213,21 +238,48 @@ class _EnterSmsCodePageState extends State<EnterSmsCodePage> {
                       ),
                       const Gap(30),
                       CustomButton(
-                        allowTapButton: _allowTapButton,
+                        // allowTapButton: _allowTapButton,
                         onPressed: () {
                           // ignore: unnecessary_statements
                           pinputController.text.length == 4;
                           {
-                            BlocProvider.of<EnterSmsCodeCubit>(context).sendSmsCode(
-                              code: pinputController.text,
-                              token: widget.token,
+                            context.pushRoute(
+                              NewPasswordRoute(token: ''),
                             );
+                            // BlocProvider.of<EnterSmsCodeCubit>(context).sendSmsCode(
+                            //   code: pinputController.text,
+                            // );
                           }
                         },
                         style: null,
-                        text: context.localized.send, // send
+                        text: 'Verify Code', // send
                         child: null,
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12, bottom: 24, left: 16),
+                        child: Row(
+                          children: [
+                            const Text(
+                              'Haven’t got the email yet?  ',
+                              textAlign: TextAlign.start,
+                              style: AppTextStyles.fs16w400,
+                            ),
+                            GestureDetector(
+                                onTap: start <= 0
+                                    ? () {
+                                        startTimer(delay: 15);
+                                        setState(() {});
+                                      }
+                                    : () {},
+                                child: Text(
+                                    start <= 0 ? 'Resent email' : ' 00:${start < 10 ? '0$start' : start.toString()} ',
+                                    style: start <= 0
+                                        ? AppTextStyles.fs16w400.copyWith(color: AppColors.mainColor)
+                                        : AppTextStyles.fs16w400
+                                            .copyWith(color: AppColors.mainColor.withOpacity(0.5)))),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),

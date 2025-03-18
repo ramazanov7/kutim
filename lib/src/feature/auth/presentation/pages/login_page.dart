@@ -78,14 +78,17 @@ class _LoginPageState extends State<LoginPage> {
                           style: AppTextStyles.fs20w600.copyWith(color: AppColors.mainColor),
                         ),
                         const Gap(56),
+                        const Text(
+                          'Your Email',
+                          style: AppTextStyles.fs15w500,
+                        ),
+                        const Gap(10),
                         SizedBox(
                           height: 46,
                           child: CustomTextField(
                             controller: emailController,
-                            label: const Text(
-                              'Email',
-                              style: AppTextStyles.fs14w400,
-                            ),
+                            hintText: 'Enter your email',
+                            hintStyle: AppTextStyles.fs14w400.copyWith(height: 1.7),
                             floatingLabelStyle: AppTextStyles.fs16w400,
                             keyboardType: TextInputType.emailAddress,
                             fillColor: AppColors.white,
@@ -100,7 +103,12 @@ class _LoginPageState extends State<LoginPage> {
                             },
                           ),
                         ),
-                        const Gap(26),
+                        const Gap(20),
+                        const Text(
+                          'Password',
+                          style: AppTextStyles.fs15w500,
+                        ),
+                        const Gap(10),
                         SizedBox(
                           height: 46,
                           child: ValueListenableBuilder(
@@ -110,10 +118,8 @@ class _LoginPageState extends State<LoginPage> {
                                 obscureText: _obscureText,
                                 controller: passwordController,
                                 valueListenable: _passwordError,
-                                label: const Text(
-                                  'Password',
-                                  style: AppTextStyles.fs14w400,
-                                ),
+                                hintText: 'Enter your password',
+                                // hintStyle: AppTextStyles.fs14w400.copyWith(height: 1.7),
                                 floatingLabelStyle: AppTextStyles.fs16w400,
                                 onChanged: (value) {
                                   checkAllowTapButton();

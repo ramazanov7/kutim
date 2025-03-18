@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:kutim/src/feature/application/application_page.dart';
 import 'package:kutim/src/feature/auth/presentation/pages/onboarding_page.dart';
+import 'package:kutim/src/feature/auth/presentation/pages/successfull_page.dart';
 import 'package:kutim/src/feature/auto/my_auto_page.dart';
 import 'package:flutter/material.dart';
 import 'package:kutim/src/feature/app/presentation/pages/launcher.dart';
@@ -79,6 +80,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: EnterSmsCodeRoute.page),
         AutoRoute(page: RegisterRoute.page),
         AutoRoute(page: NewPasswordRoute.page),
+        AutoRoute(page: SuccessfullRoute.page),
 
         //
 

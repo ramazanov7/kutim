@@ -35,6 +35,9 @@ class $AssetsIconsGen {
   AssetGenImage get profileTab =>
       const AssetGenImage('assets/icons/profile-tab.png');
 
+  /// File path: assets/icons/right.svg
+  SvgGenImage get right => const SvgGenImage('assets/icons/right.svg');
+
   /// File path: assets/icons/scan-tab.svg
   SvgGenImage get scanTab => const SvgGenImage('assets/icons/scan-tab.svg');
 
@@ -49,6 +52,7 @@ class $AssetsIconsGen {
     hideEye,
     mainTab,
     profileTab,
+    right,
     scanTab,
     searchTab,
   ];

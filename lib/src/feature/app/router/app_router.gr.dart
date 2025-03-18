@@ -148,11 +148,10 @@ class EnterSmsCodeRoute extends PageRouteInfo<EnterSmsCodeRouteArgs> {
   EnterSmsCodeRoute({
     Key? key,
     required String email,
-    required String token,
     List<PageRouteInfo>? children,
   }) : super(
          EnterSmsCodeRoute.name,
-         args: EnterSmsCodeRouteArgs(key: key, email: email, token: token),
+         args: EnterSmsCodeRouteArgs(key: key, email: email),
          initialChildren: children,
        );
 
@@ -163,32 +162,22 @@ class EnterSmsCodeRoute extends PageRouteInfo<EnterSmsCodeRouteArgs> {
     builder: (data) {
       final args = data.argsAs<EnterSmsCodeRouteArgs>();
       return WrappedRoute(
-        child: EnterSmsCodePage(
-          key: args.key,
-          email: args.email,
-          token: args.token,
-        ),
+        child: EnterSmsCodePage(key: args.key, email: args.email),
       );
     },
   );
 }
 
 class EnterSmsCodeRouteArgs {
-  const EnterSmsCodeRouteArgs({
-    this.key,
-    required this.email,
-    required this.token,
-  });
+  const EnterSmsCodeRouteArgs({this.key, required this.email});
 
   final Key? key;
 
   final String email;
 
-  final String token;
-
   @override
   String toString() {
-    return 'EnterSmsCodeRouteArgs{key: $key, email: $email, token: $token}';
+    return 'EnterSmsCodeRouteArgs{key: $key, email: $email}';
   }
 }
 
@@ -415,6 +404,22 @@ class RegisterRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const RegisterPage();
+    },
+  );
+}
+
+/// generated route for
+/// [SuccessfullPage]
+class SuccessfullRoute extends PageRouteInfo<void> {
+  const SuccessfullRoute({List<PageRouteInfo>? children})
+    : super(SuccessfullRoute.name, initialChildren: children);
+
+  static const String name = 'SuccessfullRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SuccessfullPage();
     },
   );
 }

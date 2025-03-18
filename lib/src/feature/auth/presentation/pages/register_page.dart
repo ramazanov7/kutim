@@ -289,7 +289,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   },
                                   style: CustomButtonStyles.mainButtonStyle(context, elevation: 5),
                                   child: const Text(
-                                    'Sign in',
+                                    'Sign up',
                                     style: AppTextStyles.fs16w500,
                                   )),
                             ),

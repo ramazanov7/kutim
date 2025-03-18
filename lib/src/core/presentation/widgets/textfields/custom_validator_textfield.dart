@@ -90,7 +90,7 @@ class CustomValidatorTextfield extends StatelessWidget {
                     filled: true,
                     label: label,
                     floatingLabelStyle: floatingLabelStyle,
-                    hintStyle: AppTextStyles.fs16w400.copyWith(color: AppColors.base500),
+                    hintStyle: AppTextStyles.fs14w400.copyWith(height: 1.7),
                     errorStyle: const TextStyle(
                       height: 0,
                       fontSize: 0,

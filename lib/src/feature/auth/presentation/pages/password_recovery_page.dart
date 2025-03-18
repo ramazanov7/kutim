@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:kutim/src/core/gen/assets.gen.dart';
+import 'package:kutim/src/core/presentation/widgets/textfields/custom_textfield.dart';
 import 'package:kutim/src/feature/app/presentation/widgets/custom_appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,9 +80,9 @@ class _PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
             },
             loaded: (token) {
               context.loaderOverlay.hide();
-              context.pushRoute(
-                EnterSmsCodeRoute(email: emailController.text, token: token),
-              );
+              // context.pushRoute(
+              //   EnterSmsCodeRoute(email: emailController.text, token: token),
+              // );
             },
             orElse: () {
               context.loaderOverlay.hide();
@@ -96,48 +97,54 @@ class _PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
                 key: _formKey,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Gap(70),
-                      Text(
-                        context.localized.passwordRecovery,
-                        style: AppTextStyles.fs26w700,
-                      ),
-                      const Gap(20),
-                      Text(
-                        context.localized.enterYourEmailAddress,
-                        style: AppTextStyles.fs14w500,
-                      ),
-                      const Gap(8),
-                      CustomValidatorTextfield(
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    const Gap(30),
+                    const Text(
+                      'Forgot password',
+                      style: AppTextStyles.fs26w700,
+                    ),
+                    const Gap(16),
+                    Text(
+                      'Please enter your email to reset the password',
+                      style: AppTextStyles.fs14w500.copyWith(color: AppColors.textFieldBorder, letterSpacing: -0.41),
+                    ),
+                    const Gap(16),
+                    const Text(
+                      'Your Email',
+                      style: AppTextStyles.fs15w500,
+                    ),
+                    const Gap(10),
+                    SizedBox(
+                      height: 46,
+                      child: CustomTextField(
                         controller: emailController,
-                        valueListenable: _emailError,
-                        hintText: context.localized.email,
+                        hintText: 'Enter your email',
+                        hintStyle: AppTextStyles.fs14w400.copyWith(height: 1.7),
+                        floatingLabelStyle: AppTextStyles.fs16w400,
                         keyboardType: TextInputType.emailAddress,
+                        fillColor: AppColors.white,
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide: const BorderSide(color: AppColors.textFieldBorder)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide: const BorderSide(color: AppColors.textFieldBorder)),
                         onChanged: (value) {
-                          checkAllowTapButton();
-                        },
-                        validator: (String? value) {
-                          return null;
+                          setState(() {});
                         },
                       ),
-                      const Gap(34),
-                      CustomButton(
-                        allowTapButton: _allowTapButton,
+                    ),
+                    const Gap(31),
+                    CustomButton(
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            BlocProvider.of<PasswordRecoveryCubit>(context).forgotPassword(
-                              email: emailController.text,
-                            );
-                          }
+                          context.router.push(EnterSmsCodeRoute(email: emailController.text));
                         },
-                        style: null,
-                        text: context.localized.getCode,
-                        child: null,
-                      ),
-                    ],
-                  ),
+                        style: CustomButtonStyles.mainButtonStyle(context, elevation: 5),
+                        child: const Text(
+                          'Reset Password',
+                          style: AppTextStyles.fs16w500,
+                        )),
+                  ]),
                 ),
               ),
             ),
