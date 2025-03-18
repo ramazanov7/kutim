@@ -43,7 +43,7 @@ class _ProfilePageState extends State<ProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Gap(23),
+            const Gap(70),
             const Padding(
               padding: EdgeInsets.only(left: 27),
               child: Text(

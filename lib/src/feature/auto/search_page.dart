@@ -16,7 +16,7 @@ class SearchPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          const Gap(16),
+          const Gap(63),
 
           ///
           /// <--`search`-->

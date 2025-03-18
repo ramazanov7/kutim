@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kutim/src/core/gen/assets.gen.dart';
@@ -60,7 +61,11 @@ class _ProductDetailAlertState extends State<ProductDetailAlert> {
                     ),
                   ),
                 ),
-                IconButton(onPressed: () {}, icon: SvgPicture.asset(Assets.icons.close.path))
+                IconButton(
+                    onPressed: () {
+                      context.router.maybePop();
+                    },
+                    icon: SvgPicture.asset(Assets.icons.close.path))
               ],
             ),
             Padding(

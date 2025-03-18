@@ -49,14 +49,14 @@ class _BaseTabState extends State<BaseTab> with TickerProviderStateMixin {
           BaseApplicationTab(),
           BaseProfileTab(),
         ],
-        appBarBuilder: (context, tabsRouter) => switch (tabsRouter.activeIndex) {
-          _ => PreferredSize(
-              preferredSize: Size.fromHeight(MediaQuery.paddingOf(context).top),
-              child: SizedBox(
-                height: MediaQuery.paddingOf(context).top,
-              ),
-            ),
-        },
+        // appBarBuilder: (context, tabsRouter) => switch (tabsRouter.activeIndex) {
+        //   _ => PreferredSize(
+        //       preferredSize: Size.fromHeight(MediaQuery.paddingOf(context).top),
+        //       child: SizedBox(
+        //         height: MediaQuery.paddingOf(context).top,
+        //       ),
+        //     ),
+        // },
         transitionBuilder: (context, child, animation) {
           return PageTransitionSwitcher(
             duration: const Duration(seconds: 2),
