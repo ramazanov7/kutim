@@ -45,7 +45,7 @@ class _BaseTabState extends State<BaseTab> with TickerProviderStateMixin {
       child: AutoTabsScaffold(
         routes: const [
           BaseMainTab(),
-          BaseAutoTab(),
+          BaseSearchTab(),
           BaseApplicationTab(),
           BaseProfileTab(),
         ],

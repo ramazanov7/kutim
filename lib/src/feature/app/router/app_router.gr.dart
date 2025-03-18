@@ -43,22 +43,6 @@ class BaseApplicationTab extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [BaseAutoPage]
-class BaseAutoTab extends PageRouteInfo<void> {
-  const BaseAutoTab({List<PageRouteInfo>? children})
-    : super(BaseAutoTab.name, initialChildren: children);
-
-  static const String name = 'BaseAutoTab';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const BaseAutoPage();
-    },
-  );
-}
-
-/// generated route for
 /// [BaseMainPage]
 class BaseMainTab extends PageRouteInfo<void> {
   const BaseMainTab({List<PageRouteInfo>? children})
@@ -86,6 +70,22 @@ class BaseProfileTab extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const BaseProfilePage();
+    },
+  );
+}
+
+/// generated route for
+/// [BaseSearchPage]
+class BaseSearchTab extends PageRouteInfo<void> {
+  const BaseSearchTab({List<PageRouteInfo>? children})
+    : super(BaseSearchTab.name, initialChildren: children);
+
+  static const String name = 'BaseSearchTab';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const BaseSearchPage();
     },
   );
 }
@@ -266,22 +266,6 @@ class MainRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [MyAutoPage]
-class MyAutoRoute extends PageRouteInfo<void> {
-  const MyAutoRoute({List<PageRouteInfo>? children})
-    : super(MyAutoRoute.name, initialChildren: children);
-
-  static const String name = 'MyAutoRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const MyAutoPage();
-    },
-  );
-}
-
-/// generated route for
 /// [NewPasswordPage]
 class NewPasswordRoute extends PageRouteInfo<NewPasswordRouteArgs> {
   NewPasswordRoute({
@@ -404,6 +388,22 @@ class RegisterRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const RegisterPage();
+    },
+  );
+}
+
+/// generated route for
+/// [SearchPage]
+class SearchRoute extends PageRouteInfo<void> {
+  const SearchRoute({List<PageRouteInfo>? children})
+    : super(SearchRoute.name, initialChildren: children);
+
+  static const String name = 'SearchRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SearchPage();
     },
   );
 }

@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:kutim/src/feature/application/application_page.dart';
 import 'package:kutim/src/feature/auth/presentation/pages/onboarding_page.dart';
 import 'package:kutim/src/feature/auth/presentation/pages/successfull_page.dart';
-import 'package:kutim/src/feature/auto/my_auto_page.dart';
+import 'package:kutim/src/feature/auto/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:kutim/src/feature/app/presentation/pages/launcher.dart';
 import 'package:kutim/src/feature/app/presentation/pages/temp_page.dart';
@@ -43,10 +43,10 @@ class AppRouter extends RootStackRouter {
               ],
             ),
             AutoRoute(
-              page: BaseAutoTab.page,
+              page: BaseSearchTab.page,
               children: [
                 AutoRoute(
-                  page: MyAutoRoute.page,
+                  page: SearchRoute.page,
                   initial: true,
                 ),
               ],
@@ -102,9 +102,9 @@ class BaseMainPage extends AutoRouter {
   const BaseMainPage({super.key});
 }
 
-@RoutePage(name: 'BaseAutoTab')
-class BaseAutoPage extends AutoRouter {
-  const BaseAutoPage({super.key});
+@RoutePage(name: 'BaseSearchTab')
+class BaseSearchPage extends AutoRouter {
+  const BaseSearchPage({super.key});
 }
 
 @RoutePage(name: 'BaseApplicationTab')

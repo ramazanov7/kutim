@@ -18,6 +18,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/calendar.svg
   SvgGenImage get calendar => const SvgGenImage('assets/icons/calendar.svg');
 
+  /// File path: assets/icons/close.svg
+  SvgGenImage get close => const SvgGenImage('assets/icons/close.svg');
+
   /// File path: assets/icons/daily-icon.png
   AssetGenImage get dailyIcon =>
       const AssetGenImage('assets/icons/daily-icon.png');
@@ -44,9 +47,13 @@ class $AssetsIconsGen {
   /// File path: assets/icons/search-tab.svg
   SvgGenImage get searchTab => const SvgGenImage('assets/icons/search-tab.svg');
 
+  /// File path: assets/icons/search.svg
+  SvgGenImage get search => const SvgGenImage('assets/icons/search.svg');
+
   /// List of all assets
   List<dynamic> get values => [
     calendar,
+    close,
     dailyIcon,
     eye,
     hideEye,
@@ -55,6 +62,7 @@ class $AssetsIconsGen {
     right,
     scanTab,
     searchTab,
+    search,
   ];
 }
 
@@ -97,6 +105,10 @@ class $AssetsImagesGen {
   AssetGenImage get onboardingThirdImage =>
       const AssetGenImage('assets/images/onboarding-third-image.png');
 
+  /// File path: assets/images/product-example.png
+  AssetGenImage get productExample =>
+      const AssetGenImage('assets/images/product-example.png');
+
   /// File path: assets/images/products.png
   AssetGenImage get products =>
       const AssetGenImage('assets/images/products.png');
@@ -116,6 +128,7 @@ class $AssetsImagesGen {
     onboardingFirstImage,
     onboardingSecondImage,
     onboardingThirdImage,
+    productExample,
     products,
     splashLogo,
   ];
