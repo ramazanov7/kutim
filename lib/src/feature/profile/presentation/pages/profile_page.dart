@@ -1,17 +1,15 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:kutim/src/core/constant/constants.dart';
 import 'package:kutim/src/core/gen/assets.gen.dart';
 import 'package:kutim/src/core/presentation/widgets/buttons/custom_button.dart';
 import 'package:kutim/src/core/theme/resources.dart';
-import 'package:kutim/src/core/utils/extensions/context_extension.dart';
-import 'package:kutim/src/feature/app/bloc/app_bloc.dart';
-import 'package:kutim/src/feature/app/presentation/widgets/custom_appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:kutim/src/feature/app/router/app_router.dart';
+import 'package:kutim/src/feature/profile/presentation/widget/logout_bottom_sheet.dart';
 import 'package:kutim/src/feature/profile/presentation/widget/profile_avatar.dart';
+import 'package:kutim/src/feature/profile/presentation/widget/profile_item_widget.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -134,24 +132,39 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const Gap(40),
             ProfileItem(
-              title: 'Skin Type',
+              title: 'Skin Profile',
               icon: Assets.icons.person.path,
-              onTap: () {},
+              onTap: () {
+                context.router.push(SkinProfileRoute());
+              },
+            ),
+            ProfileItem(
+              title: 'Settings',
+              icon: Assets.icons.settings.path,
+              onTap: () {
+                context.router.push(SettingsRoute());
+              },
+            ),
+            ProfileItem(
+              title: 'Privacy Settings',
+              icon: Assets.icons.privacySettings.path,
+              onTap: () {
+                context.router.push(const PrivacySettingsRoute());
+              },
             ),
             ProfileItem(
               title: 'Help',
               icon: Assets.icons.help.path,
-              onTap: () {},
-            ),
-            ProfileItem(
-              title: 'Logout',
-              icon: Assets.icons.help.path,
-              onTap: () {},
+              onTap: () {
+                context.router.push(const HelpRoute());
+              },
             ),
             ProfileItem(
               title: 'Delete account',
               icon: Assets.icons.delete.path,
-              onTap: () {},
+              onTap: () {
+                LogoutBottomSheet.show(context,isDeleteAccount: true);
+              },
             ),
             // ProfileItem(
             //   title: 'Help',
@@ -186,39 +199,6 @@ class _ProfilePageState extends State<ProfilePage> {
             //       style: CustomButtonStyles.mainButtonStyle(context),
             //       child: const Text('Show Authorization')),
             // )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ProfileItem extends StatelessWidget {
-  const ProfileItem({super.key, required this.title, required this.icon, this.onTap});
-
-  final String title;
-  final String icon;
-  final void Function()? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 26, right: 26, top: 12, bottom: 12),
-        child: Row(
-          children: [
-            SvgPicture.asset(icon),
-            const Gap(16),
-            Text(
-              title,
-              style: AppTextStyles.fs14w400.copyWith(
-                color: AppColors.text,
-                height: 1.2,
-              ),
-            ),
-            const Spacer(),
-            const Icon(Icons.chevron_right),
           ],
         ),
       ),

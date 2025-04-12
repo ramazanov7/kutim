@@ -24,23 +24,13 @@ class ProfileAvatarWithRating extends StatelessWidget {
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(color: AppColors.mainColor, width: 3),
-              // boxShadow: [
-              //   BoxShadow(
-              //     color: Colors.black.withOpacity(0.1),
-              //     blurRadius: 6,
-              //   ),
-              // ],
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(3),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(100)),
-                child: Image.network(
-                  imageAva,
-                  fit: BoxFit.cover,
-                  // loadingBuilder: ImageUtil.loadingBuilder,
-                ),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(100)),
+              child: Image.network(
+                imageAva,
+                fit: BoxFit.cover,
+                // loadingBuilder: ImageUtil.loadingBuilder,
               ),
             ),
           ),

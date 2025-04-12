@@ -11,6 +11,22 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [AboutPage]
+class AboutRoute extends PageRouteInfo<void> {
+  const AboutRoute({List<PageRouteInfo>? children})
+    : super(AboutRoute.name, initialChildren: children);
+
+  static const String name = 'AboutRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AboutPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ApplicationPage]
 class ApplicationRoute extends PageRouteInfo<void> {
   const ApplicationRoute({List<PageRouteInfo>? children})
@@ -86,6 +102,38 @@ class BaseSearchTab extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const BaseSearchPage();
+    },
+  );
+}
+
+/// generated route for
+/// [ConcernsPage]
+class ConcernsRoute extends PageRouteInfo<void> {
+  const ConcernsRoute({List<PageRouteInfo>? children})
+    : super(ConcernsRoute.name, initialChildren: children);
+
+  static const String name = 'ConcernsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ConcernsPage();
+    },
+  );
+}
+
+/// generated route for
+/// [ContactSupportPage]
+class ContactSupportRoute extends PageRouteInfo<void> {
+  const ContactSupportRoute({List<PageRouteInfo>? children})
+    : super(ContactSupportRoute.name, initialChildren: children);
+
+  static const String name = 'ContactSupportRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ContactSupportPage();
     },
   );
 }
@@ -215,6 +263,38 @@ class EnterSmsCodeRouteArgs {
   String toString() {
     return 'EnterSmsCodeRouteArgs{key: $key, email: $email}';
   }
+}
+
+/// generated route for
+/// [FaqsPage]
+class FaqsRoute extends PageRouteInfo<void> {
+  const FaqsRoute({List<PageRouteInfo>? children})
+    : super(FaqsRoute.name, initialChildren: children);
+
+  static const String name = 'FaqsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FaqsPage();
+    },
+  );
+}
+
+/// generated route for
+/// [HelpPage]
+class HelpRoute extends PageRouteInfo<void> {
+  const HelpRoute({List<PageRouteInfo>? children})
+    : super(HelpRoute.name, initialChildren: children);
+
+  static const String name = 'HelpRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const HelpPage();
+    },
+  );
 }
 
 /// generated route for
@@ -397,6 +477,22 @@ class PasswordRecoveryRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [PrivacySettingsPage]
+class PrivacySettingsRoute extends PageRouteInfo<void> {
+  const PrivacySettingsRoute({List<PageRouteInfo>? children})
+    : super(PrivacySettingsRoute.name, initialChildren: children);
+
+  static const String name = 'PrivacySettingsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PrivacySettingsPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ProfilePage]
 class ProfileRoute extends PageRouteInfo<void> {
   const ProfileRoute({List<PageRouteInfo>? children})
@@ -442,6 +538,96 @@ class SearchRoute extends PageRouteInfo<void> {
       return const SearchPage();
     },
   );
+}
+
+/// generated route for
+/// [SettingsPage]
+class SettingsRoute extends PageRouteInfo<SettingsRouteArgs> {
+  SettingsRoute({Key? key, List<PageRouteInfo>? children})
+    : super(
+        SettingsRoute.name,
+        args: SettingsRouteArgs(key: key),
+        initialChildren: children,
+      );
+
+  static const String name = 'SettingsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<SettingsRouteArgs>(
+        orElse: () => const SettingsRouteArgs(),
+      );
+      return SettingsPage(key: args.key);
+    },
+  );
+}
+
+class SettingsRouteArgs {
+  const SettingsRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'SettingsRouteArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [SkinProfilePage]
+class SkinProfileRoute extends PageRouteInfo<void> {
+  const SkinProfileRoute({List<PageRouteInfo>? children})
+    : super(SkinProfileRoute.name, initialChildren: children);
+
+  static const String name = 'SkinProfileRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SkinProfilePage();
+    },
+  );
+}
+
+/// generated route for
+/// [SkinTypePage]
+class SkinTypeRoute extends PageRouteInfo<SkinTypeRouteArgs> {
+  SkinTypeRoute({
+    Key? key,
+    required String selectedSecTitle,
+    List<PageRouteInfo>? children,
+  }) : super(
+         SkinTypeRoute.name,
+         args: SkinTypeRouteArgs(key: key, selectedSecTitle: selectedSecTitle),
+         initialChildren: children,
+       );
+
+  static const String name = 'SkinTypeRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<SkinTypeRouteArgs>();
+      return SkinTypePage(
+        key: args.key,
+        selectedSecTitle: args.selectedSecTitle,
+      );
+    },
+  );
+}
+
+class SkinTypeRouteArgs {
+  const SkinTypeRouteArgs({this.key, required this.selectedSecTitle});
+
+  final Key? key;
+
+  final String selectedSecTitle;
+
+  @override
+  String toString() {
+    return 'SkinTypeRouteArgs{key: $key, selectedSecTitle: $selectedSecTitle}';
+  }
 }
 
 /// generated route for

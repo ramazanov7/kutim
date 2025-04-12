@@ -16,7 +16,7 @@ class InformationPage extends StatefulWidget {
 
 class _InformationPageState extends State<InformationPage> {
   final ScrollController _scrollImageController = ScrollController();
-  final int itemCount = 2;
+  final int itemCount = 6;
   int currentIndex = 0;
 
   final ScrollController _scrollSecondController = ScrollController();
@@ -103,12 +103,29 @@ class _InformationPageState extends State<InformationPage> {
   bool isChoosing = false;
 
   List<String> descriptionImages = [
-    'The early stages of the appearance of wrinkles. They usually appear around the eyes and mouth starting at the age of 20, mainly due to dehydration and a slowdown in collagen production. As the skin loses elasticity, it becomes more prone to visible marks.',
-    "The skin around the eyes is unique—it's thinner than the rest of the face and lacks sebaceous glands. This makes it more prone to dehydration, reduced elasticity, and a loss of suppleness over time."
-  ];
+    "Lack of moisture in the skin can lead to flaking, irritation, and a rough texture. Dry skin may feel tight and uncomfortable, especially in cold weather or after washing. Proper hydration and barrier protection are essential for maintaining smooth and healthy skin.",
+    "Excess sebum production can cause shine, enlarged pores, and increased likelihood of acne breakouts. Oily skin is often influenced by genetics, hormones, and environmental factors. A balanced skincare routine can help regulate oil levels.",
+    "Breakouts occur due to clogged pores, excess oil, and bacteria. Acne can range from blackheads and whiteheads to deep cystic pimples. Managing acne requires gentle cleansing, proper hydration, and targeted treatments.",
+    "Dark spots and uneven skin tone result from sun exposure, inflammation, or hormonal changes. Hyperpigmentation can be treated with brightening ingredients, exfoliation, and sun protection.",
+    "The skin around the eyes is unique—it's thinner than the rest of the face and lacks sebaceous glands. This makes it more prone to dehydration, reduced elasticity, and a loss of suppleness over time.",
+    "Sensitive skin reacts easily to environmental factors, skincare products, and temperature changes. It can lead to redness, irritation, and discomfort. Strengthening the skin barrier with soothing ingredients helps maintain balance.",
+ ];
   List<String> titleImages = [
-    'Fine Lines',
-    'Eye Wrinkles',
+    'Dryness',
+    'Oily Skin',
+    "Acne & Blemishes",
+    "Hyperpigmentation",
+    "Eye Wrinkles",
+    "Sensitivity & Redness",
+  ];
+    List<String> imagesPath = [
+    Assets.images.infoImg1.path,
+    Assets.images.infoImg2.path,
+    Assets.images.infoImg3.path,
+    Assets.images.infoImg4.path,
+    Assets.images.infoImg5.path,
+    Assets.images.infoImg6.path,
+    
   ];
   List<String> step = [
     'First, before opening the camera, select the skin type that is on the bottom. Then are you ready to shoot? Take off your glasses, there should be no makeup and remove your hair from your face.',
@@ -168,9 +185,9 @@ ATTRIBUTIES OF YOUR SKIN""",
               ),
               const Gap(24),
               SizedBox(
-                height: 430,
+                height: 435,
                 child: ListView.builder(
-                  itemCount: 2,
+                  itemCount: imagesPath.length,
                   controller: _scrollImageController,
                   scrollDirection: Axis.horizontal,
                   padding: const EdgeInsets.only(left: 16, right: 120),
@@ -183,7 +200,7 @@ ATTRIBUTIES OF YOUR SKIN""",
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Image.asset(
-                              Assets.images.informationImage.path,
+                              imagesPath[index],
                               height: 277,
                             ),
                             const Gap(22),
@@ -197,6 +214,7 @@ ATTRIBUTIES OF YOUR SKIN""",
                                         titleImages[index],
                                         style: AppTextStyles.fs15w500
                                             .copyWith(color: AppColors.mainColor, letterSpacing: -0.41),
+
                                       ),
                                       const Gap(2),
                                       Text(descriptionImages[index],
