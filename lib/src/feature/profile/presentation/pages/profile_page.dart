@@ -53,89 +53,139 @@ class _ProfilePageState extends State<ProfilePage> {
                 style: AppTextStyles.fs20w500,
               ),
             ),
+            const Gap(40),
 
             ///
             /// <-- `profile avatar, name, email` -->
             ///
             ///
             Container(
-              margin: const EdgeInsets.only(left: 16, right: 16, top: 20),
-              decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(16)),
-              alignment: Alignment.center,
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      context.router.push(DetailAvatarRoute(image: NOT_FOUND_IMAGE));
-                    },
-                    child: const ProfileAvatarWithRating(
-                      imageAva: NOT_FOUND_IMAGE,
-                    ),
+              height: 180,
+              margin: const EdgeInsets.symmetric(horizontal: 43),
+              padding: const EdgeInsets.only(top: 15, left: 23, right: 23),
+              decoration: const BoxDecoration(
+                color: AppColors.backgroundColor2,
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromRGBO(217, 217, 217, 1),
+                    blurRadius: 4,
+                    spreadRadius: 0,
+                    offset: Offset(0, 4),
                   ),
-                  const Gap(12),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                ],
+              ),
+              child: Column(
+                children: [
+                  Row(
                     children: [
-                      Text(
-                        'Amir Temir',
-                        style: AppTextStyles.fs18w500.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.text,
-                          height: 1.2,
+                      GestureDetector(
+                        onTap: () {
+                          context.router.push(DetailAvatarRoute(image: NOT_FOUND_IMAGE));
+                        },
+                        child: const ProfileAvatarWithRating(
+                          imageAva: NOT_FOUND_IMAGE,
                         ),
                       ),
-                      const Gap(8),
-                      Text(
-                        'amir@gmail.com',
-                        style: AppTextStyles.fs14w400.copyWith(
-                          color: AppColors.text,
-                          height: 1.2,
-                        ),
+                      const Gap(22),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Amir Temir',
+                            style: AppTextStyles.fs18w500.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.text,
+                              height: 1.2,
+                            ),
+                          ),
+                          const Gap(8),
+                          Text(
+                            'amir@gmail.com',
+                            style: AppTextStyles.fs14w400.copyWith(
+                              color: AppColors.text,
+                              height: 1.2,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
+                  ),
+                  const Gap(20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: CustomButton(
+                        height: 30,
+                        onPressed: () {
+                          context.router.push(OnboardingRoute(
+                            onGoAuthPressed: () {
+                              context.router.push(const LoginRoute());
+                            },
+                          ));
+                        },
+                        style: CustomButtonStyles.mainButtonStyle(context, padding: EdgeInsets.zero),
+                        child: Text(
+                          'Edit Account',
+                          style: AppTextStyles.fs14w400.copyWith(color: Colors.white),
+                        )),
                   ),
                 ],
               ),
             ),
-            const Gap(16),
+            const Gap(40),
             ProfileItem(
-              title: 'Edit profile',
-              icon: '',
+              title: 'Skin Type',
+              icon: Assets.icons.person.path,
               onTap: () {},
             ),
             ProfileItem(
               title: 'Help',
-              icon: '',
-              onTap: () {},
-            ),
-            ProfileItem(
-              title: 'Delete account',
-              icon: '',
+              icon: Assets.icons.help.path,
               onTap: () {},
             ),
             ProfileItem(
               title: 'Logout',
-              icon: '',
-              onTap: () {
-                BlocProvider.of<AppBloc>(context).add(const AppEvent.exiting());
-                setState(() {});
-              },
+              icon: Assets.icons.help.path,
+              onTap: () {},
             ),
+            ProfileItem(
+              title: 'Delete account',
+              icon: Assets.icons.delete.path,
+              onTap: () {},
+            ),
+            // ProfileItem(
+            //   title: 'Help',
+            //   icon: '',
+            //   onTap: () {},
+            // ),
+            // ProfileItem(
+            //   title: 'Delete account',
+            //   icon: '',
+            //   onTap: () {},
+            // ),
+            // ProfileItem(
+            //   title: 'Logout',
+            //   icon: '',
+            //   onTap: () {
+            //     BlocProvider.of<AppBloc>(context).add(const AppEvent.exiting());
+            //     setState(() {});
+            //   },
+            // ),
 
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 27),
-              child: CustomButton(
-                  onPressed: () {
-                    context.router.push(OnboardingRoute(
-                      onGoAuthPressed: () {
-                        context.router.push(const LoginRoute());
-                      },
-                    ));
-                  },
-                  style: CustomButtonStyles.mainButtonStyle(context),
-                  child: const Text('Show Authorization')),
-            )
+            // const Spacer(),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 27),
+            //   child: CustomButton(
+            //       onPressed: () {
+            //         context.router.push(OnboardingRoute(
+            //           onGoAuthPressed: () {
+            //             context.router.push(const LoginRoute());
+            //           },
+            //         ));
+            //       },
+            //       style: CustomButtonStyles.mainButtonStyle(context),
+            //       child: const Text('Show Authorization')),
+            // )
           ],
         ),
       ),
@@ -158,10 +208,7 @@ class ProfileItem extends StatelessWidget {
         padding: const EdgeInsets.only(left: 26, right: 26, top: 12, bottom: 12),
         child: Row(
           children: [
-            const Icon(
-              Icons.person,
-              size: 30,
-            ),
+            SvgPicture.asset(icon),
             const Gap(16),
             Text(
               title,
