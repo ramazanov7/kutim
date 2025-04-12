@@ -17,13 +17,13 @@ class PasswordRecoveryCubit extends Cubit<PasswordRecoveryState> {
     try {
       emit(const PasswordRecoveryState.loading());
 
-      final token = await _repository.forgotPassword(
+      await _repository.forgotPassword(
         email: email,
       );
 
       if (isClosed) return;
 
-      emit(PasswordRecoveryState.loaded(token: token));
+      emit(const PasswordRecoveryState.loaded());
     } catch (e) {
       emit(
         PasswordRecoveryState.error(
@@ -40,7 +40,7 @@ class PasswordRecoveryState with _$PasswordRecoveryState {
 
   const factory PasswordRecoveryState.loading() = _LoadingState;
 
-  const factory PasswordRecoveryState.loaded({required String token}) = _LoadedState;
+  const factory PasswordRecoveryState.loaded() = _LoadedState;
 
   const factory PasswordRecoveryState.error({
     required String message,

@@ -1,12 +1,20 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kutim/src/core/presentation/widgets/buttons/custom_button.dart';
+import 'package:kutim/src/core/presentation/widgets/dialog/toaster.dart';
 import 'package:kutim/src/core/presentation/widgets/textfields/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:kutim/src/core/utils/extensions/context_extension.dart';
+import 'package:kutim/src/core/utils/input/validator_util.dart';
+import 'package:kutim/src/feature/app/bloc/app_bloc.dart';
 import 'package:kutim/src/feature/app/router/app_router.dart';
+import 'package:kutim/src/feature/auth/bloc/register_cubit.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:kutim/src/core/presentation/widgets/other/custom_loading_overlay_widget.dart';
 import 'package:kutim/src/core/presentation/widgets/textfields/custom_validator_textfield.dart';
@@ -14,13 +22,26 @@ import 'package:kutim/src/core/theme/resources.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage()
-class RegisterPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget implements AutoRouteWrapper {
   const RegisterPage({
     super.key,
   });
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => RegisterCubit(repository: context.repository.authRepository),
+          child: this,
+        ),
+      ],
+      child: this,
+    );
+  }
 }
 
 class _RegisterPageState extends State<RegisterPage> {
@@ -55,18 +76,15 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  // bool checkAllowTapButton() {
-  //   final isEmailValid = ValidatorUtil.emailValidator(
-  //         emailController.text,
-  //         errorLabel: 'Неверный логин',
-  //       ) ==
-  //       null;
-  //   final isPasswordValid = passwordController.text.length >= 6;
-  //   String phoneUnmasked = phoneController.text.replaceAll(RegExp(r'[^0-9]'), '');
-  //   bool isPhoneValid = phoneUnmasked.length == selectedCountry!.digitLength;
-  //   return _allowTapButton.value =
-  //       isPasswordValid && isEmailValid && surnameNameController.text.isNotEmpty && isPhoneValid;
-  // }
+  bool checkAllowTapButton() {
+    final isEmailValid = ValidatorUtil.emailValidator(
+          emailController.text,
+          errorLabel: 'Неверная почта',
+        ) ==
+        null;
+    final isPasswordValid = passwordController.text.length >= 6;
+    return _allowTapButton.value = isPasswordValid && isEmailValid && surnameNameController.text != '' && isChecked;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +100,6 @@ class _RegisterPageState extends State<RegisterPage> {
             body: SafeArea(
               child: Form(
                 key: _formKey,
-                // autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
@@ -114,6 +131,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     borderRadius: BorderRadius.circular(5),
                                     borderSide: const BorderSide(color: AppColors.textFieldBorder)),
                                 onChanged: (value) {
+                                  // checkAllowTapButton();
                                   setState(() {});
                                 },
                               ),
@@ -137,6 +155,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     borderRadius: BorderRadius.circular(5),
                                     borderSide: const BorderSide(color: AppColors.textFieldBorder)),
                                 onChanged: (value) {
+                                  // checkAllowTapButton();
                                   setState(() {});
                                 },
                               ),
@@ -156,7 +175,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                       style: AppTextStyles.fs14w400,
                                     ),
                                     floatingLabelStyle: AppTextStyles.fs16w400,
-                                    onChanged: (value) {},
+                                    onChanged: (value) {
+                                      checkAllowTapButton();
+                                    },
                                     validator: (String? value) {
                                       return null;
                                     },
@@ -179,7 +200,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                       style: AppTextStyles.fs14w400,
                                     ),
                                     floatingLabelStyle: AppTextStyles.fs16w400,
-                                    onChanged: (value) {},
+                                    onChanged: (value) {
+                                      checkAllowTapButton();
+                                    },
                                     validator: (String? value) {
                                       return null;
                                     },
@@ -281,17 +304,46 @@ class _RegisterPageState extends State<RegisterPage> {
                               ],
                             ),
                             const Gap(12),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8, right: 8),
-                              child: CustomButton(
-                                  onPressed: () {
-                                    context.router.push(const MainRoute());
+                            BlocListener<RegisterCubit, RegisterState>(
+                              listener: (context, state) {
+                                state.maybeWhen(
+                                  loading: () => context.loaderOverlay.show(),
+                                  error: (message) {
+                                    context.loaderOverlay.hide();
+                                    Toaster.showErrorTopShortToast(context, message);
                                   },
-                                  style: CustomButtonStyles.mainButtonStyle(context, elevation: 5),
-                                  child: const Text(
-                                    'Sign up',
-                                    style: AppTextStyles.fs16w500,
-                                  )),
+                                  loaded: (user) {
+                                    context.loaderOverlay.hide();
+                                    BlocProvider.of<AppBloc>(context).add(AppEvent.logining(user: user));
+                                    context.router.replaceAll([LauncherRoute()]);
+                                    Toaster.showTopShortToast(context, message: 'Успешно');
+                                  },
+                                  orElse: () => context.loaderOverlay.hide(),
+                                );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 8, right: 8),
+                                child: CustomButton(
+                                    onPressed: () {
+                                      if (checkAllowTapButton()) {
+                                        BlocProvider.of<RegisterCubit>(context).register(
+                                          password: passwordController.text,
+                                          deviceType: Platform.isAndroid ? 'Android' : 'IOS',
+                                          email: emailController.text,
+                                          name: '',
+                                          surname: surnameNameController.text,
+                                        );
+                                      }
+                                    },
+                                    style: checkAllowTapButton()
+                                        ? CustomButtonStyles.mainButtonStyle(context, elevation: 5)
+                                        : CustomButtonStyles.mainButtonStyle(context,
+                                            elevation: 5, backgroundColor: AppColors.mainColor.withOpacity(0.5)),
+                                    child: const Text(
+                                      'Sign up',
+                                      style: AppTextStyles.fs16w500,
+                                    )),
+                              ),
                             ),
                             const Gap(13),
                             Row(

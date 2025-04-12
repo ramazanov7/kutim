@@ -1,8 +1,15 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:kutim/src/core/presentation/widgets/dialog/toaster.dart';
 import 'package:kutim/src/core/presentation/widgets/textfields/custom_textfield.dart';
+import 'package:kutim/src/core/utils/extensions/context_extension.dart';
 import 'package:kutim/src/core/utils/input/validator_util.dart';
+import 'package:kutim/src/feature/app/bloc/app_bloc.dart';
+import 'package:kutim/src/feature/auth/bloc/login_cubit.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:kutim/src/core/presentation/widgets/buttons/custom_button.dart';
 import 'package:kutim/src/core/presentation/widgets/other/custom_loading_overlay_widget.dart';
@@ -11,11 +18,23 @@ import 'package:kutim/src/core/theme/resources.dart';
 import 'package:kutim/src/feature/app/router/app_router.dart';
 
 @RoutePage()
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatefulWidget implements AutoRouteWrapper {
   const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LoginCubit(repository: context.repository.authRepository),
+        ),
+      ],
+      child: this,
+    );
+  }
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -151,17 +170,41 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8, right: 8),
-                          child: CustomButton(
-                              onPressed: () {
-                                context.router.push(const MainRoute());
+                        BlocListener<LoginCubit, LoginState>(
+                          listener: (context, state) {
+                            state.maybeWhen(
+                              loading: () => context.loaderOverlay.show(),
+                              error: (message) {
+                                context.loaderOverlay.hide();
+                                Toaster.showErrorTopShortToast(context, message);
                               },
-                              style: CustomButtonStyles.mainButtonStyle(context, elevation: 5),
-                              child: const Text(
-                                'Sign in',
-                                style: AppTextStyles.fs16w500,
-                              )),
+                              loaded: (user) {
+                                context.loaderOverlay.hide();
+                                BlocProvider.of<AppBloc>(context).add(AppEvent.logining(user: user));
+                                context.router.replaceAll([LauncherRoute()]);
+                                Toaster.showTopShortToast(context, message: 'Успешно');
+                                // log('loaded', name: 'login page loaded');
+                              },
+                              orElse: () => context.loaderOverlay.hide(),
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8, right: 8),
+                            child: CustomButton(
+                                onPressed: () {
+                                  // context.router.push(const MainRoute());
+                                  BlocProvider.of<LoginCubit>(context).login(
+                                    password: passwordController.text,
+                                    deviceType: Platform.isAndroid ? 'Android' : 'IOS',
+                                    email: emailController.text,
+                                  );
+                                },
+                                style: CustomButtonStyles.mainButtonStyle(context, elevation: 5),
+                                child: const Text(
+                                  'Sign in',
+                                  style: AppTextStyles.fs16w500,
+                                )),
+                          ),
                         ),
                         const Gap(13),
                         Row(

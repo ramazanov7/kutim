@@ -1,26 +1,17 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
-import 'package:kutim/src/core/gen/assets.gen.dart';
 import 'package:kutim/src/core/presentation/widgets/textfields/custom_textfield.dart';
 import 'package:kutim/src/feature/app/presentation/widgets/custom_appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:kutim/src/core/presentation/widgets/buttons/custom_button.dart';
 import 'package:kutim/src/core/presentation/widgets/dialog/toaster.dart';
 import 'package:kutim/src/core/presentation/widgets/other/custom_loading_overlay_widget.dart';
-import 'package:kutim/src/core/presentation/widgets/scroll/scroll_wrapper.dart';
-import 'package:kutim/src/core/presentation/widgets/textfields/custom_validator_textfield.dart';
 import 'package:kutim/src/core/theme/resources.dart';
 import 'package:kutim/src/core/utils/extensions/context_extension.dart';
-import 'package:kutim/src/core/utils/input/validator_util.dart';
 import 'package:kutim/src/feature/app/router/app_router.dart';
 import 'package:kutim/src/feature/auth/bloc/password_recovery_cubit.dart';
-import 'package:kutim/src/feature/auth/enum/enter_sms_code_type.dart';
 
 @RoutePage()
 class PasswordRecoveryPage extends StatefulWidget implements AutoRouteWrapper {
@@ -78,11 +69,11 @@ class _PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
             loading: () {
               context.loaderOverlay.show();
             },
-            loaded: (token) {
+            loaded: () {
               context.loaderOverlay.hide();
-              // context.pushRoute(
-              //   EnterSmsCodeRoute(email: emailController.text, token: token),
-              // );
+              context.pushRoute(
+                EnterSmsCodeRoute(email: emailController.text),
+              );
             },
             orElse: () {
               context.loaderOverlay.hide();
@@ -137,7 +128,9 @@ class _PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
                     const Gap(31),
                     CustomButton(
                         onPressed: () {
-                          context.router.push(EnterSmsCodeRoute(email: emailController.text));
+                          BlocProvider.of<PasswordRecoveryCubit>(context).forgotPassword(
+                            email: emailController.text,
+                          );
                         },
                         style: CustomButtonStyles.mainButtonStyle(context, elevation: 5),
                         child: const Text(

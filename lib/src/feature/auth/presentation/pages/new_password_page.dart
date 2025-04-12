@@ -1,10 +1,11 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:kutim/src/feature/app/presentation/widgets/custom_appbar_widget.dart';
 import 'package:kutim/src/feature/auth/models/user_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:kutim/src/feature/auth/presentation/pages/successfull_page.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:kutim/src/core/presentation/widgets/buttons/custom_button.dart';
 import 'package:kutim/src/core/presentation/widgets/dialog/toaster.dart';
@@ -49,6 +50,12 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
   bool isFirstPage = true;
 
   @override
+  void initState() {
+    log(widget.token);
+    super.initState();
+  }
+
+  @override
   void dispose() {
     passwordController.dispose();
     passwordRepeatController.dispose();
@@ -88,7 +95,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
               loading: () {
                 context.loaderOverlay.show();
               },
-              loaded: () {
+              loaded: (user) {
                 context.loaderOverlay.hide();
                 BlocProvider.of<AppBloc>(context).add(const AppEvent.logining(user: UserDTO()));
                 context.router.replaceAll([LauncherRoute()]);
@@ -182,17 +189,25 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                           CustomButton(
                             // allowTapButton: _allowTapButton,
                             onPressed: () {
+                              if (isFirstPage &&
+                                  passwordController.text.isNotEmpty &&
+                                  passwordRepeatController.text.isNotEmpty) {
+                                if (passwordController.text == passwordRepeatController.text) {
+                                  BlocProvider.of<NewPasswordCubit>(context).newPassword(
+                                    password: passwordController.text,
+                                    email: widget.token,
+                                  );
+                                } else {
+                                  Toaster.showErrorTopShortToast(context, "Passwords does not the same");
+                                }
+                              }
                               // context.router.replaceAll([const LauncherRoute()]);
                               // if (_formKey.currentState!.validate()) {}
-                              // BlocProvider.of<NewPasswordCubit>(context).newPassword(
-                              //     password: passwordController.text,
-                              //     passwordConfirmation: passwordRepeatController.text,
-                              //     token: widget.token);
-                              context.router.push(const SuccessfullRoute());
-                              isFirstPage = !isFirstPage;
+                              // context.router.push(const SuccessfullRoute());
+                              // isFirstPage = !isFirstPage;
                               setState(() {});
                             },
-                            style: null,
+                            style: CustomButtonStyles.mainButtonStyle(context, elevation: 5),
                             text: isFirstPage ? 'Confirm' : 'Update Password',
                             child: null,
                           ),

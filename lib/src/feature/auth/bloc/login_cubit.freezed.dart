@@ -21,9 +21,7 @@ mixin _$LoginState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(UserDTO user) loaded,
-    required TResult Function(String message, String sendedOldValue,
-            AuthErrorResponse? authErrorResponse)
-        error,
+    required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -31,9 +29,7 @@ mixin _$LoginState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(UserDTO user)? loaded,
-    TResult? Function(String message, String sendedOldValue,
-            AuthErrorResponse? authErrorResponse)?
-        error,
+    TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -41,9 +37,7 @@ mixin _$LoginState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(UserDTO user)? loaded,
-    TResult Function(String message, String sendedOldValue,
-            AuthErrorResponse? authErrorResponse)?
-        error,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -139,9 +133,7 @@ class _$InitialStateImpl implements _InitialState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(UserDTO user) loaded,
-    required TResult Function(String message, String sendedOldValue,
-            AuthErrorResponse? authErrorResponse)
-        error,
+    required TResult Function(String message) error,
   }) {
     return initial();
   }
@@ -152,9 +144,7 @@ class _$InitialStateImpl implements _InitialState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(UserDTO user)? loaded,
-    TResult? Function(String message, String sendedOldValue,
-            AuthErrorResponse? authErrorResponse)?
-        error,
+    TResult? Function(String message)? error,
   }) {
     return initial?.call();
   }
@@ -165,9 +155,7 @@ class _$InitialStateImpl implements _InitialState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(UserDTO user)? loaded,
-    TResult Function(String message, String sendedOldValue,
-            AuthErrorResponse? authErrorResponse)?
-        error,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -262,9 +250,7 @@ class _$LoadingStateImpl implements _LoadingState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(UserDTO user) loaded,
-    required TResult Function(String message, String sendedOldValue,
-            AuthErrorResponse? authErrorResponse)
-        error,
+    required TResult Function(String message) error,
   }) {
     return loading();
   }
@@ -275,9 +261,7 @@ class _$LoadingStateImpl implements _LoadingState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(UserDTO user)? loaded,
-    TResult? Function(String message, String sendedOldValue,
-            AuthErrorResponse? authErrorResponse)?
-        error,
+    TResult? Function(String message)? error,
   }) {
     return loading?.call();
   }
@@ -288,9 +272,7 @@ class _$LoadingStateImpl implements _LoadingState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(UserDTO user)? loaded,
-    TResult Function(String message, String sendedOldValue,
-            AuthErrorResponse? authErrorResponse)?
-        error,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -424,9 +406,7 @@ class _$LoadedStateImpl implements _LoadedState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(UserDTO user) loaded,
-    required TResult Function(String message, String sendedOldValue,
-            AuthErrorResponse? authErrorResponse)
-        error,
+    required TResult Function(String message) error,
   }) {
     return loaded(user);
   }
@@ -437,9 +417,7 @@ class _$LoadedStateImpl implements _LoadedState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(UserDTO user)? loaded,
-    TResult? Function(String message, String sendedOldValue,
-            AuthErrorResponse? authErrorResponse)?
-        error,
+    TResult? Function(String message)? error,
   }) {
     return loaded?.call(user);
   }
@@ -450,9 +428,7 @@ class _$LoadedStateImpl implements _LoadedState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(UserDTO user)? loaded,
-    TResult Function(String message, String sendedOldValue,
-            AuthErrorResponse? authErrorResponse)?
-        error,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -517,12 +493,7 @@ abstract class _$$ErrorStateImplCopyWith<$Res> {
           _$ErrorStateImpl value, $Res Function(_$ErrorStateImpl) then) =
       __$$ErrorStateImplCopyWithImpl<$Res>;
   @useResult
-  $Res call(
-      {String message,
-      String sendedOldValue,
-      AuthErrorResponse? authErrorResponse});
-
-  $AuthErrorResponseCopyWith<$Res>? get authErrorResponse;
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -539,58 +510,27 @@ class __$$ErrorStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? message = null,
-    Object? sendedOldValue = null,
-    Object? authErrorResponse = freezed,
   }) {
     return _then(_$ErrorStateImpl(
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
-      sendedOldValue: null == sendedOldValue
-          ? _value.sendedOldValue
-          : sendedOldValue // ignore: cast_nullable_to_non_nullable
-              as String,
-      authErrorResponse: freezed == authErrorResponse
-          ? _value.authErrorResponse
-          : authErrorResponse // ignore: cast_nullable_to_non_nullable
-              as AuthErrorResponse?,
     ));
-  }
-
-  /// Create a copy of LoginState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $AuthErrorResponseCopyWith<$Res>? get authErrorResponse {
-    if (_value.authErrorResponse == null) {
-      return null;
-    }
-
-    return $AuthErrorResponseCopyWith<$Res>(_value.authErrorResponse!, (value) {
-      return _then(_value.copyWith(authErrorResponse: value));
-    });
   }
 }
 
 /// @nodoc
 
 class _$ErrorStateImpl implements _ErrorState {
-  const _$ErrorStateImpl(
-      {required this.message,
-      required this.sendedOldValue,
-      this.authErrorResponse});
+  const _$ErrorStateImpl({required this.message});
 
   @override
   final String message;
-  @override
-  final String sendedOldValue;
-  @override
-  final AuthErrorResponse? authErrorResponse;
 
   @override
   String toString() {
-    return 'LoginState.error(message: $message, sendedOldValue: $sendedOldValue, authErrorResponse: $authErrorResponse)';
+    return 'LoginState.error(message: $message)';
   }
 
   @override
@@ -598,16 +538,11 @@ class _$ErrorStateImpl implements _ErrorState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ErrorStateImpl &&
-            (identical(other.message, message) || other.message == message) &&
-            (identical(other.sendedOldValue, sendedOldValue) ||
-                other.sendedOldValue == sendedOldValue) &&
-            (identical(other.authErrorResponse, authErrorResponse) ||
-                other.authErrorResponse == authErrorResponse));
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, message, sendedOldValue, authErrorResponse);
+  int get hashCode => Object.hash(runtimeType, message);
 
   /// Create a copy of LoginState
   /// with the given fields replaced by the non-null parameter values.
@@ -623,11 +558,9 @@ class _$ErrorStateImpl implements _ErrorState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(UserDTO user) loaded,
-    required TResult Function(String message, String sendedOldValue,
-            AuthErrorResponse? authErrorResponse)
-        error,
+    required TResult Function(String message) error,
   }) {
-    return error(message, sendedOldValue, authErrorResponse);
+    return error(message);
   }
 
   @override
@@ -636,11 +569,9 @@ class _$ErrorStateImpl implements _ErrorState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(UserDTO user)? loaded,
-    TResult? Function(String message, String sendedOldValue,
-            AuthErrorResponse? authErrorResponse)?
-        error,
+    TResult? Function(String message)? error,
   }) {
-    return error?.call(message, sendedOldValue, authErrorResponse);
+    return error?.call(message);
   }
 
   @override
@@ -649,13 +580,11 @@ class _$ErrorStateImpl implements _ErrorState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(UserDTO user)? loaded,
-    TResult Function(String message, String sendedOldValue,
-            AuthErrorResponse? authErrorResponse)?
-        error,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(message, sendedOldValue, authErrorResponse);
+      return error(message);
     }
     return orElse();
   }
@@ -699,14 +628,9 @@ class _$ErrorStateImpl implements _ErrorState {
 }
 
 abstract class _ErrorState implements LoginState {
-  const factory _ErrorState(
-      {required final String message,
-      required final String sendedOldValue,
-      final AuthErrorResponse? authErrorResponse}) = _$ErrorStateImpl;
+  const factory _ErrorState({required final String message}) = _$ErrorStateImpl;
 
   String get message;
-  String get sendedOldValue;
-  AuthErrorResponse? get authErrorResponse;
 
   /// Create a copy of LoginState
   /// with the given fields replaced by the non-null parameter values.

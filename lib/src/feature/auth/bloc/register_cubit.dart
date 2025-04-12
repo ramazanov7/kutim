@@ -17,14 +17,14 @@ class RegisterCubit extends Cubit<RegisterState> {
     required String name,
     required String email,
     required String password,
-    required String phone,
+    required String surname,
     String? deviceType,
   }) async {
     try {
       emit(const RegisterState.loading());
 
       final data = await _repository.register(
-          email: email, name: name, password: password, deviceType: deviceType, phone: phone);
+          email: email, name: name, password: password, deviceType: deviceType, surname: surname);
 
       if (isClosed) return;
 

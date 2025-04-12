@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kutim/src/core/rest_client/rest_client.dart';
 
 import 'package:kutim/src/feature/auth/data/auth_repository.dart';
+import 'package:kutim/src/feature/auth/models/user_dto.dart';
 
 part 'new_password_cubit.freezed.dart';
 
@@ -15,17 +16,16 @@ class NewPasswordCubit extends Cubit<NewPasswordState> {
 
   Future<void> newPassword({
     required String password,
-    required String passwordConfirmation,
-    required String token,
+    required String email,
   }) async {
     try {
       emit(const NewPasswordState.loading());
 
-      await _repository.newPassword(password: password, passwordConfirmation: passwordConfirmation, token: token);
+      final user = await _repository.newPassword(password: password, email: email);
 
       if (isClosed) return;
 
-      emit(const NewPasswordState.loaded());
+      emit(NewPasswordState.loaded(user: user));
     } on RestClientException catch (e) {
       emit(
         NewPasswordState.error(
@@ -48,7 +48,7 @@ class NewPasswordState with _$NewPasswordState {
 
   const factory NewPasswordState.loading() = _LoadingState;
 
-  const factory NewPasswordState.loaded() = _LoadedState;
+  const factory NewPasswordState.loaded({required UserDTO user}) = _LoadedState;
 
   const factory NewPasswordState.error({
     required String message,

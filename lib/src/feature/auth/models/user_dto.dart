@@ -1,6 +1,5 @@
 // ignore_for_file: invalid_annotation_target
 
-import 'package:kutim/src/feature/main/model/main_dto.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_dto.freezed.dart';
@@ -21,6 +20,16 @@ class UserDTO with _$UserDTO {
     @JsonKey(name: 'access_token') String? accessToken,
     @JsonKey(name: 'device_token') String? deviceToken,
     @JsonKey(name: 'device_type') String? deviceType,
+    TokenDTO? token,
   }) = _UserDTO;
   factory UserDTO.fromJson(Map<String, dynamic> json) => _$UserDTOFromJson(json);
+}
+
+@freezed
+class TokenDTO with _$TokenDTO {
+  const factory TokenDTO({
+    @JsonKey(name: 'token_type') String? tokenType,
+    @JsonKey(name: 'access_token') String? accessToken,
+  }) = _TokenDTO;
+  factory TokenDTO.fromJson(Map<String, dynamic> json) => _$TokenDTOFromJson(json);
 }

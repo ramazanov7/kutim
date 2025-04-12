@@ -13,14 +13,14 @@ class EnterSmsCodeCubit extends Cubit<EnterSmsCodeState> {
 
   Future<void> sendSmsCode({
     required String code,
-    required String token,
+    required String email,
   }) async {
     try {
       emit(const EnterSmsCodeState.loading());
 
       final result = await _repository.sendSms(
         code: code,
-        token: token,
+        email: email,
       );
 
       if (isClosed) return;

@@ -23,6 +23,7 @@ mixin _$AppEvent {
     required TResult Function() exiting,
     required TResult Function() refreshLocal,
     required TResult Function() sendDeviceToken,
+    required TResult Function() onboardingSave,
     required TResult Function(AppState state) changeState,
   }) =>
       throw _privateConstructorUsedError;
@@ -33,6 +34,7 @@ mixin _$AppEvent {
     TResult? Function()? exiting,
     TResult? Function()? refreshLocal,
     TResult? Function()? sendDeviceToken,
+    TResult? Function()? onboardingSave,
     TResult? Function(AppState state)? changeState,
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +45,7 @@ mixin _$AppEvent {
     TResult Function()? exiting,
     TResult Function()? refreshLocal,
     TResult Function()? sendDeviceToken,
+    TResult Function()? onboardingSave,
     TResult Function(AppState state)? changeState,
     required TResult orElse(),
   }) =>
@@ -54,6 +57,7 @@ mixin _$AppEvent {
     required TResult Function(_ExitingEvent value) exiting,
     required TResult Function(_RefreshLocalEvent value) refreshLocal,
     required TResult Function(_SendDeviceTokenEvent value) sendDeviceToken,
+    required TResult Function(_OnboardingSave value) onboardingSave,
     required TResult Function(_ChangeStateEvent value) changeState,
   }) =>
       throw _privateConstructorUsedError;
@@ -64,6 +68,7 @@ mixin _$AppEvent {
     TResult? Function(_ExitingEvent value)? exiting,
     TResult? Function(_RefreshLocalEvent value)? refreshLocal,
     TResult? Function(_SendDeviceTokenEvent value)? sendDeviceToken,
+    TResult? Function(_OnboardingSave value)? onboardingSave,
     TResult? Function(_ChangeStateEvent value)? changeState,
   }) =>
       throw _privateConstructorUsedError;
@@ -74,6 +79,7 @@ mixin _$AppEvent {
     TResult Function(_ExitingEvent value)? exiting,
     TResult Function(_RefreshLocalEvent value)? refreshLocal,
     TResult Function(_SendDeviceTokenEvent value)? sendDeviceToken,
+    TResult Function(_OnboardingSave value)? onboardingSave,
     TResult Function(_ChangeStateEvent value)? changeState,
     required TResult orElse(),
   }) =>
@@ -184,6 +190,7 @@ class _$CheckAuthEventImpl
     required TResult Function() exiting,
     required TResult Function() refreshLocal,
     required TResult Function() sendDeviceToken,
+    required TResult Function() onboardingSave,
     required TResult Function(AppState state) changeState,
   }) {
     return checkAuth(version);
@@ -197,6 +204,7 @@ class _$CheckAuthEventImpl
     TResult? Function()? exiting,
     TResult? Function()? refreshLocal,
     TResult? Function()? sendDeviceToken,
+    TResult? Function()? onboardingSave,
     TResult? Function(AppState state)? changeState,
   }) {
     return checkAuth?.call(version);
@@ -210,6 +218,7 @@ class _$CheckAuthEventImpl
     TResult Function()? exiting,
     TResult Function()? refreshLocal,
     TResult Function()? sendDeviceToken,
+    TResult Function()? onboardingSave,
     TResult Function(AppState state)? changeState,
     required TResult orElse(),
   }) {
@@ -227,6 +236,7 @@ class _$CheckAuthEventImpl
     required TResult Function(_ExitingEvent value) exiting,
     required TResult Function(_RefreshLocalEvent value) refreshLocal,
     required TResult Function(_SendDeviceTokenEvent value) sendDeviceToken,
+    required TResult Function(_OnboardingSave value) onboardingSave,
     required TResult Function(_ChangeStateEvent value) changeState,
   }) {
     return checkAuth(this);
@@ -240,6 +250,7 @@ class _$CheckAuthEventImpl
     TResult? Function(_ExitingEvent value)? exiting,
     TResult? Function(_RefreshLocalEvent value)? refreshLocal,
     TResult? Function(_SendDeviceTokenEvent value)? sendDeviceToken,
+    TResult? Function(_OnboardingSave value)? onboardingSave,
     TResult? Function(_ChangeStateEvent value)? changeState,
   }) {
     return checkAuth?.call(this);
@@ -253,6 +264,7 @@ class _$CheckAuthEventImpl
     TResult Function(_ExitingEvent value)? exiting,
     TResult Function(_RefreshLocalEvent value)? refreshLocal,
     TResult Function(_SendDeviceTokenEvent value)? sendDeviceToken,
+    TResult Function(_OnboardingSave value)? onboardingSave,
     TResult Function(_ChangeStateEvent value)? changeState,
     required TResult orElse(),
   }) {
@@ -371,6 +383,7 @@ class _$LoginingEventImpl
     required TResult Function() exiting,
     required TResult Function() refreshLocal,
     required TResult Function() sendDeviceToken,
+    required TResult Function() onboardingSave,
     required TResult Function(AppState state) changeState,
   }) {
     return logining(user);
@@ -384,6 +397,7 @@ class _$LoginingEventImpl
     TResult? Function()? exiting,
     TResult? Function()? refreshLocal,
     TResult? Function()? sendDeviceToken,
+    TResult? Function()? onboardingSave,
     TResult? Function(AppState state)? changeState,
   }) {
     return logining?.call(user);
@@ -397,6 +411,7 @@ class _$LoginingEventImpl
     TResult Function()? exiting,
     TResult Function()? refreshLocal,
     TResult Function()? sendDeviceToken,
+    TResult Function()? onboardingSave,
     TResult Function(AppState state)? changeState,
     required TResult orElse(),
   }) {
@@ -414,6 +429,7 @@ class _$LoginingEventImpl
     required TResult Function(_ExitingEvent value) exiting,
     required TResult Function(_RefreshLocalEvent value) refreshLocal,
     required TResult Function(_SendDeviceTokenEvent value) sendDeviceToken,
+    required TResult Function(_OnboardingSave value) onboardingSave,
     required TResult Function(_ChangeStateEvent value) changeState,
   }) {
     return logining(this);
@@ -427,6 +443,7 @@ class _$LoginingEventImpl
     TResult? Function(_ExitingEvent value)? exiting,
     TResult? Function(_RefreshLocalEvent value)? refreshLocal,
     TResult? Function(_SendDeviceTokenEvent value)? sendDeviceToken,
+    TResult? Function(_OnboardingSave value)? onboardingSave,
     TResult? Function(_ChangeStateEvent value)? changeState,
   }) {
     return logining?.call(this);
@@ -440,6 +457,7 @@ class _$LoginingEventImpl
     TResult Function(_ExitingEvent value)? exiting,
     TResult Function(_RefreshLocalEvent value)? refreshLocal,
     TResult Function(_SendDeviceTokenEvent value)? sendDeviceToken,
+    TResult Function(_OnboardingSave value)? onboardingSave,
     TResult Function(_ChangeStateEvent value)? changeState,
     required TResult orElse(),
   }) {
@@ -515,6 +533,7 @@ class _$ExitingEventImpl with DiagnosticableTreeMixin implements _ExitingEvent {
     required TResult Function() exiting,
     required TResult Function() refreshLocal,
     required TResult Function() sendDeviceToken,
+    required TResult Function() onboardingSave,
     required TResult Function(AppState state) changeState,
   }) {
     return exiting();
@@ -528,6 +547,7 @@ class _$ExitingEventImpl with DiagnosticableTreeMixin implements _ExitingEvent {
     TResult? Function()? exiting,
     TResult? Function()? refreshLocal,
     TResult? Function()? sendDeviceToken,
+    TResult? Function()? onboardingSave,
     TResult? Function(AppState state)? changeState,
   }) {
     return exiting?.call();
@@ -541,6 +561,7 @@ class _$ExitingEventImpl with DiagnosticableTreeMixin implements _ExitingEvent {
     TResult Function()? exiting,
     TResult Function()? refreshLocal,
     TResult Function()? sendDeviceToken,
+    TResult Function()? onboardingSave,
     TResult Function(AppState state)? changeState,
     required TResult orElse(),
   }) {
@@ -558,6 +579,7 @@ class _$ExitingEventImpl with DiagnosticableTreeMixin implements _ExitingEvent {
     required TResult Function(_ExitingEvent value) exiting,
     required TResult Function(_RefreshLocalEvent value) refreshLocal,
     required TResult Function(_SendDeviceTokenEvent value) sendDeviceToken,
+    required TResult Function(_OnboardingSave value) onboardingSave,
     required TResult Function(_ChangeStateEvent value) changeState,
   }) {
     return exiting(this);
@@ -571,6 +593,7 @@ class _$ExitingEventImpl with DiagnosticableTreeMixin implements _ExitingEvent {
     TResult? Function(_ExitingEvent value)? exiting,
     TResult? Function(_RefreshLocalEvent value)? refreshLocal,
     TResult? Function(_SendDeviceTokenEvent value)? sendDeviceToken,
+    TResult? Function(_OnboardingSave value)? onboardingSave,
     TResult? Function(_ChangeStateEvent value)? changeState,
   }) {
     return exiting?.call(this);
@@ -584,6 +607,7 @@ class _$ExitingEventImpl with DiagnosticableTreeMixin implements _ExitingEvent {
     TResult Function(_ExitingEvent value)? exiting,
     TResult Function(_RefreshLocalEvent value)? refreshLocal,
     TResult Function(_SendDeviceTokenEvent value)? sendDeviceToken,
+    TResult Function(_OnboardingSave value)? onboardingSave,
     TResult Function(_ChangeStateEvent value)? changeState,
     required TResult orElse(),
   }) {
@@ -652,6 +676,7 @@ class _$RefreshLocalEventImpl
     required TResult Function() exiting,
     required TResult Function() refreshLocal,
     required TResult Function() sendDeviceToken,
+    required TResult Function() onboardingSave,
     required TResult Function(AppState state) changeState,
   }) {
     return refreshLocal();
@@ -665,6 +690,7 @@ class _$RefreshLocalEventImpl
     TResult? Function()? exiting,
     TResult? Function()? refreshLocal,
     TResult? Function()? sendDeviceToken,
+    TResult? Function()? onboardingSave,
     TResult? Function(AppState state)? changeState,
   }) {
     return refreshLocal?.call();
@@ -678,6 +704,7 @@ class _$RefreshLocalEventImpl
     TResult Function()? exiting,
     TResult Function()? refreshLocal,
     TResult Function()? sendDeviceToken,
+    TResult Function()? onboardingSave,
     TResult Function(AppState state)? changeState,
     required TResult orElse(),
   }) {
@@ -695,6 +722,7 @@ class _$RefreshLocalEventImpl
     required TResult Function(_ExitingEvent value) exiting,
     required TResult Function(_RefreshLocalEvent value) refreshLocal,
     required TResult Function(_SendDeviceTokenEvent value) sendDeviceToken,
+    required TResult Function(_OnboardingSave value) onboardingSave,
     required TResult Function(_ChangeStateEvent value) changeState,
   }) {
     return refreshLocal(this);
@@ -708,6 +736,7 @@ class _$RefreshLocalEventImpl
     TResult? Function(_ExitingEvent value)? exiting,
     TResult? Function(_RefreshLocalEvent value)? refreshLocal,
     TResult? Function(_SendDeviceTokenEvent value)? sendDeviceToken,
+    TResult? Function(_OnboardingSave value)? onboardingSave,
     TResult? Function(_ChangeStateEvent value)? changeState,
   }) {
     return refreshLocal?.call(this);
@@ -721,6 +750,7 @@ class _$RefreshLocalEventImpl
     TResult Function(_ExitingEvent value)? exiting,
     TResult Function(_RefreshLocalEvent value)? refreshLocal,
     TResult Function(_SendDeviceTokenEvent value)? sendDeviceToken,
+    TResult Function(_OnboardingSave value)? onboardingSave,
     TResult Function(_ChangeStateEvent value)? changeState,
     required TResult orElse(),
   }) {
@@ -790,6 +820,7 @@ class _$SendDeviceTokenEventImpl
     required TResult Function() exiting,
     required TResult Function() refreshLocal,
     required TResult Function() sendDeviceToken,
+    required TResult Function() onboardingSave,
     required TResult Function(AppState state) changeState,
   }) {
     return sendDeviceToken();
@@ -803,6 +834,7 @@ class _$SendDeviceTokenEventImpl
     TResult? Function()? exiting,
     TResult? Function()? refreshLocal,
     TResult? Function()? sendDeviceToken,
+    TResult? Function()? onboardingSave,
     TResult? Function(AppState state)? changeState,
   }) {
     return sendDeviceToken?.call();
@@ -816,6 +848,7 @@ class _$SendDeviceTokenEventImpl
     TResult Function()? exiting,
     TResult Function()? refreshLocal,
     TResult Function()? sendDeviceToken,
+    TResult Function()? onboardingSave,
     TResult Function(AppState state)? changeState,
     required TResult orElse(),
   }) {
@@ -833,6 +866,7 @@ class _$SendDeviceTokenEventImpl
     required TResult Function(_ExitingEvent value) exiting,
     required TResult Function(_RefreshLocalEvent value) refreshLocal,
     required TResult Function(_SendDeviceTokenEvent value) sendDeviceToken,
+    required TResult Function(_OnboardingSave value) onboardingSave,
     required TResult Function(_ChangeStateEvent value) changeState,
   }) {
     return sendDeviceToken(this);
@@ -846,6 +880,7 @@ class _$SendDeviceTokenEventImpl
     TResult? Function(_ExitingEvent value)? exiting,
     TResult? Function(_RefreshLocalEvent value)? refreshLocal,
     TResult? Function(_SendDeviceTokenEvent value)? sendDeviceToken,
+    TResult? Function(_OnboardingSave value)? onboardingSave,
     TResult? Function(_ChangeStateEvent value)? changeState,
   }) {
     return sendDeviceToken?.call(this);
@@ -859,6 +894,7 @@ class _$SendDeviceTokenEventImpl
     TResult Function(_ExitingEvent value)? exiting,
     TResult Function(_RefreshLocalEvent value)? refreshLocal,
     TResult Function(_SendDeviceTokenEvent value)? sendDeviceToken,
+    TResult Function(_OnboardingSave value)? onboardingSave,
     TResult Function(_ChangeStateEvent value)? changeState,
     required TResult orElse(),
   }) {
@@ -871,6 +907,149 @@ class _$SendDeviceTokenEventImpl
 
 abstract class _SendDeviceTokenEvent implements AppEvent {
   const factory _SendDeviceTokenEvent() = _$SendDeviceTokenEventImpl;
+}
+
+/// @nodoc
+abstract class _$$OnboardingSaveImplCopyWith<$Res> {
+  factory _$$OnboardingSaveImplCopyWith(_$OnboardingSaveImpl value,
+          $Res Function(_$OnboardingSaveImpl) then) =
+      __$$OnboardingSaveImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$OnboardingSaveImplCopyWithImpl<$Res>
+    extends _$AppEventCopyWithImpl<$Res, _$OnboardingSaveImpl>
+    implements _$$OnboardingSaveImplCopyWith<$Res> {
+  __$$OnboardingSaveImplCopyWithImpl(
+      _$OnboardingSaveImpl _value, $Res Function(_$OnboardingSaveImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AppEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$OnboardingSaveImpl
+    with DiagnosticableTreeMixin
+    implements _OnboardingSave {
+  const _$OnboardingSaveImpl();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'AppEvent.onboardingSave()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'AppEvent.onboardingSave'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$OnboardingSaveImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String version) checkAuth,
+    required TResult Function(UserDTO user) logining,
+    required TResult Function() exiting,
+    required TResult Function() refreshLocal,
+    required TResult Function() sendDeviceToken,
+    required TResult Function() onboardingSave,
+    required TResult Function(AppState state) changeState,
+  }) {
+    return onboardingSave();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String version)? checkAuth,
+    TResult? Function(UserDTO user)? logining,
+    TResult? Function()? exiting,
+    TResult? Function()? refreshLocal,
+    TResult? Function()? sendDeviceToken,
+    TResult? Function()? onboardingSave,
+    TResult? Function(AppState state)? changeState,
+  }) {
+    return onboardingSave?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String version)? checkAuth,
+    TResult Function(UserDTO user)? logining,
+    TResult Function()? exiting,
+    TResult Function()? refreshLocal,
+    TResult Function()? sendDeviceToken,
+    TResult Function()? onboardingSave,
+    TResult Function(AppState state)? changeState,
+    required TResult orElse(),
+  }) {
+    if (onboardingSave != null) {
+      return onboardingSave();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_CheckAuthEvent value) checkAuth,
+    required TResult Function(_LoginingEvent value) logining,
+    required TResult Function(_ExitingEvent value) exiting,
+    required TResult Function(_RefreshLocalEvent value) refreshLocal,
+    required TResult Function(_SendDeviceTokenEvent value) sendDeviceToken,
+    required TResult Function(_OnboardingSave value) onboardingSave,
+    required TResult Function(_ChangeStateEvent value) changeState,
+  }) {
+    return onboardingSave(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_CheckAuthEvent value)? checkAuth,
+    TResult? Function(_LoginingEvent value)? logining,
+    TResult? Function(_ExitingEvent value)? exiting,
+    TResult? Function(_RefreshLocalEvent value)? refreshLocal,
+    TResult? Function(_SendDeviceTokenEvent value)? sendDeviceToken,
+    TResult? Function(_OnboardingSave value)? onboardingSave,
+    TResult? Function(_ChangeStateEvent value)? changeState,
+  }) {
+    return onboardingSave?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_CheckAuthEvent value)? checkAuth,
+    TResult Function(_LoginingEvent value)? logining,
+    TResult Function(_ExitingEvent value)? exiting,
+    TResult Function(_RefreshLocalEvent value)? refreshLocal,
+    TResult Function(_SendDeviceTokenEvent value)? sendDeviceToken,
+    TResult Function(_OnboardingSave value)? onboardingSave,
+    TResult Function(_ChangeStateEvent value)? changeState,
+    required TResult orElse(),
+  }) {
+    if (onboardingSave != null) {
+      return onboardingSave(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OnboardingSave implements AppEvent {
+  const factory _OnboardingSave() = _$OnboardingSaveImpl;
 }
 
 /// @nodoc
@@ -969,6 +1148,7 @@ class _$ChangeStateEventImpl
     required TResult Function() exiting,
     required TResult Function() refreshLocal,
     required TResult Function() sendDeviceToken,
+    required TResult Function() onboardingSave,
     required TResult Function(AppState state) changeState,
   }) {
     return changeState(state);
@@ -982,6 +1162,7 @@ class _$ChangeStateEventImpl
     TResult? Function()? exiting,
     TResult? Function()? refreshLocal,
     TResult? Function()? sendDeviceToken,
+    TResult? Function()? onboardingSave,
     TResult? Function(AppState state)? changeState,
   }) {
     return changeState?.call(state);
@@ -995,6 +1176,7 @@ class _$ChangeStateEventImpl
     TResult Function()? exiting,
     TResult Function()? refreshLocal,
     TResult Function()? sendDeviceToken,
+    TResult Function()? onboardingSave,
     TResult Function(AppState state)? changeState,
     required TResult orElse(),
   }) {
@@ -1012,6 +1194,7 @@ class _$ChangeStateEventImpl
     required TResult Function(_ExitingEvent value) exiting,
     required TResult Function(_RefreshLocalEvent value) refreshLocal,
     required TResult Function(_SendDeviceTokenEvent value) sendDeviceToken,
+    required TResult Function(_OnboardingSave value) onboardingSave,
     required TResult Function(_ChangeStateEvent value) changeState,
   }) {
     return changeState(this);
@@ -1025,6 +1208,7 @@ class _$ChangeStateEventImpl
     TResult? Function(_ExitingEvent value)? exiting,
     TResult? Function(_RefreshLocalEvent value)? refreshLocal,
     TResult? Function(_SendDeviceTokenEvent value)? sendDeviceToken,
+    TResult? Function(_OnboardingSave value)? onboardingSave,
     TResult? Function(_ChangeStateEvent value)? changeState,
   }) {
     return changeState?.call(this);
@@ -1038,6 +1222,7 @@ class _$ChangeStateEventImpl
     TResult Function(_ExitingEvent value)? exiting,
     TResult Function(_RefreshLocalEvent value)? refreshLocal,
     TResult Function(_SendDeviceTokenEvent value)? sendDeviceToken,
+    TResult Function(_OnboardingSave value)? onboardingSave,
     TResult Function(_ChangeStateEvent value)? changeState,
     required TResult orElse(),
   }) {
@@ -1067,6 +1252,7 @@ mixin _$AppState {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function() notAuthorized,
+    required TResult Function() onboardingState,
     required TResult Function() inApp,
     required TResult Function() notAvailableVersion,
     required TResult Function(String message) error,
@@ -1076,6 +1262,7 @@ mixin _$AppState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function()? notAuthorized,
+    TResult? Function()? onboardingState,
     TResult? Function()? inApp,
     TResult? Function()? notAvailableVersion,
     TResult? Function(String message)? error,
@@ -1085,6 +1272,7 @@ mixin _$AppState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function()? notAuthorized,
+    TResult Function()? onboardingState,
     TResult Function()? inApp,
     TResult Function()? notAvailableVersion,
     TResult Function(String message)? error,
@@ -1095,6 +1283,7 @@ mixin _$AppState {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadingAppState value) loading,
     required TResult Function(_NotAuthorizedState value) notAuthorized,
+    required TResult Function(_OnboardingState value) onboardingState,
     required TResult Function(_InAppState value) inApp,
     required TResult Function(_NotAvailableVersion value) notAvailableVersion,
     required TResult Function(_ErrorAppState value) error,
@@ -1104,6 +1293,7 @@ mixin _$AppState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadingAppState value)? loading,
     TResult? Function(_NotAuthorizedState value)? notAuthorized,
+    TResult? Function(_OnboardingState value)? onboardingState,
     TResult? Function(_InAppState value)? inApp,
     TResult? Function(_NotAvailableVersion value)? notAvailableVersion,
     TResult? Function(_ErrorAppState value)? error,
@@ -1113,6 +1303,7 @@ mixin _$AppState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadingAppState value)? loading,
     TResult Function(_NotAuthorizedState value)? notAuthorized,
+    TResult Function(_OnboardingState value)? onboardingState,
     TResult Function(_InAppState value)? inApp,
     TResult Function(_NotAvailableVersion value)? notAvailableVersion,
     TResult Function(_ErrorAppState value)? error,
@@ -1192,6 +1383,7 @@ class _$LoadingAppStateImpl
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function() notAuthorized,
+    required TResult Function() onboardingState,
     required TResult Function() inApp,
     required TResult Function() notAvailableVersion,
     required TResult Function(String message) error,
@@ -1204,6 +1396,7 @@ class _$LoadingAppStateImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function()? notAuthorized,
+    TResult? Function()? onboardingState,
     TResult? Function()? inApp,
     TResult? Function()? notAvailableVersion,
     TResult? Function(String message)? error,
@@ -1216,6 +1409,7 @@ class _$LoadingAppStateImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function()? notAuthorized,
+    TResult Function()? onboardingState,
     TResult Function()? inApp,
     TResult Function()? notAvailableVersion,
     TResult Function(String message)? error,
@@ -1232,6 +1426,7 @@ class _$LoadingAppStateImpl
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadingAppState value) loading,
     required TResult Function(_NotAuthorizedState value) notAuthorized,
+    required TResult Function(_OnboardingState value) onboardingState,
     required TResult Function(_InAppState value) inApp,
     required TResult Function(_NotAvailableVersion value) notAvailableVersion,
     required TResult Function(_ErrorAppState value) error,
@@ -1244,6 +1439,7 @@ class _$LoadingAppStateImpl
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadingAppState value)? loading,
     TResult? Function(_NotAuthorizedState value)? notAuthorized,
+    TResult? Function(_OnboardingState value)? onboardingState,
     TResult? Function(_InAppState value)? inApp,
     TResult? Function(_NotAvailableVersion value)? notAvailableVersion,
     TResult? Function(_ErrorAppState value)? error,
@@ -1256,6 +1452,7 @@ class _$LoadingAppStateImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadingAppState value)? loading,
     TResult Function(_NotAuthorizedState value)? notAuthorized,
+    TResult Function(_OnboardingState value)? onboardingState,
     TResult Function(_InAppState value)? inApp,
     TResult Function(_NotAvailableVersion value)? notAvailableVersion,
     TResult Function(_ErrorAppState value)? error,
@@ -1323,6 +1520,7 @@ class _$NotAuthorizedStateImpl
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function() notAuthorized,
+    required TResult Function() onboardingState,
     required TResult Function() inApp,
     required TResult Function() notAvailableVersion,
     required TResult Function(String message) error,
@@ -1335,6 +1533,7 @@ class _$NotAuthorizedStateImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function()? notAuthorized,
+    TResult? Function()? onboardingState,
     TResult? Function()? inApp,
     TResult? Function()? notAvailableVersion,
     TResult? Function(String message)? error,
@@ -1347,6 +1546,7 @@ class _$NotAuthorizedStateImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function()? notAuthorized,
+    TResult Function()? onboardingState,
     TResult Function()? inApp,
     TResult Function()? notAvailableVersion,
     TResult Function(String message)? error,
@@ -1363,6 +1563,7 @@ class _$NotAuthorizedStateImpl
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadingAppState value) loading,
     required TResult Function(_NotAuthorizedState value) notAuthorized,
+    required TResult Function(_OnboardingState value) onboardingState,
     required TResult Function(_InAppState value) inApp,
     required TResult Function(_NotAvailableVersion value) notAvailableVersion,
     required TResult Function(_ErrorAppState value) error,
@@ -1375,6 +1576,7 @@ class _$NotAuthorizedStateImpl
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadingAppState value)? loading,
     TResult? Function(_NotAuthorizedState value)? notAuthorized,
+    TResult? Function(_OnboardingState value)? onboardingState,
     TResult? Function(_InAppState value)? inApp,
     TResult? Function(_NotAvailableVersion value)? notAvailableVersion,
     TResult? Function(_ErrorAppState value)? error,
@@ -1387,6 +1589,7 @@ class _$NotAuthorizedStateImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadingAppState value)? loading,
     TResult Function(_NotAuthorizedState value)? notAuthorized,
+    TResult Function(_OnboardingState value)? onboardingState,
     TResult Function(_InAppState value)? inApp,
     TResult Function(_NotAvailableVersion value)? notAvailableVersion,
     TResult Function(_ErrorAppState value)? error,
@@ -1401,6 +1604,143 @@ class _$NotAuthorizedStateImpl
 
 abstract class _NotAuthorizedState implements AppState {
   const factory _NotAuthorizedState() = _$NotAuthorizedStateImpl;
+}
+
+/// @nodoc
+abstract class _$$OnboardingStateImplCopyWith<$Res> {
+  factory _$$OnboardingStateImplCopyWith(_$OnboardingStateImpl value,
+          $Res Function(_$OnboardingStateImpl) then) =
+      __$$OnboardingStateImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$OnboardingStateImplCopyWithImpl<$Res>
+    extends _$AppStateCopyWithImpl<$Res, _$OnboardingStateImpl>
+    implements _$$OnboardingStateImplCopyWith<$Res> {
+  __$$OnboardingStateImplCopyWithImpl(
+      _$OnboardingStateImpl _value, $Res Function(_$OnboardingStateImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AppState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$OnboardingStateImpl
+    with DiagnosticableTreeMixin
+    implements _OnboardingState {
+  const _$OnboardingStateImpl();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'AppState.onboardingState()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'AppState.onboardingState'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$OnboardingStateImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function() notAuthorized,
+    required TResult Function() onboardingState,
+    required TResult Function() inApp,
+    required TResult Function() notAvailableVersion,
+    required TResult Function(String message) error,
+  }) {
+    return onboardingState();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function()? notAuthorized,
+    TResult? Function()? onboardingState,
+    TResult? Function()? inApp,
+    TResult? Function()? notAvailableVersion,
+    TResult? Function(String message)? error,
+  }) {
+    return onboardingState?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function()? notAuthorized,
+    TResult Function()? onboardingState,
+    TResult Function()? inApp,
+    TResult Function()? notAvailableVersion,
+    TResult Function(String message)? error,
+    required TResult orElse(),
+  }) {
+    if (onboardingState != null) {
+      return onboardingState();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoadingAppState value) loading,
+    required TResult Function(_NotAuthorizedState value) notAuthorized,
+    required TResult Function(_OnboardingState value) onboardingState,
+    required TResult Function(_InAppState value) inApp,
+    required TResult Function(_NotAvailableVersion value) notAvailableVersion,
+    required TResult Function(_ErrorAppState value) error,
+  }) {
+    return onboardingState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoadingAppState value)? loading,
+    TResult? Function(_NotAuthorizedState value)? notAuthorized,
+    TResult? Function(_OnboardingState value)? onboardingState,
+    TResult? Function(_InAppState value)? inApp,
+    TResult? Function(_NotAvailableVersion value)? notAvailableVersion,
+    TResult? Function(_ErrorAppState value)? error,
+  }) {
+    return onboardingState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoadingAppState value)? loading,
+    TResult Function(_NotAuthorizedState value)? notAuthorized,
+    TResult Function(_OnboardingState value)? onboardingState,
+    TResult Function(_InAppState value)? inApp,
+    TResult Function(_NotAvailableVersion value)? notAvailableVersion,
+    TResult Function(_ErrorAppState value)? error,
+    required TResult orElse(),
+  }) {
+    if (onboardingState != null) {
+      return onboardingState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OnboardingState implements AppState {
+  const factory _OnboardingState() = _$OnboardingStateImpl;
 }
 
 /// @nodoc
@@ -1452,6 +1792,7 @@ class _$InAppStateImpl with DiagnosticableTreeMixin implements _InAppState {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function() notAuthorized,
+    required TResult Function() onboardingState,
     required TResult Function() inApp,
     required TResult Function() notAvailableVersion,
     required TResult Function(String message) error,
@@ -1464,6 +1805,7 @@ class _$InAppStateImpl with DiagnosticableTreeMixin implements _InAppState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function()? notAuthorized,
+    TResult? Function()? onboardingState,
     TResult? Function()? inApp,
     TResult? Function()? notAvailableVersion,
     TResult? Function(String message)? error,
@@ -1476,6 +1818,7 @@ class _$InAppStateImpl with DiagnosticableTreeMixin implements _InAppState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function()? notAuthorized,
+    TResult Function()? onboardingState,
     TResult Function()? inApp,
     TResult Function()? notAvailableVersion,
     TResult Function(String message)? error,
@@ -1492,6 +1835,7 @@ class _$InAppStateImpl with DiagnosticableTreeMixin implements _InAppState {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadingAppState value) loading,
     required TResult Function(_NotAuthorizedState value) notAuthorized,
+    required TResult Function(_OnboardingState value) onboardingState,
     required TResult Function(_InAppState value) inApp,
     required TResult Function(_NotAvailableVersion value) notAvailableVersion,
     required TResult Function(_ErrorAppState value) error,
@@ -1504,6 +1848,7 @@ class _$InAppStateImpl with DiagnosticableTreeMixin implements _InAppState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadingAppState value)? loading,
     TResult? Function(_NotAuthorizedState value)? notAuthorized,
+    TResult? Function(_OnboardingState value)? onboardingState,
     TResult? Function(_InAppState value)? inApp,
     TResult? Function(_NotAvailableVersion value)? notAvailableVersion,
     TResult? Function(_ErrorAppState value)? error,
@@ -1516,6 +1861,7 @@ class _$InAppStateImpl with DiagnosticableTreeMixin implements _InAppState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadingAppState value)? loading,
     TResult Function(_NotAuthorizedState value)? notAuthorized,
+    TResult Function(_OnboardingState value)? onboardingState,
     TResult Function(_InAppState value)? inApp,
     TResult Function(_NotAvailableVersion value)? notAvailableVersion,
     TResult Function(_ErrorAppState value)? error,
@@ -1585,6 +1931,7 @@ class _$NotAvailableVersionImpl
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function() notAuthorized,
+    required TResult Function() onboardingState,
     required TResult Function() inApp,
     required TResult Function() notAvailableVersion,
     required TResult Function(String message) error,
@@ -1597,6 +1944,7 @@ class _$NotAvailableVersionImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function()? notAuthorized,
+    TResult? Function()? onboardingState,
     TResult? Function()? inApp,
     TResult? Function()? notAvailableVersion,
     TResult? Function(String message)? error,
@@ -1609,6 +1957,7 @@ class _$NotAvailableVersionImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function()? notAuthorized,
+    TResult Function()? onboardingState,
     TResult Function()? inApp,
     TResult Function()? notAvailableVersion,
     TResult Function(String message)? error,
@@ -1625,6 +1974,7 @@ class _$NotAvailableVersionImpl
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadingAppState value) loading,
     required TResult Function(_NotAuthorizedState value) notAuthorized,
+    required TResult Function(_OnboardingState value) onboardingState,
     required TResult Function(_InAppState value) inApp,
     required TResult Function(_NotAvailableVersion value) notAvailableVersion,
     required TResult Function(_ErrorAppState value) error,
@@ -1637,6 +1987,7 @@ class _$NotAvailableVersionImpl
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadingAppState value)? loading,
     TResult? Function(_NotAuthorizedState value)? notAuthorized,
+    TResult? Function(_OnboardingState value)? onboardingState,
     TResult? Function(_InAppState value)? inApp,
     TResult? Function(_NotAvailableVersion value)? notAvailableVersion,
     TResult? Function(_ErrorAppState value)? error,
@@ -1649,6 +2000,7 @@ class _$NotAvailableVersionImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadingAppState value)? loading,
     TResult Function(_NotAuthorizedState value)? notAuthorized,
+    TResult Function(_OnboardingState value)? onboardingState,
     TResult Function(_InAppState value)? inApp,
     TResult Function(_NotAvailableVersion value)? notAvailableVersion,
     TResult Function(_ErrorAppState value)? error,
@@ -1745,6 +2097,7 @@ class _$ErrorAppStateImpl
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function() notAuthorized,
+    required TResult Function() onboardingState,
     required TResult Function() inApp,
     required TResult Function() notAvailableVersion,
     required TResult Function(String message) error,
@@ -1757,6 +2110,7 @@ class _$ErrorAppStateImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function()? notAuthorized,
+    TResult? Function()? onboardingState,
     TResult? Function()? inApp,
     TResult? Function()? notAvailableVersion,
     TResult? Function(String message)? error,
@@ -1769,6 +2123,7 @@ class _$ErrorAppStateImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function()? notAuthorized,
+    TResult Function()? onboardingState,
     TResult Function()? inApp,
     TResult Function()? notAvailableVersion,
     TResult Function(String message)? error,
@@ -1785,6 +2140,7 @@ class _$ErrorAppStateImpl
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadingAppState value) loading,
     required TResult Function(_NotAuthorizedState value) notAuthorized,
+    required TResult Function(_OnboardingState value) onboardingState,
     required TResult Function(_InAppState value) inApp,
     required TResult Function(_NotAvailableVersion value) notAvailableVersion,
     required TResult Function(_ErrorAppState value) error,
@@ -1797,6 +2153,7 @@ class _$ErrorAppStateImpl
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadingAppState value)? loading,
     TResult? Function(_NotAuthorizedState value)? notAuthorized,
+    TResult? Function(_OnboardingState value)? onboardingState,
     TResult? Function(_InAppState value)? inApp,
     TResult? Function(_NotAvailableVersion value)? notAvailableVersion,
     TResult? Function(_ErrorAppState value)? error,
@@ -1809,6 +2166,7 @@ class _$ErrorAppStateImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadingAppState value)? loading,
     TResult Function(_NotAuthorizedState value)? notAuthorized,
+    TResult Function(_OnboardingState value)? onboardingState,
     TResult Function(_InAppState value)? inApp,
     TResult Function(_NotAvailableVersion value)? notAvailableVersion,
     TResult Function(_ErrorAppState value)? error,

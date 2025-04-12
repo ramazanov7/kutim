@@ -165,7 +165,7 @@ class _EnterSmsCodePageState extends State<EnterSmsCodePage> {
             loaded: (token) {
               context.loaderOverlay.hide();
               context.pushRoute(
-                NewPasswordRoute(token: token),
+                NewPasswordRoute(token: widget.email),
               );
             },
             orElse: () {
@@ -243,12 +243,8 @@ class _EnterSmsCodePageState extends State<EnterSmsCodePage> {
                           // ignore: unnecessary_statements
                           pinputController.text.length == 4;
                           {
-                            context.pushRoute(
-                              NewPasswordRoute(token: ''),
-                            );
-                            // BlocProvider.of<EnterSmsCodeCubit>(context).sendSmsCode(
-                            //   code: pinputController.text,
-                            // );
+                            BlocProvider.of<EnterSmsCodeCubit>(context)
+                                .sendSmsCode(code: pinputController.text, email: widget.email);
                           }
                         },
                         style: null,
@@ -264,19 +260,41 @@ class _EnterSmsCodePageState extends State<EnterSmsCodePage> {
                               textAlign: TextAlign.start,
                               style: AppTextStyles.fs16w400,
                             ),
-                            GestureDetector(
-                                onTap: start <= 0
-                                    ? () {
-                                        startTimer(delay: 15);
-                                        setState(() {});
-                                      }
-                                    : () {},
-                                child: Text(
-                                    start <= 0 ? 'Resent email' : ' 00:${start < 10 ? '0$start' : start.toString()} ',
-                                    style: start <= 0
-                                        ? AppTextStyles.fs16w400.copyWith(color: AppColors.mainColor)
-                                        : AppTextStyles.fs16w400
-                                            .copyWith(color: AppColors.mainColor.withOpacity(0.5)))),
+                            BlocListener<PasswordRecoveryCubit, PasswordRecoveryState>(
+                              listener: (context, state) {
+                                state.maybeWhen(
+                                  error: (message) {
+                                    context.loaderOverlay.hide();
+                                    Toaster.showErrorTopShortToast(context, message);
+                                  },
+                                  loading: () {
+                                    context.loaderOverlay.show();
+                                  },
+                                  loaded: () {
+                                    context.loaderOverlay.hide();
+                                    startTimer(delay: 15);
+                                    setState(() {});
+                                  },
+                                  orElse: () {
+                                    context.loaderOverlay.hide();
+                                  },
+                                );
+                              },
+                              child: GestureDetector(
+                                  onTap: start <= 0
+                                      ? () {
+                                          BlocProvider.of<PasswordRecoveryCubit>(context).forgotPassword(
+                                            email: widget.email,
+                                          );
+                                        }
+                                      : () {},
+                                  child: Text(
+                                      start <= 0 ? 'Resent email' : ' 00:${start < 10 ? '0$start' : start.toString()} ',
+                                      style: start <= 0
+                                          ? AppTextStyles.fs16w400.copyWith(color: AppColors.mainColor)
+                                          : AppTextStyles.fs16w400
+                                              .copyWith(color: AppColors.mainColor.withOpacity(0.5)))),
+                            ),
                           ],
                         ),
                       )

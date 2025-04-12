@@ -39,6 +39,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         logining: (event) async => _login(event, emit),
         refreshLocal: (_) async => _refreshLocal(emit),
         sendDeviceToken: (_) async => _sendDeviceToken(),
+        onboardingSave: (_OnboardingSave event) async => _onboardingSave(event, emit),
         changeState: (event) async => _changeState(event, emit),
       ),
     );
@@ -111,6 +112,14 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     }
   }
 
+  Future<void> _onboardingSave(
+    _OnboardingSave event,
+    Emitter<AppState> emit,
+  ) async {
+    // _authRepository.setOnboarding(onboarding: true);
+    // emit(const AppState.formState());
+  }
+
   Future<void> _login(
     _LoginingEvent event,
     Emitter<AppState> emit,
@@ -178,6 +187,8 @@ sealed class AppEvent with _$AppEvent {
 
   const factory AppEvent.sendDeviceToken() = _SendDeviceTokenEvent;
 
+  const factory AppEvent.onboardingSave() = _OnboardingSave;
+
   const factory AppEvent.changeState({
     required AppState state,
   }) = _ChangeStateEvent;
@@ -188,6 +199,8 @@ sealed class AppState with _$AppState {
   const factory AppState.loading() = _LoadingAppState;
 
   const factory AppState.notAuthorized() = _NotAuthorizedState;
+
+  const factory AppState.onboardingState() = _OnboardingState;
 
   const factory AppState.inApp() = _InAppState;
 

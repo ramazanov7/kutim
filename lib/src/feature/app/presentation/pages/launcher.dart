@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:auto_route/auto_route.dart';
 import 'package:kutim/src/core/utils/extensions/context_extension.dart';
 import 'package:kutim/src/feature/app/presentation/pages/base_tab.dart';
+import 'package:kutim/src/feature/auth/bloc/login_cubit.dart';
 import 'package:kutim/src/feature/auth/presentation/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,6 +28,7 @@ class _LauncherState extends State<Launcher> with WidgetsBindingObserver {
   @override
   void initState() {
     FToast().init(context);
+    // _isFirstLaunch = false;
     // WidgetsBinding.instance.addPostFrameCallback((time) {
     //   NotificationService().onMessageOpenedApp(context);
     // });
@@ -81,6 +83,16 @@ class _LauncherState extends State<Launcher> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    if (_isFirstLaunch) {
+      return OnboardingPage(
+        onGoAuthPressed: () {
+          setState(() {
+            _isFirstLaunch = false;
+          });
+        },
+      );
+    }
+
     return BlocConsumer<AppBloc, AppState>(
       listener: (context, state) {
         state.whenOrNull(
@@ -98,22 +110,12 @@ class _LauncherState extends State<Launcher> with WidgetsBindingObserver {
         error: (message) => ForceUpdatePage.noAvailable(
           onTap: () async {},
         ),
+        onboardingState: () => const BaseTab(),
         inApp: () => const BaseTab(),
-        notAuthorized: () => const BaseTab(),
-
-        // notAuthorized: () => _isFirstLaunch
-        //     ? OnboardingPage(
-        //         onGoAuthPressed: () {
-        //           setState(() {
-        //             _isFirstLaunch = false;
-        //           });
-        //         },
-        //       )
-        //     : const LoginPage(),
-        // notAuthorized: () => BlocProvider(
-        //   create: (context) => RegisterCubit(repository: context.repository.authRepository),
-        //   child: const LoginPage(),
-        // ),
+        notAuthorized: () => BlocProvider(
+          create: (context) => LoginCubit(repository: context.repository.authRepository),
+          child: const LoginPage(),
+        ),
         loading: () => const _Scaffold(
           child: CustomLoadingWidget(),
         ),

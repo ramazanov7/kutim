@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-
 // coverage:ignore-start
 /// Base class for all rest client exceptions
 @immutable
@@ -97,11 +96,7 @@ final class CustomBackendException extends RestClientException {
   });
 
   @override
-  String toString() => 'CustomBackendException('
-      'message: $message, '
-      'cause: $cause, '
-      'statusCode: $statusCode, '
-      ')';
+  String toString() => message;
 
   @override
   List<Object?> get props => [message, cause, statusCode];

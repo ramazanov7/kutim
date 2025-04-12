@@ -73,8 +73,8 @@ class DioClient {
             final userStr = authDao.user.value;
             if (userStr != null) {
               final user = UserDTO.fromJson(jsonDecode(userStr) as Map<String, dynamic>);
-              if (user.accessToken != null) {
-                options.headers['Authorization'] = 'Bearer ${user.accessToken}';
+              if (user.token?.accessToken != null) {
+                options.headers['Authorization'] = 'Bearer ${user.token?.accessToken}';
               }
             }
 

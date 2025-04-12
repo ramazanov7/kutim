@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:kutim/src/core/constant/constants.dart';
@@ -6,6 +7,7 @@ import 'package:kutim/src/core/gen/assets.gen.dart';
 import 'package:kutim/src/core/presentation/widgets/buttons/custom_button.dart';
 import 'package:kutim/src/core/theme/resources.dart';
 import 'package:kutim/src/core/utils/extensions/context_extension.dart';
+import 'package:kutim/src/feature/app/bloc/app_bloc.dart';
 import 'package:kutim/src/feature/app/presentation/widgets/custom_appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:kutim/src/feature/app/router/app_router.dart';
@@ -114,7 +116,10 @@ class _ProfilePageState extends State<ProfilePage> {
             ProfileItem(
               title: 'Logout',
               icon: '',
-              onTap: () {},
+              onTap: () {
+                BlocProvider.of<AppBloc>(context).add(const AppEvent.exiting());
+                setState(() {});
+              },
             ),
 
             const Spacer(),

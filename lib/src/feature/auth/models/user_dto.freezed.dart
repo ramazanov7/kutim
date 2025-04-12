@@ -40,6 +40,7 @@ mixin _$UserDTO {
   String? get deviceToken => throw _privateConstructorUsedError;
   @JsonKey(name: 'device_type')
   String? get deviceType => throw _privateConstructorUsedError;
+  TokenDTO? get token => throw _privateConstructorUsedError;
 
   /// Serializes this UserDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -67,7 +68,10 @@ abstract class $UserDTOCopyWith<$Res> {
       @JsonKey(name: 'updated_at') DateTime? updatedAt,
       @JsonKey(name: 'access_token') String? accessToken,
       @JsonKey(name: 'device_token') String? deviceToken,
-      @JsonKey(name: 'device_type') String? deviceType});
+      @JsonKey(name: 'device_type') String? deviceType,
+      TokenDTO? token});
+
+  $TokenDTOCopyWith<$Res>? get token;
 }
 
 /// @nodoc
@@ -97,6 +101,7 @@ class _$UserDTOCopyWithImpl<$Res, $Val extends UserDTO>
     Object? accessToken = freezed,
     Object? deviceToken = freezed,
     Object? deviceType = freezed,
+    Object? token = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -147,7 +152,25 @@ class _$UserDTOCopyWithImpl<$Res, $Val extends UserDTO>
           ? _value.deviceType
           : deviceType // ignore: cast_nullable_to_non_nullable
               as String?,
+      token: freezed == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as TokenDTO?,
     ) as $Val);
+  }
+
+  /// Create a copy of UserDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TokenDTOCopyWith<$Res>? get token {
+    if (_value.token == null) {
+      return null;
+    }
+
+    return $TokenDTOCopyWith<$Res>(_value.token!, (value) {
+      return _then(_value.copyWith(token: value) as $Val);
+    });
   }
 }
 
@@ -170,7 +193,11 @@ abstract class _$$UserDTOImplCopyWith<$Res> implements $UserDTOCopyWith<$Res> {
       @JsonKey(name: 'updated_at') DateTime? updatedAt,
       @JsonKey(name: 'access_token') String? accessToken,
       @JsonKey(name: 'device_token') String? deviceToken,
-      @JsonKey(name: 'device_type') String? deviceType});
+      @JsonKey(name: 'device_type') String? deviceType,
+      TokenDTO? token});
+
+  @override
+  $TokenDTOCopyWith<$Res>? get token;
 }
 
 /// @nodoc
@@ -198,6 +225,7 @@ class __$$UserDTOImplCopyWithImpl<$Res>
     Object? accessToken = freezed,
     Object? deviceToken = freezed,
     Object? deviceType = freezed,
+    Object? token = freezed,
   }) {
     return _then(_$UserDTOImpl(
       id: freezed == id
@@ -248,6 +276,10 @@ class __$$UserDTOImplCopyWithImpl<$Res>
           ? _value.deviceType
           : deviceType // ignore: cast_nullable_to_non_nullable
               as String?,
+      token: freezed == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as TokenDTO?,
     ));
   }
 }
@@ -267,7 +299,8 @@ class _$UserDTOImpl implements _UserDTO {
       @JsonKey(name: 'updated_at') this.updatedAt,
       @JsonKey(name: 'access_token') this.accessToken,
       @JsonKey(name: 'device_token') this.deviceToken,
-      @JsonKey(name: 'device_type') this.deviceType});
+      @JsonKey(name: 'device_type') this.deviceType,
+      this.token});
 
   factory _$UserDTOImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserDTOImplFromJson(json);
@@ -304,10 +337,12 @@ class _$UserDTOImpl implements _UserDTO {
   @override
   @JsonKey(name: 'device_type')
   final String? deviceType;
+  @override
+  final TokenDTO? token;
 
   @override
   String toString() {
-    return 'UserDTO(id: $id, name: $name, email: $email, phone: $phone, avatar: $avatar, rating: $rating, cityName: $cityName, createdAt: $createdAt, updatedAt: $updatedAt, accessToken: $accessToken, deviceToken: $deviceToken, deviceType: $deviceType)';
+    return 'UserDTO(id: $id, name: $name, email: $email, phone: $phone, avatar: $avatar, rating: $rating, cityName: $cityName, createdAt: $createdAt, updatedAt: $updatedAt, accessToken: $accessToken, deviceToken: $deviceToken, deviceType: $deviceType, token: $token)';
   }
 
   @override
@@ -332,7 +367,8 @@ class _$UserDTOImpl implements _UserDTO {
             (identical(other.deviceToken, deviceToken) ||
                 other.deviceToken == deviceToken) &&
             (identical(other.deviceType, deviceType) ||
-                other.deviceType == deviceType));
+                other.deviceType == deviceType) &&
+            (identical(other.token, token) || other.token == token));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -350,7 +386,8 @@ class _$UserDTOImpl implements _UserDTO {
       updatedAt,
       accessToken,
       deviceToken,
-      deviceType);
+      deviceType,
+      token);
 
   /// Create a copy of UserDTO
   /// with the given fields replaced by the non-null parameter values.
@@ -381,7 +418,8 @@ abstract class _UserDTO implements UserDTO {
       @JsonKey(name: 'updated_at') final DateTime? updatedAt,
       @JsonKey(name: 'access_token') final String? accessToken,
       @JsonKey(name: 'device_token') final String? deviceToken,
-      @JsonKey(name: 'device_type') final String? deviceType}) = _$UserDTOImpl;
+      @JsonKey(name: 'device_type') final String? deviceType,
+      final TokenDTO? token}) = _$UserDTOImpl;
 
   factory _UserDTO.fromJson(Map<String, dynamic> json) = _$UserDTOImpl.fromJson;
 
@@ -417,11 +455,194 @@ abstract class _UserDTO implements UserDTO {
   @override
   @JsonKey(name: 'device_type')
   String? get deviceType;
+  @override
+  TokenDTO? get token;
 
   /// Create a copy of UserDTO
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserDTOImplCopyWith<_$UserDTOImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+TokenDTO _$TokenDTOFromJson(Map<String, dynamic> json) {
+  return _TokenDTO.fromJson(json);
+}
+
+/// @nodoc
+mixin _$TokenDTO {
+  @JsonKey(name: 'token_type')
+  String? get tokenType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'access_token')
+  String? get accessToken => throw _privateConstructorUsedError;
+
+  /// Serializes this TokenDTO to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of TokenDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $TokenDTOCopyWith<TokenDTO> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $TokenDTOCopyWith<$Res> {
+  factory $TokenDTOCopyWith(TokenDTO value, $Res Function(TokenDTO) then) =
+      _$TokenDTOCopyWithImpl<$Res, TokenDTO>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'token_type') String? tokenType,
+      @JsonKey(name: 'access_token') String? accessToken});
+}
+
+/// @nodoc
+class _$TokenDTOCopyWithImpl<$Res, $Val extends TokenDTO>
+    implements $TokenDTOCopyWith<$Res> {
+  _$TokenDTOCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of TokenDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? tokenType = freezed,
+    Object? accessToken = freezed,
+  }) {
+    return _then(_value.copyWith(
+      tokenType: freezed == tokenType
+          ? _value.tokenType
+          : tokenType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      accessToken: freezed == accessToken
+          ? _value.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$TokenDTOImplCopyWith<$Res>
+    implements $TokenDTOCopyWith<$Res> {
+  factory _$$TokenDTOImplCopyWith(
+          _$TokenDTOImpl value, $Res Function(_$TokenDTOImpl) then) =
+      __$$TokenDTOImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'token_type') String? tokenType,
+      @JsonKey(name: 'access_token') String? accessToken});
+}
+
+/// @nodoc
+class __$$TokenDTOImplCopyWithImpl<$Res>
+    extends _$TokenDTOCopyWithImpl<$Res, _$TokenDTOImpl>
+    implements _$$TokenDTOImplCopyWith<$Res> {
+  __$$TokenDTOImplCopyWithImpl(
+      _$TokenDTOImpl _value, $Res Function(_$TokenDTOImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TokenDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? tokenType = freezed,
+    Object? accessToken = freezed,
+  }) {
+    return _then(_$TokenDTOImpl(
+      tokenType: freezed == tokenType
+          ? _value.tokenType
+          : tokenType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      accessToken: freezed == accessToken
+          ? _value.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$TokenDTOImpl implements _TokenDTO {
+  const _$TokenDTOImpl(
+      {@JsonKey(name: 'token_type') this.tokenType,
+      @JsonKey(name: 'access_token') this.accessToken});
+
+  factory _$TokenDTOImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TokenDTOImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'token_type')
+  final String? tokenType;
+  @override
+  @JsonKey(name: 'access_token')
+  final String? accessToken;
+
+  @override
+  String toString() {
+    return 'TokenDTO(tokenType: $tokenType, accessToken: $accessToken)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TokenDTOImpl &&
+            (identical(other.tokenType, tokenType) ||
+                other.tokenType == tokenType) &&
+            (identical(other.accessToken, accessToken) ||
+                other.accessToken == accessToken));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, tokenType, accessToken);
+
+  /// Create a copy of TokenDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TokenDTOImplCopyWith<_$TokenDTOImpl> get copyWith =>
+      __$$TokenDTOImplCopyWithImpl<_$TokenDTOImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$TokenDTOImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _TokenDTO implements TokenDTO {
+  const factory _TokenDTO(
+          {@JsonKey(name: 'token_type') final String? tokenType,
+          @JsonKey(name: 'access_token') final String? accessToken}) =
+      _$TokenDTOImpl;
+
+  factory _TokenDTO.fromJson(Map<String, dynamic> json) =
+      _$TokenDTOImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'token_type')
+  String? get tokenType;
+  @override
+  @JsonKey(name: 'access_token')
+  String? get accessToken;
+
+  /// Create a copy of TokenDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$TokenDTOImplCopyWith<_$TokenDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

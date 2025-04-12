@@ -1,7 +1,5 @@
 import 'package:kutim/src/core/rest_client/rest_client.dart';
 import 'package:kutim/src/core/utils/talker_logger_util.dart';
-import 'package:kutim/src/feature/auth/models/common_lists_dto.dart';
-import 'package:kutim/src/feature/auth/models/request/user_payload.dart';
 import 'package:kutim/src/feature/auth/models/user_dto.dart';
 
 abstract interface class IAuthRemoteDS {
@@ -16,24 +14,23 @@ abstract interface class IAuthRemoteDS {
     required String name,
     required String email,
     required String password,
-    required String phone,
+    required String surname,
     String? deviceToken,
     String? deviceType,
   });
 
-  Future<String> forgotPassword({
+  Future<int> forgotPassword({
     required String email,
   });
 
   Future<String> sendSms({
     required String code,
-    required String token,
+    required String email,
   });
 
   Future newPassword({
     required String password,
-    required String passwordConfirmation,
-    required String token,
+    required String email,
   });
 
   Future sendDeviceToken({
@@ -57,7 +54,7 @@ class AuthRemoteDSImpl implements IAuthRemoteDS {
   }) async {
     try {
       final Map<String, dynamic> response = await restClient.post(
-        'auth/login',
+        '/auth/login',
         body: {
           'email': email,
           'password': password,
@@ -79,18 +76,18 @@ class AuthRemoteDSImpl implements IAuthRemoteDS {
     required String? name,
     required String? email,
     required String? password,
-    required String? phone,
+    required String? surname,
     String? deviceToken,
     String? deviceType,
   }) async {
     try {
       final Map<String, dynamic> response = await restClient.post(
-        'auth/register',
+        '/auth/register',
         body: {
           'name': name,
           'email': email,
           'password': password,
-          'phone': phone,
+          'full_name': surname,
           if (deviceToken != null) 'device_token': deviceToken,
           if (deviceType != null) 'device_type': deviceType,
         },
@@ -104,36 +101,14 @@ class AuthRemoteDSImpl implements IAuthRemoteDS {
   }
 
   @override
-  Future<String> forgotPassword({required String email}) async {
+  Future<String> sendSms({required String code, required String email}) async {
     try {
       final Map<String, dynamic> response = await restClient.post(
-        '/reset/reset-password',
-        body: {'email': email},
+        '/auth/check_code',
+        body: {'code': code, 'email': email},
       );
 
-      final String? payload = response['token'] as String?;
-      if (payload != null && payload != '') {
-        return payload;
-      } else {
-        throw WrongResponseTypeException(
-          message: '''Unexpected response body type: ${response.runtimeType}\n$response''',
-        );
-      }
-    } catch (e, st) {
-      TalkerLoggerUtil.talker.error('#forgetPassword - $e', e, st);
-      rethrow;
-    }
-  }
-
-  @override
-  Future<String> sendSms({required String code, required String token}) async {
-    try {
-      final Map<String, dynamic> response = await restClient.post(
-        '/reset/verify-reset-code',
-        body: {'code': code, 'token': token},
-      );
-
-      final String? payload = response['token'] as String?;
+      final String? payload = response['full_name'] as String?;
       if (payload != null && payload != '') {
         return payload;
       } else {
@@ -148,16 +123,20 @@ class AuthRemoteDSImpl implements IAuthRemoteDS {
   }
 
   @override
-  Future newPassword({
+  Future<UserDTO> newPassword({
     required String password,
-    required String passwordConfirmation,
-    required String token,
+    required String email,
   }) async {
     try {
-      await restClient.post(
-        '/reset/change-password',
-        body: {'password': password, 'password_confirmation': passwordConfirmation, 'token': token},
+      final Map<String, dynamic> response = await restClient.post(
+        '/auth/restore_password',
+        body: {
+          'password': password,
+          'email': email,
+        },
       );
+
+      return UserDTO.fromJson(response);
     } catch (e, st) {
       TalkerLoggerUtil.talker.error('#newPassword - $e', e, st);
       rethrow;
@@ -179,6 +158,28 @@ class AuthRemoteDSImpl implements IAuthRemoteDS {
       );
     } catch (e, st) {
       TalkerLoggerUtil.talker.error('#sendDeviceToken - $e', e, st);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<int> forgotPassword({required String email}) async {
+    try {
+      final Map<String, dynamic> response = await restClient.post(
+        '/auth/forgot_password',
+        body: {'email': email},
+      );
+
+      final int? payload = response['code'] as int?;
+      if (payload != null && payload != 0) {
+        return payload;
+      } else {
+        throw WrongResponseTypeException(
+          message: '''Unexpected response body type: ${response.runtimeType}\n$response''',
+        );
+      }
+    } catch (e, st) {
+      TalkerLoggerUtil.talker.error('#forgotPassword - $e', e, st);
       rethrow;
     }
   }

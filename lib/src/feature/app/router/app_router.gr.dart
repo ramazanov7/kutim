@@ -280,7 +280,7 @@ class LoginRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const LoginPage();
+      return WrappedRoute(child: const LoginPage());
     },
   );
 }
@@ -423,7 +423,7 @@ class RegisterRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const RegisterPage();
+      return WrappedRoute(child: const RegisterPage());
     },
   );
 }

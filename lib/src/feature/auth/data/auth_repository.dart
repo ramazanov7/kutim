@@ -4,8 +4,6 @@ import 'dart:io';
 
 import 'package:kutim/src/feature/auth/data/auth_remote_ds.dart';
 import 'package:kutim/src/feature/auth/database/auth_dao.dart';
-import 'package:kutim/src/feature/auth/models/common_lists_dto.dart';
-import 'package:kutim/src/feature/auth/models/request/user_payload.dart';
 import 'package:kutim/src/feature/auth/models/user_dto.dart';
 
 abstract interface class IAuthRepository {
@@ -33,23 +31,22 @@ abstract interface class IAuthRepository {
     required String name,
     required String email,
     required String password,
-    required String phone,
+    required String surname,
     String? deviceType,
   });
 
-  Future<String> forgotPassword({
+  Future<int> forgotPassword({
     required String email,
   });
 
   Future<String> sendSms({
     required String code,
-    required String token,
+    required String email,
   });
 
-  Future newPassword({
+  Future<UserDTO> newPassword({
     required String password,
-    required String passwordConfirmation,
-    required String token,
+    required String email,
   });
 
   // TODO-------------------------
@@ -194,7 +191,7 @@ class AuthRepositoryImpl implements IAuthRepository {
     required String name,
     required String email,
     required String password,
-    required String phone,
+    required String surname,
     String? deviceType,
   }) async {
     final String? dv = _authDao.deviceToken.value;
@@ -205,7 +202,7 @@ class AuthRepositoryImpl implements IAuthRepository {
         password: password,
         deviceToken: dv,
         deviceType: deviceType,
-        phone: phone,
+        surname: surname,
       );
 
       await _authDao.user.setValue(jsonEncode(user.toJson()));
@@ -217,7 +214,7 @@ class AuthRepositoryImpl implements IAuthRepository {
   }
 
   @override
-  Future<String> forgotPassword({required String email}) async {
+  Future<int> forgotPassword({required String email}) async {
     try {
       return await _remoteDS.forgotPassword(email: email);
     } catch (e) {
@@ -226,18 +223,22 @@ class AuthRepositoryImpl implements IAuthRepository {
   }
 
   @override
-  Future<String> sendSms({required String code, required String token}) async {
+  Future<String> sendSms({required String code, required String email}) async {
     try {
-      return await _remoteDS.sendSms(code: code, token: token);
+      return await _remoteDS.sendSms(code: code, email: email);
     } catch (e) {
       rethrow;
     }
   }
 
   @override
-  Future newPassword({required String password, required String passwordConfirmation, required String token}) async {
+  Future<UserDTO> newPassword({required String password, required String email}) async {
     try {
-      return await _remoteDS.newPassword(password: password, passwordConfirmation: passwordConfirmation, token: token);
+      final user = await _remoteDS.newPassword(password: password, email: email);
+
+      await _authDao.user.setValue(jsonEncode(user.toJson()));
+      log('$user', name: 'auth-repo');
+      return user;
     } catch (e) {
       rethrow;
     }

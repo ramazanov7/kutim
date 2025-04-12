@@ -24,6 +24,9 @@ _$UserDTOImpl _$$UserDTOImplFromJson(Map<String, dynamic> json) =>
       accessToken: json['access_token'] as String?,
       deviceToken: json['device_token'] as String?,
       deviceType: json['device_type'] as String?,
+      token: json['token'] == null
+          ? null
+          : TokenDTO.fromJson(json['token'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$UserDTOImplToJson(_$UserDTOImpl instance) =>
@@ -40,4 +43,17 @@ Map<String, dynamic> _$$UserDTOImplToJson(_$UserDTOImpl instance) =>
       'access_token': instance.accessToken,
       'device_token': instance.deviceToken,
       'device_type': instance.deviceType,
+      'token': instance.token,
+    };
+
+_$TokenDTOImpl _$$TokenDTOImplFromJson(Map<String, dynamic> json) =>
+    _$TokenDTOImpl(
+      tokenType: json['token_type'] as String?,
+      accessToken: json['access_token'] as String?,
+    );
+
+Map<String, dynamic> _$$TokenDTOImplToJson(_$TokenDTOImpl instance) =>
+    <String, dynamic>{
+      'token_type': instance.tokenType,
+      'access_token': instance.accessToken,
     };
