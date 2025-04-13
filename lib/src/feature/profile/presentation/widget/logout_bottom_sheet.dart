@@ -92,9 +92,9 @@ class _LogoutBottomSheetState extends State<LogoutBottomSheet> {
                       ),
                       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                     ),
-                    child: Text(
+                    child: const Text(
                       "No",
-                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
+                      style:  TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
                     ),
                   ),
                 ),
