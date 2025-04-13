@@ -64,7 +64,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: 416,
+            height: 456,
             child: PageView.builder(
               controller: _pageController,
               onPageChanged: (index) {
@@ -76,7 +76,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               itemBuilder: (BuildContext context, int index) {
                 return Column(
                   children: [
-                    Image.asset(images[index]),
+                    Image.asset(images[index],fit: BoxFit.fill,),
                   ],
                 );
               },

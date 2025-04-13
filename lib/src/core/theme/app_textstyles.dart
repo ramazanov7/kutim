@@ -49,6 +49,14 @@ mixin AppTextStyles {
     height: 1.2, // line-height = 16.8px / font-size = 12px
   );
 
+  static TextStyle fs13w400 = const TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 13.0,
+    fontWeight: FontWeight.w400,
+    height: 1.2, // line-height = 16.8px / font-size = 12px
+  );
+
+
   static TextStyle fs18w700 = const TextStyle(
     // fontFamily: FontFamily.golosText,
     fontSize: 18.0,

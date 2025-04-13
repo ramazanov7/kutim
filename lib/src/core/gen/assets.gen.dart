@@ -18,8 +18,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/calendar.svg
   SvgGenImage get calendar => const SvgGenImage('assets/icons/calendar.svg');
 
+  /// File path: assets/icons/care-goals.svg
+  SvgGenImage get careGoals => const SvgGenImage('assets/icons/care-goals.svg');
+
   /// File path: assets/icons/close.svg
   SvgGenImage get close => const SvgGenImage('assets/icons/close.svg');
+
+  /// File path: assets/icons/concerns.svg
+  SvgGenImage get concerns => const SvgGenImage('assets/icons/concerns.svg');
 
   /// File path: assets/icons/daily-icon.png
   AssetGenImage get dailyIcon =>
@@ -37,6 +43,65 @@ class $AssetsIconsGen {
   /// File path: assets/icons/hide-eye.svg
   SvgGenImage get hideEye => const SvgGenImage('assets/icons/hide-eye.svg');
 
+  /// File path: assets/icons/ic-about.svg
+  SvgGenImage get icAbout => const SvgGenImage('assets/icons/ic-about.svg');
+
+  /// File path: assets/icons/ic-addPhoto.svg
+  SvgGenImage get icAddPhoto =>
+      const SvgGenImage('assets/icons/ic-addPhoto.svg');
+
+  /// File path: assets/icons/ic-cameraa.svg
+  SvgGenImage get icCameraa => const SvgGenImage('assets/icons/ic-cameraa.svg');
+
+  /// File path: assets/icons/ic-contact-sup.svg
+  SvgGenImage get icContactSup =>
+      const SvgGenImage('assets/icons/ic-contact-sup.svg');
+
+  /// File path: assets/icons/ic-data-collection.svg
+  SvgGenImage get icDataCollection =>
+      const SvgGenImage('assets/icons/ic-data-collection.svg');
+
+  /// File path: assets/icons/ic-export-data.svg
+  SvgGenImage get icExportData =>
+      const SvgGenImage('assets/icons/ic-export-data.svg');
+
+  /// File path: assets/icons/ic-faqs.svg
+  SvgGenImage get icFaqs => const SvgGenImage('assets/icons/ic-faqs.svg');
+
+  /// File path: assets/icons/ic-lang.svg
+  SvgGenImage get icLang => const SvgGenImage('assets/icons/ic-lang.svg');
+
+  /// File path: assets/icons/ic-link.svg
+  SvgGenImage get icLink => const SvgGenImage('assets/icons/ic-link.svg');
+
+  /// File path: assets/icons/ic-notSelected.svg
+  SvgGenImage get icNotSelected =>
+      const SvgGenImage('assets/icons/ic-notSelected.svg');
+
+  /// File path: assets/icons/ic-notification.svg
+  SvgGenImage get icNotification =>
+      const SvgGenImage('assets/icons/ic-notification.svg');
+
+  /// File path: assets/icons/ic-purpose.svg
+  SvgGenImage get icPurpose => const SvgGenImage('assets/icons/ic-purpose.svg');
+
+  /// File path: assets/icons/ic-rest-all-settings.svg
+  SvgGenImage get icRestAllSettings =>
+      const SvgGenImage('assets/icons/ic-rest-all-settings.svg');
+
+  /// File path: assets/icons/ic-selected.svg
+  SvgGenImage get icSelected =>
+      const SvgGenImage('assets/icons/ic-selected.svg');
+
+  /// File path: assets/icons/ic-star.svg
+  SvgGenImage get icStar => const SvgGenImage('assets/icons/ic-star.svg');
+
+  /// File path: assets/icons/ic-team.svg
+  SvgGenImage get icTeam => const SvgGenImage('assets/icons/ic-team.svg');
+
+  /// File path: assets/icons/ic-version.svg
+  SvgGenImage get icVersion => const SvgGenImage('assets/icons/ic-version.svg');
+
   /// File path: assets/icons/main-tab.svg
   SvgGenImage get mainTab => const SvgGenImage('assets/icons/main-tab.svg');
 
@@ -45,6 +110,13 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/person2.svg
   SvgGenImage get person2 => const SvgGenImage('assets/icons/person2.svg');
+
+  /// File path: assets/icons/photos.svg
+  SvgGenImage get photos => const SvgGenImage('assets/icons/photos.svg');
+
+  /// File path: assets/icons/privacy-settings.svg
+  SvgGenImage get privacySettings =>
+      const SvgGenImage('assets/icons/privacy-settings.svg');
 
   /// File path: assets/icons/profile-tab.png
   AssetGenImage get profileTab =>
@@ -62,23 +134,52 @@ class $AssetsIconsGen {
   /// File path: assets/icons/search.svg
   SvgGenImage get search => const SvgGenImage('assets/icons/search.svg');
 
+  /// File path: assets/icons/settings.svg
+  SvgGenImage get settings => const SvgGenImage('assets/icons/settings.svg');
+
+  /// File path: assets/icons/skin-type.svg
+  SvgGenImage get skinType => const SvgGenImage('assets/icons/skin-type.svg');
+
   /// List of all assets
   List<dynamic> get values => [
     calendar,
+    careGoals,
     close,
+    concerns,
     dailyIcon,
     delete,
     eye,
     help,
     hideEye,
+    icAbout,
+    icAddPhoto,
+    icCameraa,
+    icContactSup,
+    icDataCollection,
+    icExportData,
+    icFaqs,
+    icLang,
+    icLink,
+    icNotSelected,
+    icNotification,
+    icPurpose,
+    icRestAllSettings,
+    icSelected,
+    icStar,
+    icTeam,
+    icVersion,
     mainTab,
     person,
     person2,
+    photos,
+    privacySettings,
     profileTab,
     right,
     scanTab,
     searchTab,
     search,
+    settings,
+    skinType,
   ];
 }
 
@@ -100,6 +201,30 @@ class $AssetsImagesGen {
   /// File path: assets/images/face-type4.png
   AssetGenImage get faceType4 =>
       const AssetGenImage('assets/images/face-type4.png');
+
+  /// File path: assets/images/infoImg-1.png
+  AssetGenImage get infoImg1 =>
+      const AssetGenImage('assets/images/infoImg-1.png');
+
+  /// File path: assets/images/infoImg-2.png
+  AssetGenImage get infoImg2 =>
+      const AssetGenImage('assets/images/infoImg-2.png');
+
+  /// File path: assets/images/infoImg-3.png
+  AssetGenImage get infoImg3 =>
+      const AssetGenImage('assets/images/infoImg-3.png');
+
+  /// File path: assets/images/infoImg-4.png
+  AssetGenImage get infoImg4 =>
+      const AssetGenImage('assets/images/infoImg-4.png');
+
+  /// File path: assets/images/infoImg-5.png
+  AssetGenImage get infoImg5 =>
+      const AssetGenImage('assets/images/infoImg-5.png');
+
+  /// File path: assets/images/infoImg-6.png
+  AssetGenImage get infoImg6 =>
+      const AssetGenImage('assets/images/infoImg-6.png');
 
   /// File path: assets/images/information-image.png
   AssetGenImage get informationImage =>
@@ -129,6 +254,26 @@ class $AssetsImagesGen {
   AssetGenImage get products =>
       const AssetGenImage('assets/images/products.png');
 
+  /// File path: assets/images/skin-img-1.png
+  AssetGenImage get skinImg1 =>
+      const AssetGenImage('assets/images/skin-img-1.png');
+
+  /// File path: assets/images/skin-img-2png.png
+  AssetGenImage get skinImg2png =>
+      const AssetGenImage('assets/images/skin-img-2png.png');
+
+  /// File path: assets/images/skin-img-3.png
+  AssetGenImage get skinImg3 =>
+      const AssetGenImage('assets/images/skin-img-3.png');
+
+  /// File path: assets/images/skin-img-4.png
+  AssetGenImage get skinImg4 =>
+      const AssetGenImage('assets/images/skin-img-4.png');
+
+  /// File path: assets/images/skin-img-5.png
+  AssetGenImage get skinImg5 =>
+      const AssetGenImage('assets/images/skin-img-5.png');
+
   /// File path: assets/images/splash-logo.png
   AssetGenImage get splashLogo =>
       const AssetGenImage('assets/images/splash-logo.png');
@@ -139,6 +284,12 @@ class $AssetsImagesGen {
     faceType2,
     faceType3,
     faceType4,
+    infoImg1,
+    infoImg2,
+    infoImg3,
+    infoImg4,
+    infoImg5,
+    infoImg6,
     informationImage,
     instruction,
     onboardingFirstImage,
@@ -146,6 +297,11 @@ class $AssetsImagesGen {
     onboardingThirdImage,
     productExample,
     products,
+    skinImg1,
+    skinImg2png,
+    skinImg3,
+    skinImg4,
+    skinImg5,
     splashLogo,
   ];
 }

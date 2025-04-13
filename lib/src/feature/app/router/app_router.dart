@@ -11,6 +11,15 @@ import 'package:kutim/src/feature/auth/presentation/auth.dart';
 import 'package:kutim/src/feature/main/presentation/main.dart';
 import 'package:kutim/src/feature/main/presentation/pages/daily_routine_page.dart';
 import 'package:kutim/src/feature/main/presentation/pages/information_page.dart';
+import 'package:kutim/src/feature/profile/presentation/pages/about_page.dart';
+import 'package:kutim/src/feature/profile/presentation/pages/concerns_page.dart';
+import 'package:kutim/src/feature/profile/presentation/pages/contact_support_page.dart';
+import 'package:kutim/src/feature/profile/presentation/pages/faqs_page.dart';
+import 'package:kutim/src/feature/profile/presentation/pages/help_page.dart';
+import 'package:kutim/src/feature/profile/presentation/pages/privacy_settings_page.dart';
+import 'package:kutim/src/feature/profile/presentation/pages/settings_page.dart';
+import 'package:kutim/src/feature/profile/presentation/pages/skin_profile_page.dart';
+import 'package:kutim/src/feature/profile/presentation/pages/skin_type_page.dart';
 import 'package:kutim/src/feature/profile/presentation/profile.dart';
 import 'package:kutim/src/feature/profile/presentation/widget/detail_avatar_page.dart';
 
@@ -96,6 +105,16 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: DailyRoutineRoute.page),
         AutoRoute(page: EditProfileRoute.page),
         AutoRoute(page: DetailAvatarRoute.page),
+        AutoRoute(page: SkinProfileRoute.page),
+        AutoRoute(page: SkinTypeRoute.page),
+        AutoRoute(page: ConcernsRoute.page),
+        AutoRoute(page: SettingsRoute.page),
+        AutoRoute(page: PrivacySettingsRoute.page),
+        AutoRoute(page: HelpRoute.page),
+        AutoRoute(page: FaqsRoute.page),
+        AutoRoute(page: ContactSupportRoute.page),
+        AutoRoute(page: AboutRoute.page),
+
       ];
 }
 
