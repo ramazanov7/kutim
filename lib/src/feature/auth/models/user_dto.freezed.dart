@@ -22,8 +22,8 @@ UserDTO _$UserDTOFromJson(Map<String, dynamic> json) {
 mixin _$UserDTO {
   @JsonKey(defaultValue: -1)
   int? get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'name')
-  String? get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'full_name')
+  String? get fullName => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
   String? get avatar => throw _privateConstructorUsedError;
@@ -58,7 +58,7 @@ abstract class $UserDTOCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(defaultValue: -1) int? id,
-      @JsonKey(name: 'name') String? name,
+      @JsonKey(name: 'full_name') String? fullName,
       String? email,
       String? phone,
       String? avatar,
@@ -90,7 +90,7 @@ class _$UserDTOCopyWithImpl<$Res, $Val extends UserDTO>
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
+    Object? fullName = freezed,
     Object? email = freezed,
     Object? phone = freezed,
     Object? avatar = freezed,
@@ -108,9 +108,9 @@ class _$UserDTOCopyWithImpl<$Res, $Val extends UserDTO>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      fullName: freezed == fullName
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
               as String?,
       email: freezed == email
           ? _value.email
@@ -183,7 +183,7 @@ abstract class _$$UserDTOImplCopyWith<$Res> implements $UserDTOCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(defaultValue: -1) int? id,
-      @JsonKey(name: 'name') String? name,
+      @JsonKey(name: 'full_name') String? fullName,
       String? email,
       String? phone,
       String? avatar,
@@ -214,7 +214,7 @@ class __$$UserDTOImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
+    Object? fullName = freezed,
     Object? email = freezed,
     Object? phone = freezed,
     Object? avatar = freezed,
@@ -232,9 +232,9 @@ class __$$UserDTOImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      fullName: freezed == fullName
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
               as String?,
       email: freezed == email
           ? _value.email
@@ -289,7 +289,7 @@ class __$$UserDTOImplCopyWithImpl<$Res>
 class _$UserDTOImpl implements _UserDTO {
   const _$UserDTOImpl(
       {@JsonKey(defaultValue: -1) this.id,
-      @JsonKey(name: 'name') this.name,
+      @JsonKey(name: 'full_name') this.fullName,
       this.email,
       this.phone,
       this.avatar,
@@ -309,8 +309,8 @@ class _$UserDTOImpl implements _UserDTO {
   @JsonKey(defaultValue: -1)
   final int? id;
   @override
-  @JsonKey(name: 'name')
-  final String? name;
+  @JsonKey(name: 'full_name')
+  final String? fullName;
   @override
   final String? email;
   @override
@@ -342,7 +342,7 @@ class _$UserDTOImpl implements _UserDTO {
 
   @override
   String toString() {
-    return 'UserDTO(id: $id, name: $name, email: $email, phone: $phone, avatar: $avatar, rating: $rating, cityName: $cityName, createdAt: $createdAt, updatedAt: $updatedAt, accessToken: $accessToken, deviceToken: $deviceToken, deviceType: $deviceType, token: $token)';
+    return 'UserDTO(id: $id, fullName: $fullName, email: $email, phone: $phone, avatar: $avatar, rating: $rating, cityName: $cityName, createdAt: $createdAt, updatedAt: $updatedAt, accessToken: $accessToken, deviceToken: $deviceToken, deviceType: $deviceType, token: $token)';
   }
 
   @override
@@ -351,7 +351,8 @@ class _$UserDTOImpl implements _UserDTO {
         (other.runtimeType == runtimeType &&
             other is _$UserDTOImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
@@ -376,7 +377,7 @@ class _$UserDTOImpl implements _UserDTO {
   int get hashCode => Object.hash(
       runtimeType,
       id,
-      name,
+      fullName,
       email,
       phone,
       avatar,
@@ -408,7 +409,7 @@ class _$UserDTOImpl implements _UserDTO {
 abstract class _UserDTO implements UserDTO {
   const factory _UserDTO(
       {@JsonKey(defaultValue: -1) final int? id,
-      @JsonKey(name: 'name') final String? name,
+      @JsonKey(name: 'full_name') final String? fullName,
       final String? email,
       final String? phone,
       final String? avatar,
@@ -427,8 +428,8 @@ abstract class _UserDTO implements UserDTO {
   @JsonKey(defaultValue: -1)
   int? get id;
   @override
-  @JsonKey(name: 'name')
-  String? get name;
+  @JsonKey(name: 'full_name')
+  String? get fullName;
   @override
   String? get email;
   @override

@@ -9,7 +9,7 @@ part of 'user_dto.dart';
 _$UserDTOImpl _$$UserDTOImplFromJson(Map<String, dynamic> json) =>
     _$UserDTOImpl(
       id: (json['id'] as num?)?.toInt() ?? -1,
-      name: json['name'] as String?,
+      fullName: json['full_name'] as String?,
       email: json['email'] as String?,
       phone: json['phone'] as String?,
       avatar: json['avatar'] as String?,
@@ -32,7 +32,7 @@ _$UserDTOImpl _$$UserDTOImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$UserDTOImplToJson(_$UserDTOImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'name': instance.name,
+      'full_name': instance.fullName,
       'email': instance.email,
       'phone': instance.phone,
       'avatar': instance.avatar,

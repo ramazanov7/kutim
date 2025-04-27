@@ -13,11 +13,8 @@ abstract interface class IProfileRepository {
   Future<BasicResponse> logout();
   Future<BasicResponse> editAccount({
     required String password,
-    required String name,
+    required String fullName,
     required String email,
-    required String phone,
-    required int cityId,
-    required int languageId,
     XFile? avatar,
   });
 }
@@ -53,23 +50,13 @@ class ProfileRepositoryImpl implements IProfileRepository {
   @override
   Future<BasicResponse> editAccount({
     required String password,
-    required String name,
+    required String fullName,
     required String email,
-    required String phone,
-    required int cityId,
-    required int languageId,
     XFile? avatar,
   }) async {
     try {
       log('$avatar', name: 'repository avatar');
-      return await _remoteDS.editAccount(
-          password: password,
-          name: name,
-          email: email,
-          phone: phone,
-          cityId: cityId,
-          languageId: languageId,
-          avatar: avatar);
+      return await _remoteDS.editAccount(password: password, fullName: fullName, email: email, avatar: avatar);
     } catch (e) {
       rethrow;
     }

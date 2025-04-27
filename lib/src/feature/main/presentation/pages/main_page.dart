@@ -1,14 +1,13 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:kutim/src/core/constant/constants.dart';
 import 'package:kutim/src/core/gen/assets.gen.dart';
 import 'package:kutim/src/core/theme/resources.dart';
-import 'package:kutim/src/core/utils/image_util.dart';
 import 'package:kutim/src/feature/app/router/app_router.dart';
+import 'package:kutim/src/feature/profile/bloc/profile_bloc.dart';
 
 @RoutePage()
 class MainPage extends StatefulWidget {
@@ -22,10 +21,17 @@ class _MainPageState extends State<MainPage> {
   int imageIndex = 0;
 
   List<String> bannerImages = [
-    NOT_FOUND_IMAGE,
-    'https://blogs.bcm.edu/wp-content/uploads/2022/02/skincare-101.png',
-    NO_IMAGE_AVAILABLE
+    Assets.images.onboardingFirstImage.path,
+    Assets.images.onboardingThirdImage.path,
+    Assets.images.onboardingSecondImage.path,
   ];
+
+  @override
+  void initState() {
+    BlocProvider.of<ProfileBLoC>(context).add(const ProfileEvent.getProfile());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,12 +61,18 @@ class _MainPageState extends State<MainPage> {
               const Gap(16),
 
               /// <--`text`-->
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 27),
-                child: Text(
-                  'Hello User,',
-                  style: AppTextStyles.fs24w400.copyWith(color: AppColors.mainColor, letterSpacing: -0.41),
-                ),
+              BlocBuilder<ProfileBLoC, ProfileState>(
+                builder: (context, state) {
+                  return state.maybeWhen(
+                      orElse: () => const CircularProgressIndicator.adaptive(),
+                      loaded: (user) => Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 27),
+                            child: Text(
+                              'Hello ${user.fullName}',
+                              style: AppTextStyles.fs24w400.copyWith(color: AppColors.mainColor, letterSpacing: -0.41),
+                            ),
+                          ));
+                },
               ),
               const Gap(16),
               Padding(
@@ -183,8 +195,7 @@ class _MainPageState extends State<MainPage> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(16),
-                          child: Image.network(item,
-                              fit: BoxFit.cover, height: 400, width: 250, loadingBuilder: ImageUtil.loadingBuilder),
+                          child: Image.asset(item, fit: BoxFit.cover, height: 400, width: 250),
                           // child: CachedNetworkImage(
                           //   imageUrl: item,
                           //   fit: BoxFit.cover,

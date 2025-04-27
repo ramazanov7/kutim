@@ -19,10 +19,10 @@ class ProfileAvatarWithRating extends StatelessWidget {
           // Profile avatar
           Container(
             margin: const EdgeInsets.only(bottom: 10),
-            height: 90,
-            width: 90,
+            height: 80,
+            width: 80,
             clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
             ),
             child: ClipRRect(

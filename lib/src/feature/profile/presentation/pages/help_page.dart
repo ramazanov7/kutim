@@ -29,13 +29,6 @@ class HelpPage extends StatelessWidget {
       body: Column(
         children: [
           ProfileItem(
-            title: 'FAQs',
-            icon: Assets.icons.icFaqs.path,
-            onTap: () {
-              context.router.push(FaqsRoute());
-            },
-          ),
-          ProfileItem(
             title: 'Contact Support',
             icon: Assets.icons.icContactSup.path,
             onTap: () {

@@ -3,7 +3,7 @@ import 'package:kutim/src/core/constant/localization/localization.dart';
 import 'package:kutim/src/core/containers/repository_storage.dart';
 import 'package:kutim/src/core/presentation/scopes/repository_scope.dart';
 import 'package:kutim/src/core/utils/screen_util.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kutim/src/feature/app/initialization/model/dependencies_container.dart';
 import 'package:kutim/src/feature/app/initialization/widget/dependencies_scope.dart';
 
@@ -57,7 +57,7 @@ extension ContextExtension on BuildContext {
   IRepositoryStorage get repository => RepositoryScope.of(this);
 
   /// Перевести через контекст
-  AppLocalizations get localized => Localization.of(this);
+  // AppLocalizations get localized => Localization.of(this);
 
   /// Выбранный язык
 

@@ -9,7 +9,7 @@ part 'user_dto.g.dart';
 class UserDTO with _$UserDTO {
   const factory UserDTO({
     @JsonKey(defaultValue: -1) int? id,
-    @JsonKey(name: 'name') String? name,
+    @JsonKey(name: 'full_name') String? fullName,
     String? email,
     String? phone,
     String? avatar,

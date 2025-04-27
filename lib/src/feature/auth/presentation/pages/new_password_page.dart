@@ -99,7 +99,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                 context.loaderOverlay.hide();
                 BlocProvider.of<AppBloc>(context).add(const AppEvent.logining(user: UserDTO()));
                 context.router.replaceAll([LauncherRoute()]);
-                Toaster.showTopShortToast(context, message: context.localized.successfully);
+                // Toaster.showTopShortToast(context, message: context.localized.successfully);
               },
               orElse: () {
                 context.loaderOverlay.hide();

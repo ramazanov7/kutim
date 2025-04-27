@@ -133,7 +133,7 @@ class SettingsBlocFactory extends AsyncFactory<AppSettingsBloc> {
 
     final appSettings = await appSettingsRepository.getAppSettings();
 
-    Localization.load(appSettings?.locale ?? const Locale('kk'));
+    // Localization.load(appSettings?.locale ?? const Locale('kk'));
 
     final initialState = AppSettingsState.idle(appSettings: appSettings);
 

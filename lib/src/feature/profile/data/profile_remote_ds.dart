@@ -17,11 +17,8 @@ abstract interface class IProfileRemoteDS {
 
   Future<BasicResponse> editAccount({
     required String password,
-    required String name,
+    required String fullName,
     required String email,
-    required String phone,
-    required int cityId,
-    required int languageId,
     XFile? avatar,
   });
 }
@@ -36,7 +33,7 @@ class ProfileRemoteDSImpl implements IProfileRemoteDS {
   Future<UserDTO> profileData() async {
     try {
       final Map<String, dynamic> response = await restClient.get(
-        'auth/show/',
+        '/profile',
         queryParams: {},
       );
 
@@ -64,22 +61,16 @@ class ProfileRemoteDSImpl implements IProfileRemoteDS {
   @override
   Future<BasicResponse> editAccount({
     required String password,
-    required String name,
+    required String fullName,
     required String email,
-    required String phone,
-    required int cityId,
-    required int languageId,
     XFile? avatar,
   }) async {
     try {
       final Map<String, dynamic> data = {};
 
       if (email.isNotEmpty) data['email'] = email;
-      if (phone.isNotEmpty) data['phone'] = phone;
-      if (name.isNotEmpty) data['name'] = name;
-      if (cityId > 0) data['city_id'] = cityId;
+      if (fullName.isNotEmpty) data['full_name'] = fullName;
       if (password.isNotEmpty) data['password'] = password;
-      if (languageId > 0) data['language_id'] = languageId;
 
       final FormData formData = FormData.fromMap(data);
       if (avatar != null) {
@@ -89,10 +80,9 @@ class ProfileRemoteDSImpl implements IProfileRemoteDS {
       }
 
       final Map<String, dynamic> response = await restClient.post(
-        'auth/edit',
+        '/profile/edit',
         body: formData,
       );
-      log('$avatar', name: 'remote avatar');
 
       return BasicResponse.fromJson(response);
     } catch (e, st) {

@@ -72,12 +72,12 @@ class _SettingsScopeState extends State<SettingsScope> {
             BlocProvider(
               create: (context) => AppBloc(context.repository.authRepository),
             ),
-            // BlocProvider(
-            //   create: (context) => ProfileBLoC(
-            //     authRepository: context.repository.authRepository,
-            //     profileRepository: context.repository.profileRepository,
-            //   ),
-            // ),
+            BlocProvider(
+              create: (context) => ProfileBLoC(
+                authRepository: context.repository.authRepository,
+                profileRepository: context.repository.profileRepository,
+              ),
+            ),
           ],
           child: _InheritedSettings(
             settings: state.appSettings,

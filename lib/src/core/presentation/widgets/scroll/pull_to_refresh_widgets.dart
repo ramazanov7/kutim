@@ -6,15 +6,15 @@ class RefreshClassicHeader extends StatelessWidget {
   const RefreshClassicHeader({super.key});
 
   @override
-  Widget build(BuildContext context) => ClassicHeader(
-        completeText: context.localized.successfullyUpdated,
-        releaseText: context.localized.update,
-        idleText: context.localized.pullDownToRefresh,
-        // failedText: context.localized.unknownError,
-        // refreshingText: context.localized.updateDotDotDot,
-        // completeText: '',
-        // completeIcon: null,
-        // completeDuration: Duration.zero,
+  Widget build(BuildContext context) => const ClassicHeader(
+      // completeText: context.localized.successfullyUpdated,
+      // releaseText: context.localized.update,
+      // idleText: context.localized.pullDownToRefresh,
+      // failedText: context.localized.unknownError,
+      // refreshingText: context.localized.updateDotDotDot,
+      // completeText: '',
+      // completeIcon: null,
+      // completeDuration: Duration.zero,
       );
 }
 

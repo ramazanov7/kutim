@@ -208,7 +208,9 @@ class EditProfileRoute extends PageRouteInfo<EditProfileRouteArgs> {
       final args = data.argsAs<EditProfileRouteArgs>(
         orElse: () => const EditProfileRouteArgs(),
       );
-      return EditProfilePage(key: args.key, user: args.user);
+      return WrappedRoute(
+        child: EditProfilePage(key: args.key, user: args.user),
+      );
     },
   );
 }
@@ -535,7 +537,7 @@ class SearchRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const SearchPage();
+      return WrappedRoute(child: const SearchPage());
     },
   );
 }

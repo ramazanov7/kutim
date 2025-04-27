@@ -17,6 +17,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kutim/src/feature/profile/bloc/profile_edit_cubit.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:kutim/src/core/presentation/widgets/buttons/custom_button.dart';
 import 'package:kutim/src/core/presentation/widgets/dialog/toaster.dart';
@@ -31,12 +32,24 @@ import 'package:kutim/src/feature/auth/models/user_dto.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 @RoutePage()
-class EditProfilePage extends StatefulWidget {
+class EditProfilePage extends StatefulWidget implements AutoRouteWrapper {
   const EditProfilePage({super.key, this.user});
   final UserDTO? user;
 
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ProfileEditCubit(repository: context.repository.profileRepository),
+        ),
+      ],
+      child: this,
+    );
+  }
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
@@ -79,8 +92,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   void initState() {
     super.initState();
-    surnameController.text = widget.user?.name ?? '';
-    emailController.text = widget.user?.email ?? '';
+    surnameController.text = widget.user?.fullName ?? '';
+    phoneController.text = widget.user?.email ?? '';
     imageNetwork = widget.user?.avatar ?? '';
     // parsePhoneNumber('${widget.user?.phone}');
 
@@ -103,24 +116,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
   //     phoneController.text = phoneNumber; // Записываем весь номер
   //   }
   // }
+  bool isValidEmail(String value) {
+    const pattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+    final regExp = RegExp(pattern);
+    return regExp.hasMatch(value);
+  }
 
-  // bool checkAllowTapButton() {
-  //   final isEmailValid = ValidatorUtil.emailValidator(
-  //         emailController.text,
-  //         errorLabel: 'Неверный логин',
-  //       ) ==
-  //       null;
-  //   final isPasswordValid = passwordController.text.length >= 6 || passwordController.text == '';
-  //   String phoneUnmasked = phoneController.text.replaceAll(RegExp(r'[^0-9]'), '');
-  //   bool isPhoneValid = phoneUnmasked.length == selectedCountry?.digitLength;
+  bool checkAllowTapButton() {
+    final isPasswordValid = passwordController.text.length >= 6 || passwordController.text == '';
 
-  //   return _allowTapButton.value = surnameController.text.isNotEmpty && isEmailValid && isPhoneValid && isPasswordValid;
-  // }
+    final isNameValid = surnameController.text != '';
+
+    return isNameValid && emailController.text.isNotEmpty && isValidEmail(emailController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
-
     return LoaderOverlay(
       overlayWidgetBuilder: (progress) => const CustomLoadingOverlayWidget(),
       overlayColor: AppColors.barrierColor,
@@ -128,422 +139,358 @@ class _EditProfilePageState extends State<EditProfilePage> {
         onTap: () {
           FocusScope.of(context).unfocus();
         },
-        child: const Scaffold(
-            // resizeToAvoidBottomInset: false,
-            // appBar: CustomAppBar(
-            //   title: context.localized.editProfile,
-            //   actions: [
-            //     Container(
-            //       width: 40,
-            //     )
-            //   ],
-            // ),
-            // // appBar: CustomAppBar(
-            // //   quarterTurns: 0,
-            // //   title: context.localized.editProfile,
-            // //   shape: const Border(),
-            // // ),
-            // body: SafeArea(
-            //   child: Form(
-            //     key: _formKey,
-            //     // autovalidateMode: AutovalidateMode.onUserInteraction,
-            //     child: SingleChildScrollView(
-            //       child: Padding(
-            //         padding: const EdgeInsets.symmetric(horizontal: 16),
-            //         child: Column(
-            //           children: [
-            //             Container(
-            //               padding: EdgeInsets.only(bottom: keyboardHeight),
-            //               child: Column(
-            //                 crossAxisAlignment: CrossAxisAlignment.start,
-            //                 children: [
-            //                   ///
-            //                   /// edit avatar
-            //                   ///
-            //                   const Gap(17),
-            //                   Center(
-            //                     child: GestureDetector(
-            //                       onTap: () {
-            //                         showCupertinoModalPopup(
-            //                           context: context,
-            //                           builder: (context) {
-            //                             return CupertinoActionSheet(
-            //                               actions: [
-            //                                 CupertinoActionSheetAction(
-            //                                   onPressed: () => pickImageFromGallery(
-            //                                     ImageSource.camera,
-            //                                   ).whenComplete(() {
-            //                                     if (context.mounted) {
-            //                                       context.router.maybePop();
-            //                                     }
-            //                                     setState(() {});
-            //                                   }),
-            //                                   child: Text(
-            //                                     context.localized.camera,
-            //                                     style: AppTextStyles.fs16w400.copyWith(color: Colors.black),
-            //                                   ),
-            //                                 ),
-            //                                 CupertinoActionSheetAction(
-            //                                   onPressed: () => pickImageFromGallery(
-            //                                     ImageSource.gallery,
-            //                                   ).whenComplete(() {
-            //                                     if (context.mounted) {
-            //                                       context.router.maybePop();
-            //                                     }
-            //                                     setState(() {});
-            //                                   }),
-            //                                   child: Text(
-            //                                     context.localized.gallery,
-            //                                     style: AppTextStyles.fs16w400.copyWith(color: Colors.black),
-            //                                   ),
-            //                                 ),
-            //                               ],
-            //                               cancelButton: CupertinoActionSheetAction(
-            //                                 onPressed: () {
-            //                                   context.router.maybePop();
-            //                                 },
-            //                                 child: Text(
-            //                                   context.localized.cancel,
-            //                                   style: AppTextStyles.fs16w400.copyWith(color: Colors.red),
-            //                                 ),
-            //                               ),
-            //                             );
-            //                           },
-            //                         );
-            //                       },
-            //                       child: SizedBox(
-            //                         height: 110,
-            //                         width: 110,
-            //                         child: Stack(
-            //                           alignment: Alignment.topCenter,
-            //                           children: [
-            //                             Container(
-            //                               height: 110,
-            //                               width: 110,
-            //                               clipBehavior: Clip.antiAlias,
-            //                               decoration: BoxDecoration(
-            //                                 shape: BoxShape.circle,
-            //                                 border: Border.all(color: AppColors.mainColor, width: 3),
-
-            //                                 // boxShadow: [
-            //                                 //   BoxShadow(
-            //                                 //     color: Colors.black.withOpacity(0.1),
-            //                                 //     blurRadius: 5.6,
-            //                                 //   ),
-            //                                 // ],
-            //                               ),
-            //                               child: Padding(
-            //                                 padding: const EdgeInsets.all(6.6),
-            //                                 child: ClipRRect(
-            //                                   borderRadius: const BorderRadius.all(Radius.circular(100)),
-            //                                   child: image != null
-            //                                       ? Image.file(
-            //                                           File(image?.path ?? ''),
-            //                                           fit: BoxFit.cover,
-            //                                         )
-            //                                       : imageNetwork.isNotEmpty
-            //                                           ? Image.network(
-            //                                               imageNetwork,
-            //                                               fit: BoxFit.cover,
-            //                                             )
-            //                                           : Stack(
-            //                                               children: [
-            //                                                 Container(
-            //                                                   // color: Colors.white,
-            //                                                   decoration: const BoxDecoration(
-            //                                                     shape: BoxShape.circle,
-            //                                                   ),
-            //                                                   child: Image.network(
-            //                                                     NOT_FOUND_IMAGE,
-            //                                                     fit: BoxFit.cover,
-            //                                                   ),
-            //                                                 ),
-            //                                                 Container(
-            //                                                   // margin: const EdgeInsets.all(10),
-            //                                                   decoration: BoxDecoration(
-            //                                                     shape: BoxShape.circle,
-            //                                                     color: Colors.black.withOpacity(0.4),
-            //                                                   ),
-            //                                                 ),
-            //                                               ],
-            //                                             ),
-            //                                 ),
-            //                               ),
-            //                             ),
-            //                             // Padding(
-            //                             //   padding: const EdgeInsets.all(38.65),
-            //                             //   child: Container(
-            //                             //     decoration: const BoxDecoration(
-            //                             //       borderRadius: BorderRadius.all(Radius.circular(100)),
-            //                             //     ),
-            //                             //     child: Center(child: SvgPicture.asset(Assets.icons.icCamera.path)),
-            //                             //   ),
-            //                             // ),
-            //                           ],
-            //                         ),
-            //                       ),
-            //                     ),
-            //                   ),
-            //                   const Gap(18),
-
-            //                   Text(
-            //                     context.localized.enterYourFullName,
-            //                     style: AppTextStyles.fs14w400.copyWith(color: AppColors.text),
-            //                   ),
-            //                   const Gap(8),
-
-            //                   ///
-            //                   /// edit surname
-            //                   ///
-            //                   CustomValidatorTextfield(
-            //                     controller: surnameController,
-            //                     valueListenable: _surnameError,
-            //                     hintText: context.localized.enterYourFullName,
-            //                     onChanged: (value) {
-            //                       checkAllowTapButton();
-            //                     },
-            //                     validator: (String? value) {
-            //                       if (value == null || value.isEmpty) {
-            //                         return _surnameError.value = context.localized.required_to_fill;
-            //                       }
-
-            //                       return _surnameError.value = null;
-            //                     },
-            //                   ),
-            //                   const Gap(16),
-            //                   Text(
-            //                     context.localized.enterYourEmailAddress,
-            //                     style: AppTextStyles.fs14w400.copyWith(color: AppColors.text),
-            //                   ),
-            //                   const Gap(8),
-
-            //                   ///
-            //                   /// edit email
-            //                   ///
-            //                   CustomValidatorTextfield(
-            //                     controller: emailController,
-            //                     valueListenable: _emailError,
-            //                     hintText: context.localized.enterYourEmailAddress,
-            //                     keyboardType: TextInputType.emailAddress,
-            //                     onChanged: (value) {
-            //                       checkAllowTapButton();
-            //                     },
-            //                     validator: (String? value) {
-            //                       return _emailError.value = ValidatorUtil.emailValidator(
-            //                         emailController.text,
-            //                         errorLabel: '',
-            //                       );
-            //                     },
-            //                   ),
-            //                   const Gap(16),
-            //                   Text(
-            //                     context.localized.enterYourPhoneNumber,
-            //                     style: AppTextStyles.fs14w400,
-            //                   ),
-            //                   const Gap(8),
-            //                   Row(
-            //                     children: [
-            //                       Expanded(
-            //                         child: CustomTextField(
-            //                           height: 44,
-            //                           obscureText: false,
-            //                           focusedBorder: OutlineInputBorder(
-            //                               borderSide: const BorderSide(
-            //                                 width: 1,
-            //                               ),
-            //                               borderRadius: BorderRadius.circular(12)),
-            //                           enabledBorder: OutlineInputBorder(
-            //                               borderSide: const BorderSide(width: 1, color: AppColors.borderTextField),
-            //                               borderRadius: BorderRadius.circular(12)),
-            //                           prefixIconWidget: Padding(
-            //                             padding: const EdgeInsets.only(left: 18.0),
-            //                             child: DropdownButton<Country>(
-            //                               value: selectedCountry,
-            //                               borderRadius: BorderRadius.circular(12),
-            //                               items: countries.map((country) {
-            //                                 return DropdownMenuItem<Country>(
-            //                                   value: country,
-            //                                   child: Text('${country.name} ${country.code}'),
-            //                                 );
-            //                               }).toList(),
-            //                               onChanged: (Country? newCountry) {
-            //                                 if (newCountry != null) {
-            //                                   setState(() {
-            //                                     selectedCountry = newCountry;
-            //                                     phoneController.clear();
-            //                                   });
-            //                                 }
-            //                               },
-            //                               dropdownColor: Colors.white,
-            //                               underline: const SizedBox(),
-            //                             ),
-            //                           ),
-            //                           controller: phoneController,
-            //                           inputFormatters: [
-            //                             MaskTextInputFormatter(
-            //                               mask: selectedCountry?.mask,
-            //                               filter: {"#": RegExp(r'[0-9]')},
-            //                             ),
-            //                           ],
-            //                           keyboardType: TextInputType.phone,
-            //                           hintText: selectedCountry?.mask.replaceAll('#', '_'),
-            //                           onChanged: (value) {
-            //                             checkAllowTapButton();
-            //                           },
-            //                           validator: (String? value) {
-            //                             if (value == null || value.isEmpty) {
-            //                               return _phoneError.value = context.localized.required_to_fill;
-            //                             }
-            //                             String unmasked = value.replaceAll(RegExp(r'[^0-9]'), '');
-            //                             if (unmasked.length != selectedCountry!.digitLength) {
-            //                               // return _phoneError.value =
-            //                               //     context.localized.incorrectNumberFormat;
-            //                             }
-            //                             return _phoneError.value = null;
-            //                           },
-            //                         ),
-            //                       ),
-            //                     ],
-            //                   ),
-
-            //                   const Gap(16),
-
-            //                   Text(
-            //                     context.localized.enterThePassword,
-            //                     style: AppTextStyles.fs14w400.copyWith(color: AppColors.text),
-            //                   ),
-            //                   const Gap(8),
-
-            //                   ///
-            //                   /// password
-            //                   ///
-            //                   ValueListenableBuilder(
-            //                     valueListenable: _obscureText,
-            //                     builder: (context, v, c) {
-            //                       return CustomValidatorTextfield(
-            //                         focusNode: passwordFocus,
-            //                         obscureText: _obscureText,
-            //                         controller: passwordController,
-            //                         valueListenable: _passwordError,
-            //                         hintText: context.localized.enterThePassword,
-            //                         onChanged: (value) {
-            //                           checkAllowTapButton();
-            //                         },
-            //                       );
-            //                     },
-            //                   ),
-            //                   const Gap(100),
-
-            //                   ///
-            //                   /// save button
-            //                   ///
-            //                   // BlocListener<ProfileEditCubit, ProfileEditState>(
-            //                   //   listener: (context, state) {
-            //                   //     state.maybeWhen(
-            //                   //       error: (message) {
-            //                   //         context.loaderOverlay.hide();
-            //                   //         Toaster.showErrorTopShortToast(context, message);
-            //                   //         //
-            //                   //       },
-            //                   //       loading: () {
-            //                   //         context.loaderOverlay.show();
-            //                   //       },
-            //                   //       loaded: () {
-            //                   //         context.loaderOverlay.hide();
-            //                   //         context.router.popUntil((route) => route.settings.name == LauncherRoute.name);
-            //                   //         BlocProvider.of<ProfileBLoC>(context).add(const ProfileEvent.getProfile());
-            //                   //       },
-            //                   //       orElse: () {
-            //                   //         context.loaderOverlay.hide();
-            //                   //       },
-            //                   //     );
-            //                   //   },
-            //                   //   child: CustomButton(
-            //                   //     allowTapButton: _allowTapButton,
-            //                   //     onPressed: () {
-            //                   //       if (_formKey.currentState!.validate()) {
-            //                   //         log('$image', name: 'image');
-            //                   //         log(surnameController.text, name: 'name');
-            //                   //         log(emailController.text, name: 'email');
-            //                   //         log("${selectedCountry?.code ?? ''}${phoneController.text}", name: 'phone');
-            //                   //         log(passwordController.text, name: 'password');
-
-            //                   //         BlocProvider.of<ProfileEditCubit>(context).editAccount(
-            //                   //           password: passwordController.text,
-            //                   //           name: surnameController.text,
-            //                   //           email: emailController.text,
-            //                   //           avatar: image,
-            //                   //           phone: "${selectedCountry?.code ?? ''}${phoneController.text}",
-            //                   //           cityId: -1,
-            //                   //           languageId: -1,
-            //                   //         );
-            //                   //       }
-            //                   //     },
-            //                   //     style: null,
-            //                   //     text: context.localized.save,
-            //                   //     child: null,
-            //                   //   ),
-            //                   // ),
-            //                   // const Gap(12),
-
-            //                   // ///
-            //                   // /// delete account
-            //                   // ///
-            //                   // BlocListener<ProfileBLoC, ProfileState>(
-            //                   //   listener: (context, state) {
-            //                   //     state.maybeWhen(
-            //                   //       error: (message) {
-            //                   //         context.loaderOverlay.hide();
-            //                   //         Toaster.showErrorTopShortToast(context, message);
-            //                   //       },
-            //                   //       loading: () {
-            //                   //         context.loaderOverlay.show();
-            //                   //       },
-            //                   //       orElse: () {
-            //                   //         context.loaderOverlay.hide();
-            //                   //       },
-            //                   //       exited: (message) {
-            //                   //         context.loaderOverlay.hide();
-            //                   //         Toaster.showTopShortToast(context, message: 'Успешно');
-            //                   //         context.router.popUntil((route) => route.settings.name == LauncherRoute.name);
-            //                   //         BlocProvider.of<AppBloc>(context).add(const AppEvent.exiting());
-            //                   //       },
-            //                   //     );
-            //                   //   },
-            //                   //   child: GestureDetector(
-            //                   //     onTap: () {
-            //                   //       LogoutBottomSheet.show(
-            //                   //         context,
-            //                   //         isDeleteAccount: true,
-            //                   //         onPressed: () {
-            //                   //           BlocProvider.of<ProfileBLoC>(context).add(const ProfileEvent.deleteAccount());
-            //                   //           Navigator.pop(context);
-            //                   //         },
-            //                   //       ).whenComplete(() {
-            //                   //         FocusScope.of(context).unfocus();
-            //                   //       });
-            //                   //     },
-            //                   //     child: Center(
-            //                   //       child: Text(
-            //                   //         context.localized.delete_an_account,
-            //                   //         style: AppTextStyles.fs16w500.copyWith(color: Colors.red),
-            //                   //         textAlign: TextAlign.center,
-            //                   //       ),
-            //                   //     ),
-            //                   //   ),
-            //                   // ),
-            //                   // const Gap(16),
-            //                 ],
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-
+        child: Scaffold(
+          // resizeToAvoidBottomInset: false,
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            title: const Text(
+              "Skin Profile",
+              style: AppTextStyles.fs16w500,
             ),
+            centerTitle: false,
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 16.0),
+                child: SvgPicture.asset(Assets.icons.concerns.path),
+              )
+            ],
+          ),
+          body: SafeArea(
+            child: Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(top: 28),
+                        padding: const EdgeInsets.only(left: 16, right: 16),
+                        decoration: const BoxDecoration(
+                            color: AppColors.backgroundColor2, borderRadius: BorderRadius.all(Radius.circular(16))),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ///
+                            /// <--`Аватар`-->
+                            ///
+                            const Gap(16),
+                            Center(
+                              child: GestureDetector(
+                                onTap: () {
+                                  showCupertinoModalPopup(
+                                    context: context,
+                                    builder: (context) {
+                                      return CupertinoActionSheet(
+                                        actions: [
+                                          CupertinoActionSheetAction(
+                                            onPressed: () => pickImageFromGallery(
+                                              ImageSource.camera,
+                                            ).whenComplete(() {
+                                              if (context.mounted) {
+                                                context.router.maybePop();
+                                              }
+                                              setState(() {});
+                                            }),
+                                            child: Text(
+                                              'Camera',
+                                              style: AppTextStyles.fs16w400.copyWith(color: Colors.black),
+                                            ),
+                                          ),
+                                          CupertinoActionSheetAction(
+                                            onPressed: () => pickImageFromGallery(
+                                              ImageSource.gallery,
+                                            ).whenComplete(() {
+                                              if (context.mounted) {
+                                                context.router.maybePop();
+                                              }
+                                              setState(() {});
+                                            }),
+                                            child: Text(
+                                              'Gallery',
+                                              style: AppTextStyles.fs16w400.copyWith(color: Colors.black),
+                                            ),
+                                          ),
+                                        ],
+                                        cancelButton: CupertinoActionSheetAction(
+                                          onPressed: () {
+                                            context.router.maybePop();
+                                          },
+                                          child: Text(
+                                            'Cancel',
+                                            style: AppTextStyles.fs16w400.copyWith(color: Colors.red),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                child: SizedBox(
+                                  height: 110,
+                                  width: 110,
+                                  child: Stack(
+                                    alignment: Alignment.topCenter,
+                                    children: [
+                                      Container(
+                                        height: 110,
+                                        width: 110,
+                                        clipBehavior: Clip.antiAlias,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          // border: Border.all(color: AppColors.mainColor, width: 3),
+
+                                          // boxShadow: [
+                                          //   BoxShadow(
+                                          //     color: Colors.black.withOpacity(0.1),
+                                          //     blurRadius: 5.6,
+                                          //   ),
+                                          // ],
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(6.6),
+                                          child: ClipRRect(
+                                            borderRadius: const BorderRadius.all(Radius.circular(100)),
+                                            child: image != null
+                                                ? Image.file(
+                                                    File(image?.path ?? ''),
+                                                    fit: BoxFit.cover,
+                                                  )
+                                                : imageNetwork.isNotEmpty
+                                                    ? Image.network(
+                                                        imageNetwork,
+                                                        fit: BoxFit.cover,
+                                                      )
+                                                    : Stack(
+                                                        children: [
+                                                          Container(
+                                                            // color: Colors.white,
+                                                            decoration: const BoxDecoration(
+                                                              shape: BoxShape.circle,
+                                                            ),
+                                                            child: Image.network(
+                                                              NOT_FOUND_IMAGE,
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            // margin: const EdgeInsets.all(10),
+                                                            decoration: BoxDecoration(
+                                                              shape: BoxShape.circle,
+                                                              color: Colors.black.withOpacity(0.3),
+                                                            ),
+                                                          ),
+                                                          // Positioned(child: SvgPicture.asset(Assets.icons.camera.path)),
+                                                        ],
+                                                      ),
+                                          ),
+                                        ),
+                                      ),
+                                      // Padding(
+                                      //   padding: const EdgeInsets.all(38.65),
+                                      //   child: Container(
+                                      //     decoration: const BoxDecoration(
+                                      //       borderRadius: BorderRadius.all(Radius.circular(100)),
+                                      //     ),
+                                      //     child: Center(child: SvgPicture.asset(Assets.icons.icCamera.path)),
+                                      //   ),
+                                      // ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const Gap(18),
+
+                            Text(
+                              'Full name',
+                              style: AppTextStyles.fs14w500.copyWith(color: AppColors.text),
+                            ),
+                            const Gap(8),
+
+                            ///
+                            /// <--`edit surname`-->
+                            ///
+                            CustomValidatorTextfield(
+                              controller: surnameController,
+                              valueListenable: _surnameError,
+                              hintText: 'Enter full name',
+                              onChanged: (value) {
+                                checkAllowTapButton();
+                                setState(() {});
+                              },
+                              validator: (String? value) {
+                                // if (value == null || value.isEmpty) {
+                                //   return _surnameError.value = context.localized.required_to_fill;
+                                // }
+
+                                return _surnameError.value = null;
+                              },
+                            ),
+                            const Gap(12),
+                            Text(
+                              'Email',
+                              style: AppTextStyles.fs14w500.copyWith(color: AppColors.text),
+                            ),
+                            const Gap(8),
+
+                            ///
+                            /// <--`edit phone`-->
+                            ///
+                            CustomValidatorTextfield(
+                              controller: phoneController,
+                              valueListenable: _phoneError,
+                              hintText: 'Enter your email',
+                              keyboardType: TextInputType.emailAddress,
+                              // inputFormatters: [maskPhoneFormatter],
+                              onChanged: (value) {
+                                checkAllowTapButton();
+                                setState(() {});
+                              },
+                              validator: (String? value) {
+                                return _phoneError.value = ValidatorUtil.emailValidator(
+                                  phoneController.text,
+                                  errorLabel: '',
+                                );
+                              },
+                            ),
+                            const Gap(12),
+
+                            Text(
+                              'Password (if want to change)',
+                              style: AppTextStyles.fs14w500.copyWith(color: AppColors.text),
+                            ),
+                            const Gap(8),
+
+                            ///
+                            /// password
+                            ///
+                            ValueListenableBuilder(
+                              valueListenable: _obscureText,
+                              builder: (context, v, c) {
+                                return CustomValidatorTextfield(
+                                  focusNode: passwordFocus,
+                                  obscureText: _obscureText,
+                                  controller: passwordController,
+                                  valueListenable: _passwordError,
+                                  hintText: 'Enter password',
+                                  onChanged: (value) {
+                                    checkAllowTapButton();
+                                    setState(() {});
+                                  },
+                                );
+                              },
+                            ),
+                            const Gap(16),
+
+                            // ///
+                            // /// delete account
+                            // ///
+                            // BlocListener<ProfileBLoC, ProfileState>(
+                            //   listener: (context, state) {
+                            //     state.maybeWhen(
+                            //       error: (message) {
+                            //         context.loaderOverlay.hide();
+                            //         Toaster.showErrorTopShortToast(context, message);
+                            //       },
+                            //       loading: () {
+                            //         context.loaderOverlay.show();
+                            //       },
+                            //       orElse: () {
+                            //         context.loaderOverlay.hide();
+                            //       },
+                            //       exited: (message) {
+                            //         context.loaderOverlay.hide();
+                            //         Toaster.showTopShortToast(context, message: 'Успешно');
+                            //         context.router.popUntil((route) => route.settings.name == LauncherRoute.name);
+                            //         BlocProvider.of<AppBloc>(context).add(const AppEvent.exiting());
+                            //       },
+                            //     );
+                            //   },
+                            //   child: GestureDetector(
+                            //     onTap: () {
+                            //       LogoutBottomSheet.show(
+                            //         context,
+                            //         isDeleteAccount: true,
+                            //         onPressed: () {
+                            //           BlocProvider.of<ProfileBLoC>(context).add(const ProfileEvent.deleteAccount());
+                            //           Navigator.pop(context);
+                            //         },
+                            //       ).whenComplete(() {
+                            //         FocusScope.of(context).unfocus();
+                            //       });
+                            //     },
+                            //     child: Center(
+                            //       child: Text(
+                            //         context.localized.delete_an_account,
+                            //         style: AppTextStyles.fs16w500.copyWith(color: Colors.red),
+                            //         textAlign: TextAlign.center,
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
+                            // const Gap(16),
+                          ],
+                        ),
+                      ),
+                      // const Spacer(),
+                      const Gap(170),
+
+                      ///
+                      /// <--`save button`-->
+                      ///
+                      BlocListener<ProfileEditCubit, ProfileEditState>(
+                        listener: (context, state) {
+                          state.maybeWhen(
+                            error: (message) {
+                              context.loaderOverlay.hide();
+                              Toaster.showErrorTopShortToast(context, message);
+                              //
+                            },
+                            loading: () {
+                              context.loaderOverlay.show();
+                            },
+                            loaded: () {
+                              context.loaderOverlay.hide();
+                              context.router.popUntil((route) => route.settings.name == LauncherRoute.name);
+                              BlocProvider.of<ProfileBLoC>(context).add(const ProfileEvent.getProfile());
+                            },
+                            orElse: () {
+                              context.loaderOverlay.hide();
+                            },
+                          );
+                        },
+                        child: CustomButton(
+                          // allowTapButton: _allowTapButton,
+                          onPressed: () {
+                            // if (_formKey.currentState!.validate()) {
+                            // if (checkAllowTapButton()) {
+                            log(phoneController.text.length.toString());
+                            log('$image', name: 'image');
+                            log(surnameController.text, name: 'name');
+                            log(maskPhoneFormatter.getUnmaskedText(), name: 'phone');
+                            log(passwordController.text, name: 'password');
+                            BlocProvider.of<ProfileEditCubit>(context).editAccount(
+                                password: passwordController.text,
+                                fullName: surnameController.text,
+                                avatar: image,
+                                email: phoneController.text);
+                          },
+                          style: CustomButtonStyles.mainButtonStyle(context),
+                          child: Text('Save', style: AppTextStyles.fs16w600.copyWith(color: Colors.white)),
+                          //const Color(0xff656464)
+                        ),
+                      ),
+                      const Gap(16),
+                      // GestureDetector(
+                      //     onTap: () {},
+                      //     child: Text('Удалить аккаунт', style: AppTextStyles.fs16w600.copyWith(color: Colors.black))),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

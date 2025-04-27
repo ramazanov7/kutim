@@ -56,7 +56,7 @@ dependencies:
   pull_to_refresh: ^2.0.0
   pure: ^0.3.0
   rxdart: ^0.28.0
-  sentry_flutter: ^8.9.0
+  sentry_flutter: ^8.14.2
   share_plus: ^10.1.3
   shared_preferences: ^2.3.2
   shimmer: ^3.0.0

@@ -15,6 +15,9 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/Vector.svg
+  SvgGenImage get vector => const SvgGenImage('assets/icons/Vector.svg');
+
   /// File path: assets/icons/calendar.svg
   SvgGenImage get calendar => const SvgGenImage('assets/icons/calendar.svg');
 
@@ -142,6 +145,7 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<dynamic> get values => [
+    vector,
     calendar,
     careGoals,
     close,
@@ -185,6 +189,9 @@ class $AssetsIconsGen {
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
+
+  /// File path: assets/images/empty.png
+  AssetGenImage get empty => const AssetGenImage('assets/images/empty.png');
 
   /// File path: assets/images/face-type1.png
   AssetGenImage get faceType1 =>
@@ -254,6 +261,9 @@ class $AssetsImagesGen {
   AssetGenImage get products =>
       const AssetGenImage('assets/images/products.png');
 
+  /// File path: assets/images/scan.png
+  AssetGenImage get scan => const AssetGenImage('assets/images/scan.png');
+
   /// File path: assets/images/skin-img-1.png
   AssetGenImage get skinImg1 =>
       const AssetGenImage('assets/images/skin-img-1.png');
@@ -280,6 +290,7 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
+    empty,
     faceType1,
     faceType2,
     faceType3,
@@ -297,6 +308,7 @@ class $AssetsImagesGen {
     onboardingThirdImage,
     productExample,
     products,
+    scan,
     skinImg1,
     skinImg2png,
     skinImg3,

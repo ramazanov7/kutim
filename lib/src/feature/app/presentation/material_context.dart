@@ -39,8 +39,8 @@ class MaterialContext extends StatelessWidget {
         // theme: theme.lightTheme,
         // darkTheme: theme.darkTheme,
         // themeMode: ThemeMode.light, // theme.mode,
-        localizationsDelegates: Localization.localizationDelegates,
-        supportedLocales: Localization.supportedLocales,
+        // localizationsDelegates: Localization.localizationDelegates,
+        // supportedLocales: Localization.supportedLocales,
         locale: settings.locale,
         // home: const HomeScreen(),
         // builder: (context, child) => MediaQuery.withClampedTextScaling(

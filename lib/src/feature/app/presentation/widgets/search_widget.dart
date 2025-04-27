@@ -60,7 +60,7 @@ class _SearchWidgetState extends State<SearchWidget> {
             //     Assets.icons.search.path,
             //   ),
             // ),
-            hintText: context.localized.search,
+            // hintText: context.localized.search,
             hintStyle: AppTextStyles.fs16w500.copyWith(color: AppColors.greyTextColor),
             suffixIcon: widget.suffixIcon,
             suffixIconConstraints: widget.suffixIconConstraints,
