@@ -15,6 +15,7 @@ import 'package:kutim/src/feature/main/presentation/pages/daily_routine_page.dar
 import 'package:kutim/src/feature/main/presentation/pages/information_page.dart';
 import 'package:kutim/src/feature/main/presentation/pages/scan_result_page.dart';
 import 'package:kutim/src/feature/profile/presentation/pages/about_page.dart';
+import 'package:kutim/src/feature/profile/presentation/pages/admin_page.dart';
 import 'package:kutim/src/feature/profile/presentation/pages/concerns_page.dart';
 import 'package:kutim/src/feature/profile/presentation/pages/contact_support_page.dart';
 import 'package:kutim/src/feature/profile/presentation/pages/faqs_page.dart';
@@ -119,6 +120,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: FaqsRoute.page),
         AutoRoute(page: ContactSupportRoute.page),
         AutoRoute(page: AboutRoute.page),
+        AutoRoute(page: AdminRoute.page),
       ];
 }
 

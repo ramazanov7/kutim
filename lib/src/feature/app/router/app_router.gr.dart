@@ -27,6 +27,22 @@ class AboutRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AdminPage]
+class AdminRoute extends PageRouteInfo<void> {
+  const AdminRoute({List<PageRouteInfo>? children})
+    : super(AdminRoute.name, initialChildren: children);
+
+  static const String name = 'AdminRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AdminPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ApplicationPage]
 class ApplicationRoute extends PageRouteInfo<void> {
   const ApplicationRoute({List<PageRouteInfo>? children})

@@ -100,7 +100,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ///
                         ///
                         Container(
-                          height: 180,
+                          height: context.repository.authRepository.user?.fullName == 'admin' ? 130 : 180,
                           margin: const EdgeInsets.symmetric(horizontal: 23),
                           padding: const EdgeInsets.only(top: 15, left: 16, right: 16),
                           decoration: const BoxDecoration(
@@ -154,19 +154,20 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ],
                               ),
                               const Gap(20),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 40),
-                                child: CustomButton(
-                                    height: 30,
-                                    onPressed: () {
-                                      context.router.push(EditProfileRoute(user: user));
-                                    },
-                                    style: CustomButtonStyles.mainButtonStyle(context, padding: EdgeInsets.zero),
-                                    child: Text(
-                                      'Edit Account',
-                                      style: AppTextStyles.fs14w400.copyWith(color: Colors.white),
-                                    )),
-                              ),
+                              if (context.repository.authRepository.user?.fullName != 'admin')
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                                  child: CustomButton(
+                                      height: 30,
+                                      onPressed: () {
+                                        context.router.push(EditProfileRoute(user: user));
+                                      },
+                                      style: CustomButtonStyles.mainButtonStyle(context, padding: EdgeInsets.zero),
+                                      child: Text(
+                                        'Edit Account',
+                                        style: AppTextStyles.fs14w400.copyWith(color: Colors.white),
+                                      )),
+                                ),
                             ],
                           ),
                         ),

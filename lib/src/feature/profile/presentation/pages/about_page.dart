@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:kutim/src/core/gen/assets.gen.dart';
+import 'package:kutim/src/core/presentation/widgets/buttons/custom_button.dart';
 import 'package:kutim/src/core/theme/resources.dart';
+import 'package:kutim/src/core/utils/extensions/context_extension.dart';
+import 'package:kutim/src/feature/app/router/app_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage()
@@ -32,24 +35,23 @@ class AboutPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            
             _buildListItem(
               imgPath: Assets.icons.icAbout.path,
               checked: true,
               text: "Name: KUTIM — AI Skin Analyzer",
             ),
             _buildListItem(
-               imgPath: Assets.icons.icVersion.path,
+              imgPath: Assets.icons.icVersion.path,
               checked: false,
               text: "Version: 1.0.0",
             ),
             _buildListItem(
-               imgPath: Assets.icons.icTeam.path,
+              imgPath: Assets.icons.icTeam.path,
               checked: true,
               text: "The development team (...)",
             ),
             _buildListItem(
-               imgPath: Assets.icons.icPurpose.path,
+              imgPath: Assets.icons.icPurpose.path,
               checked: false,
               text: "Purpose: individual selection of skin care",
             ),
@@ -63,6 +65,14 @@ class AboutPage extends StatelessWidget {
               text: "Terms of Use",
               onTap: () => _launchUrl('https://flutter.dev'),
             ),
+            const Gap(20),
+            if (context.repository.authRepository.user?.fullName == 'admin')
+              CustomButton(
+                  onPressed: () {
+                    context.router.push(const AdminRoute());
+                  },
+                  style: null,
+                  child: const Text('Admin'))
           ],
         ),
       ),
@@ -100,9 +110,11 @@ class AboutPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 12.0),
         child: Row(
           children: [
-            SvgPicture.asset(Assets.icons.icLink.path
-            , height: 20,),
-            const Gap( 12),
+            SvgPicture.asset(
+              Assets.icons.icLink.path,
+              height: 20,
+            ),
+            const Gap(12),
             Text(
               text,
               style: const TextStyle(

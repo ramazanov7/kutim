@@ -66,7 +66,16 @@ class _MainPageState extends State<MainPage> {
               const Gap(16),
 
               /// <--`text`-->
-              BlocBuilder<ProfileBLoC, ProfileState>(
+              BlocConsumer<ProfileBLoC, ProfileState>(
+                listener: (context, state) {
+                  state.maybeWhen(
+                    orElse: () {},
+                    loaded: (user) {
+                      context.repository.authRepository.setSkinType(skinType: user.skinType ?? '');
+                      setState(() {});
+                    },
+                  );
+                },
                 builder: (context, state) {
                   return state.maybeWhen(
                       orElse: () => const CircularProgressIndicator.adaptive(),

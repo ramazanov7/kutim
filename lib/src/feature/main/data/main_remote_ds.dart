@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kutim/src/core/rest_client/models/basic_response.dart';
 import 'package:kutim/src/core/rest_client/rest_client.dart';
 import 'package:kutim/src/core/utils/talker_logger_util.dart';
 import 'package:kutim/src/feature/auth/models/user_dto.dart';
@@ -13,6 +14,12 @@ abstract interface class IMainRemoteDS {
   Future<UserDTO> skinType({required String skinType});
 
   Future<ScanDTO> scan({XFile? image});
+
+  Future<BasicResponse> createProduct({
+    required String name,
+    required String description,
+    XFile? image,
+  });
 }
 
 class MainRemoteDSImpl implements IMainRemoteDS {
@@ -83,6 +90,33 @@ class MainRemoteDSImpl implements IMainRemoteDS {
       return UserDTO.fromJson(response);
     } catch (e, st) {
       TalkerLoggerUtil.talker.error('#skinType - $e', e, st);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<BasicResponse> createProduct({required String name, required String description, XFile? image}) async {
+    try {
+      final Map<String, dynamic> data = {};
+
+      if (name.isNotEmpty) data['name'] = name;
+      if (description.isNotEmpty) data['description'] = description;
+
+      final FormData formData = FormData.fromMap(data);
+      if (image != null) {
+        formData.files.add(
+          MapEntry('image', await MultipartFile.fromFile(image.path)),
+        );
+      }
+
+      final Map<String, dynamic> response = await restClient.post(
+        '/get_creams/create',
+        body: formData,
+      );
+
+      return BasicResponse.fromJson(response);
+    } catch (e, st) {
+      TalkerLoggerUtil.talker.error('#createProduct - $e', e, st);
       rethrow;
     }
   }

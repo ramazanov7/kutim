@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:kutim/src/feature/main/data/main_repository.dart';
 import 'package:kutim/src/feature/main/model/product_dto.dart';
 
@@ -38,6 +39,28 @@ class ProductCubit extends Cubit<ProductState> {
       );
     }
   }
+
+  Future<void> createProduct({
+    required String name,
+    required String description,
+    XFile? image,
+  }) async {
+    try {
+      emit(const ProductState.loading());
+
+      await _repository.createProduct(name: name, description: description, image: image);
+
+      if (isClosed) return;
+
+      emit(const ProductState.loadedAfterCreate());
+    } catch (e) {
+      emit(
+        ProductState.error(
+          message: e.toString(),
+        ),
+      );
+    }
+  }
 }
 
 @freezed
@@ -49,6 +72,8 @@ class ProductState with _$ProductState {
   const factory ProductState.loaded({
     required List<ProductDTO> productDTO,
   }) = _LoadedState;
+
+  const factory ProductState.loadedAfterCreate() = _LoadedAfterCreateState;
 
   const factory ProductState.error({
     required String message,

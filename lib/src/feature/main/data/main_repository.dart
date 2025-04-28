@@ -1,4 +1,5 @@
 import 'package:image_picker/image_picker.dart';
+import 'package:kutim/src/core/rest_client/models/basic_response.dart';
 import 'package:kutim/src/feature/auth/models/user_dto.dart';
 import 'package:kutim/src/feature/main/data/main_remote_ds.dart';
 import 'package:kutim/src/feature/main/model/product_dto.dart';
@@ -10,6 +11,12 @@ abstract interface class IMainRepository {
   Future<UserDTO> skinType({required String skinType});
 
   Future<ScanDTO> scan({XFile? image});
+
+  Future<BasicResponse> createProduct({
+    required String name,
+    required String description,
+    XFile? image,
+  });
 }
 
 class MainRepositoryImpl implements IMainRepository {
@@ -40,6 +47,15 @@ class MainRepositoryImpl implements IMainRepository {
   Future<UserDTO> skinType({required String skinType}) async {
     try {
       return await _remoteDS.skinType(skinType: skinType);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<BasicResponse> createProduct({required String name, required String description, XFile? image}) async {
+    try {
+      return await _remoteDS.createProduct(name: name, description: description, image: image);
     } catch (e) {
       rethrow;
     }
