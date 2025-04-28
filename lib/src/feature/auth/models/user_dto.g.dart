@@ -15,6 +15,7 @@ _$UserDTOImpl _$$UserDTOImplFromJson(Map<String, dynamic> json) =>
       avatar: json['avatar'] as String?,
       rating: (json['rating'] as num?)?.toInt(),
       cityName: json['city_name'] as String?,
+      skinType: json['skin_type'] as String?,
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
@@ -38,6 +39,7 @@ Map<String, dynamic> _$$UserDTOImplToJson(_$UserDTOImpl instance) =>
       'avatar': instance.avatar,
       'rating': instance.rating,
       'city_name': instance.cityName,
+      'skin_type': instance.skinType,
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
       'access_token': instance.accessToken,

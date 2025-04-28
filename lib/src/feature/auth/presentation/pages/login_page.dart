@@ -181,6 +181,7 @@ class _LoginPageState extends State<LoginPage> {
                               loaded: (user) {
                                 context.loaderOverlay.hide();
                                 BlocProvider.of<AppBloc>(context).add(AppEvent.logining(user: user));
+                                context.repository.authRepository.setSkinType(skinType: user.skinType ?? '');
                                 context.router.replaceAll([LauncherRoute()]);
                                 Toaster.showTopShortToast(context, message: 'Успешно');
                                 // log('loaded', name: 'login page loaded');

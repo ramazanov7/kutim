@@ -17,6 +17,12 @@ abstract interface class IAuthRepository {
     required int cityId,
   });
 
+  String? get skinType;
+
+  Future setSkinType({
+    required String skinType,
+  });
+
   Future<void> clearUser();
 
   UserDTO? cacheUser();
@@ -84,12 +90,37 @@ class AuthRepositoryImpl implements IAuthRepository {
   }
 
   @override
+  String? get skinType {
+    try {
+      final s = _authDao.skinType.value;
+      log('${_authDao.skinType.value}', name: 'Auth repository - skinType');
+      if (s != null) {
+        return s;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @override
   Future<void> setCityId({
     required int cityId,
   }) async {
     try {
       await _authDao.cityId.setValue(cityId);
       log(name: 'City id', _authDao.cityId.value.toString());
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> setSkinType({required String skinType}) async {
+    try {
+      await _authDao.skinType.setValue(skinType);
+      log(name: 'skin type', _authDao.skinType.value.toString());
     } catch (e) {
       rethrow;
     }

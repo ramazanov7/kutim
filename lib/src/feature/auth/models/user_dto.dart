@@ -15,6 +15,7 @@ class UserDTO with _$UserDTO {
     String? avatar,
     int? rating,
     @JsonKey(name: 'city_name') String? cityName,
+    @JsonKey(name: 'skin_type') String? skinType,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
     @JsonKey(name: 'access_token') String? accessToken,

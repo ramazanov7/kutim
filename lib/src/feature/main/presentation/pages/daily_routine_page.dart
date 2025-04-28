@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:kutim/src/core/gen/assets.gen.dart';
 import 'package:kutim/src/core/theme/resources.dart';
+import 'package:kutim/src/core/utils/extensions/context_extension.dart';
 import 'package:kutim/src/feature/app/router/app_router.dart';
 
 @RoutePage()
@@ -70,7 +71,8 @@ class _DailyRoutinePageState extends State<DailyRoutinePage> {
                         padding: const EdgeInsets.only(right: 16),
                         child: IconButton(
                             onPressed: () {
-                              context.router.push(const InformationRoute());
+                              context.router
+                                  .push(InformationRoute(skinType: context.repository.authRepository.skinType ?? ''));
                             },
                             icon: SvgPicture.asset(Assets.icons.calendar.path)),
                       ),

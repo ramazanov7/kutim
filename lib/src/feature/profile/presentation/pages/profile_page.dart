@@ -5,8 +5,11 @@ import 'package:gap/gap.dart';
 import 'package:kutim/src/core/constant/constants.dart';
 import 'package:kutim/src/core/gen/assets.gen.dart';
 import 'package:kutim/src/core/presentation/widgets/buttons/custom_button.dart';
+import 'package:kutim/src/core/presentation/widgets/dialog/toaster.dart';
+import 'package:kutim/src/core/presentation/widgets/other/custom_loading_overlay_widget.dart';
 import 'package:kutim/src/core/theme/resources.dart';
 import 'package:flutter/material.dart';
+import 'package:kutim/src/core/utils/extensions/context_extension.dart';
 import 'package:kutim/src/feature/app/bloc/app_bloc.dart';
 import 'package:kutim/src/feature/app/router/app_router.dart';
 import 'package:kutim/src/feature/profile/bloc/profile_bloc.dart';
@@ -47,11 +50,34 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     // log('${context.appBloc.isAuthenticated}', name: 'profile page');
     return LoaderOverlay(
+      overlayColor: AppColors.barrierColor,
+      overlayWidgetBuilder: (progress) => const CustomLoadingOverlayWidget(),
       child: Scaffold(
         // resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.white,
         body: BlocConsumer<ProfileBLoC, ProfileState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            state.maybeWhen(
+              error: (message) {
+                context.loaderOverlay.hide();
+                Toaster.showErrorTopShortToast(context, message);
+              },
+              loading: () {
+                context.loaderOverlay.show();
+                Future<void>.delayed(
+                  const Duration(milliseconds: 300),
+                );
+              },
+              exited: (message) {
+                Toaster.showTopShortToast(context, message: message);
+                context.router.popUntil((route) => route.settings.name == LauncherRoute.name);
+                BlocProvider.of<AppBloc>(context).add(const AppEvent.exiting());
+              },
+              orElse: () {
+                context.loaderOverlay.hide();
+              },
+            );
+          },
           builder: (context, state) {
             return state.maybeWhen(
                 orElse: () => Container(),
@@ -151,8 +177,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           onTap: () async {
                             // context.router.push(const SkinProfileRoute());
                             final secTitle = await context.router.push(
-                              SkinTypeRoute(selectedSecTitle: selectedSecTitle ?? ""),
-                            );
+                                // SkinTypeRoute(selectedSecTitle: selectedSecTitle ?? ""),
+                                InformationRoute(skinType: context.repository.authRepository.skinType ?? ''));
                             if (secTitle != null) {
                               setState(() {
                                 selectedSecTitle = secTitle as String?;
@@ -208,7 +234,16 @@ class _ProfilePageState extends State<ProfilePage> {
                           title: 'Delete account',
                           icon: Assets.icons.delete.path,
                           onTap: () {
-                            LogoutBottomSheet.show(context, isDeleteAccount: true);
+                            LogoutBottomSheet.show(
+                              context,
+                              isDeleteAccount: true,
+                              onPressed: () {
+                                BlocProvider.of<ProfileBLoC>(context).add(
+                                  const ProfileEvent.deleteAccount(),
+                                );
+                                context.router.maybePop();
+                              },
+                            );
                           },
                         ),
                         // ProfileItem(

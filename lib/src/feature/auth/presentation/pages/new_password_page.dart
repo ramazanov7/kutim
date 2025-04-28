@@ -97,7 +97,8 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
               },
               loaded: (user) {
                 context.loaderOverlay.hide();
-                BlocProvider.of<AppBloc>(context).add(const AppEvent.logining(user: UserDTO()));
+                BlocProvider.of<AppBloc>(context).add(AppEvent.logining(user: user));
+                context.repository.authRepository.setSkinType(skinType: user.skinType ?? '');
                 context.router.replaceAll([LauncherRoute()]);
                 // Toaster.showTopShortToast(context, message: context.localized.successfully);
               },

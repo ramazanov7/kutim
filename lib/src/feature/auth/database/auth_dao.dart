@@ -8,6 +8,8 @@ abstract class IAuthDao {
   PreferencesEntry<String> get deviceToken;
 
   PreferencesEntry<int> get cityId;
+
+  PreferencesEntry<String> get skinType;
 }
 
 class AuthDao extends TypedPreferencesDao implements IAuthDao {
@@ -23,4 +25,7 @@ class AuthDao extends TypedPreferencesDao implements IAuthDao {
 
   @override
   PreferencesEntry<int> get cityId => intEntry('cityId');
+
+  @override
+  PreferencesEntry<String> get skinType => stringEntry('skinType');
 }

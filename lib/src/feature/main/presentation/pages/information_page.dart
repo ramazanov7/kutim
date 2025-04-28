@@ -1,17 +1,39 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:kutim/src/core/gen/assets.gen.dart';
 import 'package:kutim/src/core/presentation/widgets/buttons/custom_button.dart';
+import 'package:kutim/src/core/presentation/widgets/dialog/toaster.dart';
+import 'package:kutim/src/core/presentation/widgets/other/custom_loading_overlay_widget.dart';
 import 'package:kutim/src/core/theme/resources.dart';
-import 'package:kutim/src/feature/app/router/app_router.dart';
+import 'package:kutim/src/core/utils/extensions/context_extension.dart';
+import 'package:kutim/src/feature/main/bloc/skin_type_cubit.dart';
+import 'package:kutim/src/feature/profile/presentation/widget/skin_widget_card.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 @RoutePage()
-class InformationPage extends StatefulWidget {
-  const InformationPage({super.key});
+class InformationPage extends StatefulWidget implements AutoRouteWrapper {
+  const InformationPage({super.key, required this.skinType});
+
+  final String skinType;
 
   @override
   State<InformationPage> createState() => _InformationPageState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => SkinTypeCubit(repository: context.repository.mainRepository),
+        ),
+      ],
+      child: this,
+    );
+  }
 }
 
 class _InformationPageState extends State<InformationPage> {
@@ -24,10 +46,15 @@ class _InformationPageState extends State<InformationPage> {
   int currentSecondIndex = 0;
   final double cardWidth = 241 + 16;
 
+  String? selectedType;
+
   @override
   void initState() {
     _scrollImageController.addListener(_updateButtonState);
     _scrollSecondController.addListener(_updateSecondButtonState);
+
+    selectedType = widget.skinType;
+    log(widget.skinType);
     super.initState();
   }
 
@@ -100,7 +127,7 @@ class _InformationPageState extends State<InformationPage> {
 
   int stepsIndex = 0;
 
-  bool isChoosing = false;
+  bool isChoosing = true;
 
   List<String> descriptionImages = [
     "Lack of moisture in the skin can lead to flaking, irritation, and a rough texture. Dry skin may feel tight and uncomfortable, especially in cold weather or after washing. Proper hydration and barrier protection are essential for maintaining smooth and healthy skin.",
@@ -109,7 +136,7 @@ class _InformationPageState extends State<InformationPage> {
     "Dark spots and uneven skin tone result from sun exposure, inflammation, or hormonal changes. Hyperpigmentation can be treated with brightening ingredients, exfoliation, and sun protection.",
     "The skin around the eyes is unique—it's thinner than the rest of the face and lacks sebaceous glands. This makes it more prone to dehydration, reduced elasticity, and a loss of suppleness over time.",
     "Sensitive skin reacts easily to environmental factors, skincare products, and temperature changes. It can lead to redness, irritation, and discomfort. Strengthening the skin barrier with soothing ingredients helps maintain balance.",
- ];
+  ];
   List<String> titleImages = [
     'Dryness',
     'Oily Skin',
@@ -118,14 +145,13 @@ class _InformationPageState extends State<InformationPage> {
     "Eye Wrinkles",
     "Sensitivity & Redness",
   ];
-    List<String> imagesPath = [
+  List<String> imagesPath = [
     Assets.images.infoImg1.path,
     Assets.images.infoImg2.path,
     Assets.images.infoImg3.path,
     Assets.images.infoImg4.path,
     Assets.images.infoImg5.path,
     Assets.images.infoImg6.path,
-    
   ];
   List<String> step = [
     'First, before opening the camera, select the skin type that is on the bottom. Then are you ready to shoot? Take off your glasses, there should be no makeup and remove your hair from your face.',
@@ -135,344 +161,438 @@ class _InformationPageState extends State<InformationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 23, right: 16),
-                child: Image.asset(
-                  Assets.images.splashLogo.path,
-                  height: 56,
-                ),
-              ),
-              const Gap(16),
-              Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: Text(
-                  'Let us know about your skin',
-                  style: AppTextStyles.fs16w700.copyWith(color: AppColors.mainColor, letterSpacing: -0.41),
-                ),
-              ),
-              const Gap(16),
-              Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16),
-                child: Text(
-                  'Wash your face with a gentle cleanser and wait 15 - 30 minutes, then choose the icon that matches how your skin looks and feels.',
-                  style: AppTextStyles.fs14w100.copyWith(color: Colors.black, letterSpacing: -0.41),
-                ),
-              ),
-              const Gap(30),
-              Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16),
-                child: Text(
-                  """
-THE SYSTEM 
-ANALYZES ESSENTIAL 
-ATTRIBUTIES OF YOUR SKIN""",
-                  style: AppTextStyles.fs15w500.copyWith(color: Colors.black, letterSpacing: -0.41),
-                ),
-              ),
-              const Gap(10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Divider(
-                  thickness: 1,
-                  color: AppColors.textFieldBorder.withOpacity(0.7),
-                ),
-              ),
-              const Gap(24),
-              SizedBox(
-                height: 435,
-                child: ListView.builder(
-                  itemCount: imagesPath.length,
-                  controller: _scrollImageController,
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.only(left: 16, right: 120),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 16),
-                      child: SizedBox(
-                        width: 240,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              imagesPath[index],
-                              height: 277,
-                            ),
-                            const Gap(22),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        titleImages[index],
-                                        style: AppTextStyles.fs15w500
-                                            .copyWith(color: AppColors.mainColor, letterSpacing: -0.41),
-
-                                      ),
-                                      const Gap(2),
-                                      Text(descriptionImages[index],
-                                          style: AppTextStyles.fs12w200.copyWith(
-                                              // fontFamily: 'Poppins',
-                                              letterSpacing: -0.11)),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: Row(
-                  children: [
-                    InkWell(
-                      borderRadius: BorderRadius.circular(50),
-                      onTap: currentIndex > 0 ? _scrollImageToPreviousCard : null,
-                      child: Icon(
-                        Icons.chevron_left,
-                        size: 30,
-                        color: currentIndex > 0 ? Colors.black : Colors.grey,
-                      ),
+    return LoaderOverlay(
+      overlayWidgetBuilder: (progress) => const CustomLoadingOverlayWidget(),
+      overlayColor: AppColors.barrierColor,
+      child: BlocListener<SkinTypeCubit, SkinTypeState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            error: (message) {
+              context.loaderOverlay.hide();
+              Toaster.showErrorTopShortToast(context, message);
+              //
+            },
+            loading: () {
+              context.loaderOverlay.show();
+            },
+            loaded: (userDTO) {
+              context.repository.authRepository.setSkinType(
+                skinType: selectedType ?? '',
+              );
+              context.loaderOverlay.hide();
+            },
+            orElse: () {
+              context.loaderOverlay.hide();
+            },
+          );
+        },
+        child: Scaffold(
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 23, right: 16),
+                    child: Image.asset(
+                      Assets.images.splashLogo.path,
+                      height: 56,
                     ),
-                    const Gap(10),
-                    InkWell(
-                      onTap: currentIndex < itemCount - 1 ? _scrollImageToNextCard : null,
-                      borderRadius: BorderRadius.circular(50),
-                      child: Icon(
-                        Icons.chevron_right,
-                        size: 30,
-                        color: currentIndex < itemCount - 1 ? Colors.black : Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const Gap(30),
-              Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16),
-                child: Text(
-                  """
-HOW TO USE KUTIM 
-STEP-BY-STEP
-""",
-                  style: AppTextStyles.fs15w500.copyWith(color: Colors.black, letterSpacing: -0.41),
-                ),
-              ),
-              // const Gap(6),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Divider(
-                  thickness: 1,
-                  height: 1,
-                  color: AppColors.textFieldBorder.withOpacity(0.7),
-                ),
-              ),
-              const Gap(24),
-              SizedBox(
-                height: 320,
-                child: ListView.builder(
-                  itemCount: 3,
-                  controller: _scrollSecondController,
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.only(left: 16, right: 120),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 16),
-                      child: SizedBox(
-                        width: 241,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              Assets.images.instruction.path,
-                              height: 190,
-                            ),
-                            const Gap(22),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Step ${index + 1}',
-                                        style: AppTextStyles.fs15w500
-                                            .copyWith(color: AppColors.mainColor, letterSpacing: -0.41),
-                                      ),
-                                      const Gap(2),
-                                      Text(step[index],
-                                          style: AppTextStyles.fs12w200.copyWith(
-                                              // fontFamily: 'Poppins',
-                                              letterSpacing: -0.11)),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: Row(
-                  children: [
-                    InkWell(
-                      borderRadius: BorderRadius.circular(50),
-                      onTap: currentSecondIndex > 0 ? _scrollToPreviousCard : null,
-                      child: Icon(
-                        Icons.chevron_left,
-                        size: 30,
-                        color: currentSecondIndex > 0 ? Colors.black : Colors.grey,
-                      ),
-                    ),
-                    const Gap(10),
-                    InkWell(
-                      onTap: currentSecondIndex < itemSecondCount - 1 ? _scrollToNextCard : null,
-                      borderRadius: BorderRadius.circular(50),
-                      child: Icon(
-                        Icons.chevron_right,
-                        size: 30,
-                        color: currentSecondIndex < itemSecondCount - 1 ? Colors.black : Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const Gap(40),
-
-              /// `chosing skin type`
-              if (!isChoosing)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 23),
-                  child: CustomButton(
-                      onPressed: () {
-                        isChoosing = true;
-                        setState(() {});
-                      },
-                      style: CustomButtonStyles.mainButtonStyle(context),
-                      child: const Text(
-                        'Choose your skin type',
-                        style: AppTextStyles.fs16w500,
-                      )),
-                )
-              else
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Choose your type',
-                        style: AppTextStyles.fs16w700.copyWith(color: AppColors.mainColor),
-                      ),
-                      const Gap(40),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    context.router.popUntil((route) => route.settings.name == LauncherRoute.name);
-                                  },
-                                  child: Image.asset(
-                                    Assets.images.faceType1.path,
-                                    height: 159,
-                                  ),
-                                ),
-                                const Text(
-                                  'Dry skin',
-                                  style: AppTextStyles.fs15w400,
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    context.router.popUntil((route) => route.settings.name == LauncherRoute.name);
-                                  },
-                                  child: Image.asset(
-                                    Assets.images.faceType2.path,
-                                    height: 159,
-                                  ),
-                                ),
-                                const Text(
-                                  'Oily skin',
-                                  style: AppTextStyles.fs15w400,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Gap(40),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    context.router.popUntil((route) => route.settings.name == LauncherRoute.name);
-                                  },
-                                  child: Image.asset(
-                                    Assets.images.faceType3.path,
-                                    height: 159,
-                                  ),
-                                ),
-                                const Text(
-                                  'Normal skin',
-                                  style: AppTextStyles.fs15w400,
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    context.router.popUntil((route) => route.settings.name == LauncherRoute.name);
-                                  },
-                                  child: Image.asset(
-                                    Assets.images.faceType4.path,
-                                    height: 159,
-                                  ),
-                                ),
-                                const Text(
-                                  'Combination skin',
-                                  style: AppTextStyles.fs15w400,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
                   ),
-                ),
+                  const Gap(16),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: Text(
+                      'Let us know about your skin',
+                      style: AppTextStyles.fs16w700.copyWith(color: AppColors.mainColor, letterSpacing: -0.41),
+                    ),
+                  ),
+                  const Gap(16),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16, right: 16),
+                    child: Text(
+                      'Wash your face with a gentle cleanser and wait 15 - 30 minutes, then choose the icon that matches how your skin looks and feels.',
+                      style: AppTextStyles.fs14w100.copyWith(color: Colors.black, letterSpacing: -0.41),
+                    ),
+                  ),
+                  const Gap(30),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16, right: 16),
+                    child: Text(
+                      """
+      THE SYSTEM 
+      ANALYZES ESSENTIAL 
+      ATTRIBUTIES OF YOUR SKIN""",
+                      style: AppTextStyles.fs15w500.copyWith(color: Colors.black, letterSpacing: -0.41),
+                    ),
+                  ),
+                  const Gap(10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Divider(
+                      thickness: 1,
+                      color: AppColors.textFieldBorder.withOpacity(0.7),
+                    ),
+                  ),
+                  const Gap(24),
+                  SizedBox(
+                    height: 435,
+                    child: ListView.builder(
+                      itemCount: imagesPath.length,
+                      controller: _scrollImageController,
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.only(left: 16, right: 120),
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 16),
+                          child: SizedBox(
+                            width: 240,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  imagesPath[index],
+                                  height: 277,
+                                ),
+                                const Gap(22),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            titleImages[index],
+                                            style: AppTextStyles.fs15w500
+                                                .copyWith(color: AppColors.mainColor, letterSpacing: -0.41),
+                                          ),
+                                          const Gap(2),
+                                          Text(descriptionImages[index],
+                                              style: AppTextStyles.fs12w200.copyWith(
+                                                  // fontFamily: 'Poppins',
+                                                  letterSpacing: -0.11)),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: Row(
+                      children: [
+                        InkWell(
+                          borderRadius: BorderRadius.circular(50),
+                          onTap: currentIndex > 0 ? _scrollImageToPreviousCard : null,
+                          child: Icon(
+                            Icons.chevron_left,
+                            size: 30,
+                            color: currentIndex > 0 ? Colors.black : Colors.grey,
+                          ),
+                        ),
+                        const Gap(10),
+                        InkWell(
+                          onTap: currentIndex < itemCount - 1 ? _scrollImageToNextCard : null,
+                          borderRadius: BorderRadius.circular(50),
+                          child: Icon(
+                            Icons.chevron_right,
+                            size: 30,
+                            color: currentIndex < itemCount - 1 ? Colors.black : Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Gap(30),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16, right: 16),
+                    child: Text(
+                      """
+      HOW TO USE KUTIM 
+      STEP-BY-STEP
+      """,
+                      style: AppTextStyles.fs15w500.copyWith(color: Colors.black, letterSpacing: -0.41),
+                    ),
+                  ),
+                  // const Gap(6),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Divider(
+                      thickness: 1,
+                      height: 1,
+                      color: AppColors.textFieldBorder.withOpacity(0.7),
+                    ),
+                  ),
+                  const Gap(24),
+                  SizedBox(
+                    height: 320,
+                    child: ListView.builder(
+                      itemCount: 3,
+                      controller: _scrollSecondController,
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.only(left: 16, right: 120),
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 16),
+                          child: SizedBox(
+                            width: 241,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  Assets.images.instruction.path,
+                                  height: 190,
+                                ),
+                                const Gap(22),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Step ${index + 1}',
+                                            style: AppTextStyles.fs15w500
+                                                .copyWith(color: AppColors.mainColor, letterSpacing: -0.41),
+                                          ),
+                                          const Gap(2),
+                                          Text(step[index],
+                                              style: AppTextStyles.fs12w200.copyWith(
+                                                  // fontFamily: 'Poppins',
+                                                  letterSpacing: -0.11)),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: Row(
+                      children: [
+                        InkWell(
+                          borderRadius: BorderRadius.circular(50),
+                          onTap: currentSecondIndex > 0 ? _scrollToPreviousCard : null,
+                          child: Icon(
+                            Icons.chevron_left,
+                            size: 30,
+                            color: currentSecondIndex > 0 ? Colors.black : Colors.grey,
+                          ),
+                        ),
+                        const Gap(10),
+                        InkWell(
+                          onTap: currentSecondIndex < itemSecondCount - 1 ? _scrollToNextCard : null,
+                          borderRadius: BorderRadius.circular(50),
+                          child: Icon(
+                            Icons.chevron_right,
+                            size: 30,
+                            color: currentSecondIndex < itemSecondCount - 1 ? Colors.black : Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Gap(40),
 
-              const Gap(30)
-            ],
+                  /// `chosing skin type`
+                  if (!isChoosing)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 23),
+                      child: CustomButton(
+                          onPressed: () {
+                            isChoosing = true;
+                            setState(() {});
+                          },
+                          style: CustomButtonStyles.mainButtonStyle(context),
+                          child: const Text(
+                            'Choose your skin type',
+                            style: AppTextStyles.fs16w500,
+                          )),
+                    )
+                  else
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Choose your type',
+                            style: AppTextStyles.fs16w700.copyWith(color: AppColors.mainColor),
+                          ),
+                          const Gap(40),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SkinWidgetCard(
+                                title: "Normal",
+                                imagePath: Assets.images.skinImg1.path,
+                                selected: selectedType == 'Normal',
+                                onTap: () {
+                                  setState(() {
+                                    BlocProvider.of<SkinTypeCubit>(context).updateSkinType(skinType: 'Normal');
+                                    selectedType = 'Normal';
+                                  });
+                                },
+                              ),
+                              SkinWidgetCard(
+                                title: "Dry",
+                                imagePath: Assets.images.skinImg2png.path,
+                                selected: selectedType == 'Dry',
+                                onTap: () {
+                                  setState(() {
+                                    BlocProvider.of<SkinTypeCubit>(context).updateSkinType(skinType: 'Dry');
+                                    selectedType = 'Dry';
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                          const Gap(26),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SkinWidgetCard(
+                                title: "Oily",
+                                imagePath: Assets.images.skinImg3.path,
+                                selected: selectedType == 'Oily',
+                                onTap: () {
+                                  setState(() {
+                                    BlocProvider.of<SkinTypeCubit>(context).updateSkinType(skinType: 'Oily');
+                                    selectedType = 'Oily';
+                                  });
+                                },
+                              ),
+                              SkinWidgetCard(
+                                title: "Combi",
+                                imagePath: Assets.images.skinImg4.path,
+                                selected: selectedType == 'Combi',
+                                onTap: () {
+                                  setState(() {
+                                    BlocProvider.of<SkinTypeCubit>(context).updateSkinType(skinType: 'Combi');
+                                    selectedType = 'Combi';
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                          const Gap(26),
+                          SkinWidgetCard(
+                            title: "Sensitive",
+                            imagePath: Assets.images.skinImg5.path,
+                            selected: selectedType == 'Sensitive',
+                            onTap: () {
+                              setState(() {
+                                BlocProvider.of<SkinTypeCubit>(context).updateSkinType(skinType: 'Sensitive');
+                                selectedType = 'Sensitive';
+                              });
+                            },
+                          ),
+
+                          // Padding(
+                          //   padding: const EdgeInsets.symmetric(horizontal: 4),
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //     children: [
+                          //       Column(
+                          //         children: [
+                          //           GestureDetector(
+                          //             onTap: () {
+                          //               context.router.popUntil((route) => route.settings.name == LauncherRoute.name);
+                          //             },
+                          //             child: Image.asset(
+                          //               Assets.images.faceType1.path,
+                          //               height: 159,
+                          //             ),
+                          //           ),
+                          //           const Text(
+                          //             'Dry skin',
+                          //             style: AppTextStyles.fs15w400,
+                          //           ),
+                          //         ],
+                          //       ),
+                          //       Column(
+                          //         children: [
+                          //           GestureDetector(
+                          //             onTap: () {
+                          //               context.router.popUntil((route) => route.settings.name == LauncherRoute.name);
+                          //             },
+                          //             child: Image.asset(
+                          //               Assets.images.faceType2.path,
+                          //               height: 159,
+                          //             ),
+                          //           ),
+                          //           const Text(
+                          //             'Oily skin',
+                          //             style: AppTextStyles.fs15w400,
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
+                          // const Gap(40),
+                          // Padding(
+                          //   padding: const EdgeInsets.symmetric(horizontal: 4),
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //     children: [
+                          //       Column(
+                          //         children: [
+                          //           GestureDetector(
+                          //             onTap: () {
+                          //               context.router.popUntil((route) => route.settings.name == LauncherRoute.name);
+                          //             },
+                          //             child: Image.asset(
+                          //               Assets.images.faceType3.path,
+                          //               height: 159,
+                          //             ),
+                          //           ),
+                          //           const Text(
+                          //             'Normal skin',
+                          //             style: AppTextStyles.fs15w400,
+                          //           ),
+                          //         ],
+                          //       ),
+                          //       Column(
+                          //         children: [
+                          //           GestureDetector(
+                          //             onTap: () {
+                          //               context.router.popUntil((route) => route.settings.name == LauncherRoute.name);
+                          //             },
+                          //             child: Image.asset(
+                          //               Assets.images.faceType4.path,
+                          //               height: 159,
+                          //             ),
+                          //           ),
+                          //           const Text(
+                          //             'Combination skin',
+                          //             style: AppTextStyles.fs15w400,
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ],
+                          //   ),
+                          // )
+                        ],
+                      ),
+                    ),
+
+                  const Gap(30)
+                ],
+              ),
+            ),
           ),
         ),
       ),

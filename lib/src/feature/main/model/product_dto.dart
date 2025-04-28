@@ -10,7 +10,10 @@ class ProductDTO with _$ProductDTO {
   const factory ProductDTO({
     int? id,
     String? name,
+    String? volume,
     String? description,
+    @JsonKey(name: 'skin_type') String? skinType,
+    String? usage,
     String? image,
   }) = _ProductDTO;
 

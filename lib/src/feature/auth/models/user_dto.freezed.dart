@@ -30,6 +30,8 @@ mixin _$UserDTO {
   int? get rating => throw _privateConstructorUsedError;
   @JsonKey(name: 'city_name')
   String? get cityName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'skin_type')
+  String? get skinType => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
@@ -64,6 +66,7 @@ abstract class $UserDTOCopyWith<$Res> {
       String? avatar,
       int? rating,
       @JsonKey(name: 'city_name') String? cityName,
+      @JsonKey(name: 'skin_type') String? skinType,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt,
       @JsonKey(name: 'access_token') String? accessToken,
@@ -96,6 +99,7 @@ class _$UserDTOCopyWithImpl<$Res, $Val extends UserDTO>
     Object? avatar = freezed,
     Object? rating = freezed,
     Object? cityName = freezed,
+    Object? skinType = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? accessToken = freezed,
@@ -131,6 +135,10 @@ class _$UserDTOCopyWithImpl<$Res, $Val extends UserDTO>
       cityName: freezed == cityName
           ? _value.cityName
           : cityName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      skinType: freezed == skinType
+          ? _value.skinType
+          : skinType // ignore: cast_nullable_to_non_nullable
               as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
@@ -189,6 +197,7 @@ abstract class _$$UserDTOImplCopyWith<$Res> implements $UserDTOCopyWith<$Res> {
       String? avatar,
       int? rating,
       @JsonKey(name: 'city_name') String? cityName,
+      @JsonKey(name: 'skin_type') String? skinType,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt,
       @JsonKey(name: 'access_token') String? accessToken,
@@ -220,6 +229,7 @@ class __$$UserDTOImplCopyWithImpl<$Res>
     Object? avatar = freezed,
     Object? rating = freezed,
     Object? cityName = freezed,
+    Object? skinType = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? accessToken = freezed,
@@ -255,6 +265,10 @@ class __$$UserDTOImplCopyWithImpl<$Res>
       cityName: freezed == cityName
           ? _value.cityName
           : cityName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      skinType: freezed == skinType
+          ? _value.skinType
+          : skinType // ignore: cast_nullable_to_non_nullable
               as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
@@ -295,6 +309,7 @@ class _$UserDTOImpl implements _UserDTO {
       this.avatar,
       this.rating,
       @JsonKey(name: 'city_name') this.cityName,
+      @JsonKey(name: 'skin_type') this.skinType,
       @JsonKey(name: 'created_at') this.createdAt,
       @JsonKey(name: 'updated_at') this.updatedAt,
       @JsonKey(name: 'access_token') this.accessToken,
@@ -323,6 +338,9 @@ class _$UserDTOImpl implements _UserDTO {
   @JsonKey(name: 'city_name')
   final String? cityName;
   @override
+  @JsonKey(name: 'skin_type')
+  final String? skinType;
+  @override
   @JsonKey(name: 'created_at')
   final DateTime? createdAt;
   @override
@@ -342,7 +360,7 @@ class _$UserDTOImpl implements _UserDTO {
 
   @override
   String toString() {
-    return 'UserDTO(id: $id, fullName: $fullName, email: $email, phone: $phone, avatar: $avatar, rating: $rating, cityName: $cityName, createdAt: $createdAt, updatedAt: $updatedAt, accessToken: $accessToken, deviceToken: $deviceToken, deviceType: $deviceType, token: $token)';
+    return 'UserDTO(id: $id, fullName: $fullName, email: $email, phone: $phone, avatar: $avatar, rating: $rating, cityName: $cityName, skinType: $skinType, createdAt: $createdAt, updatedAt: $updatedAt, accessToken: $accessToken, deviceToken: $deviceToken, deviceType: $deviceType, token: $token)';
   }
 
   @override
@@ -359,6 +377,8 @@ class _$UserDTOImpl implements _UserDTO {
             (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.cityName, cityName) ||
                 other.cityName == cityName) &&
+            (identical(other.skinType, skinType) ||
+                other.skinType == skinType) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -383,6 +403,7 @@ class _$UserDTOImpl implements _UserDTO {
       avatar,
       rating,
       cityName,
+      skinType,
       createdAt,
       updatedAt,
       accessToken,
@@ -415,6 +436,7 @@ abstract class _UserDTO implements UserDTO {
       final String? avatar,
       final int? rating,
       @JsonKey(name: 'city_name') final String? cityName,
+      @JsonKey(name: 'skin_type') final String? skinType,
       @JsonKey(name: 'created_at') final DateTime? createdAt,
       @JsonKey(name: 'updated_at') final DateTime? updatedAt,
       @JsonKey(name: 'access_token') final String? accessToken,
@@ -441,6 +463,9 @@ abstract class _UserDTO implements UserDTO {
   @override
   @JsonKey(name: 'city_name')
   String? get cityName;
+  @override
+  @JsonKey(name: 'skin_type')
+  String? get skinType;
   @override
   @JsonKey(name: 'created_at')
   DateTime? get createdAt;

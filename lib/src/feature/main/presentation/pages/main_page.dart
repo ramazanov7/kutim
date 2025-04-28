@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:kutim/src/core/gen/assets.gen.dart';
+import 'package:kutim/src/core/presentation/widgets/buttons/custom_button.dart';
 import 'package:kutim/src/core/theme/resources.dart';
+import 'package:kutim/src/core/utils/extensions/context_extension.dart';
 import 'package:kutim/src/feature/app/router/app_router.dart';
 import 'package:kutim/src/feature/profile/bloc/profile_bloc.dart';
 
@@ -29,6 +33,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     BlocProvider.of<ProfileBLoC>(context).add(const ProfileEvent.getProfile());
+    log('skin - ${context.repository.authRepository.skinType}');
     super.initState();
   }
 
@@ -50,11 +55,11 @@ class _MainPageState extends State<MainPage> {
                       Assets.images.splashLogo.path,
                       height: 56,
                     ),
-                    IconButton(
-                        onPressed: () {
-                          context.router.push(const InformationRoute());
-                        },
-                        icon: SvgPicture.asset(Assets.icons.calendar.path))
+                    // IconButton(
+                    //     onPressed: () {
+                    //       context.router.push(const InformationRoute());
+                    //     },
+                    //     icon: SvgPicture.asset(Assets.icons.calendar.path))
                   ],
                 ),
               ),
@@ -103,55 +108,65 @@ class _MainPageState extends State<MainPage> {
                       context.router.push(const DailyRoutineRoute());
                     },
                     borderRadius: BorderRadius.circular(10),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 13, left: 13, bottom: 11, right: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                    border: Border.all(
-                                      color: AppColors.backContainer,
-                                    )),
-                                padding: const EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 7),
-                                child: Image.asset(
-                                  Assets.icons.dailyIcon.path,
-                                  height: 31,
-                                ),
-                              ),
-                              const Gap(22),
-                              Text(
-                                'Daily Routine',
-                                style: AppTextStyles.fs16w600.copyWith(letterSpacing: -0.41),
-                              )
-                            ],
-                          ),
-                          Container(
-                            width: 69,
-                            height: 21,
-                            padding: const EdgeInsets.only(left: 7, right: 5),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: AppColors.percent),
-                            child: const Row(
+                    child: context.repository.authRepository.skinType != null &&
+                            context.repository.authRepository.skinType != ''
+                        ? Padding(
+                            padding: const EdgeInsets.only(top: 13, left: 13, bottom: 11, right: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('60%'),
-                                Gap(8),
-                                Expanded(
-                                    child: LinearProgressIndicator(
-                                  minHeight: 3,
-                                  value: 60 / 100,
-                                  backgroundColor: AppColors.backContainer,
-                                  color: AppColors.mainColor,
-                                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                                )),
+                                Row(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                          border: Border.all(
+                                            color: AppColors.backContainer,
+                                          )),
+                                      padding: const EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 7),
+                                      child: Image.asset(
+                                        Assets.icons.dailyIcon.path,
+                                        height: 31,
+                                      ),
+                                    ),
+                                    const Gap(22),
+                                    Text(
+                                      'Daily Routine',
+                                      style: AppTextStyles.fs16w600.copyWith(letterSpacing: -0.41),
+                                    )
+                                  ],
+                                ),
+                                Container(
+                                  width: 69,
+                                  height: 21,
+                                  padding: const EdgeInsets.only(left: 7, right: 5),
+                                  decoration:
+                                      BoxDecoration(borderRadius: BorderRadius.circular(5), color: AppColors.percent),
+                                  child: const Row(
+                                    children: [
+                                      Text('60%'),
+                                      Gap(8),
+                                      Expanded(
+                                          child: LinearProgressIndicator(
+                                        minHeight: 3,
+                                        value: 60 / 100,
+                                        backgroundColor: AppColors.backContainer,
+                                        color: AppColors.mainColor,
+                                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                                      )),
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
                           )
-                        ],
-                      ),
-                    ),
+                        : CustomButton(
+                            onPressed: () {
+                              context.router
+                                  .push(InformationRoute(skinType: context.repository.authRepository.skinType ?? ''));
+                            },
+                            style: null,
+                            child: const Text('Choose your sking type')),
                   ),
                 ),
               ),

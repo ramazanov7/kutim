@@ -4,8 +4,9 @@ import 'package:kutim/src/core/theme/resources.dart';
 class SkinWidgetCard extends StatelessWidget {
   final String title;
   final String imagePath;
+  final bool selected;
   final void Function()? onTap;
-  const SkinWidgetCard({super.key, required this.title, required this.imagePath, this.onTap});
+  const SkinWidgetCard({super.key, required this.title, required this.imagePath, this.onTap, required this.selected});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class SkinWidgetCard extends StatelessWidget {
       child: Container(
         width: 156,
         decoration: BoxDecoration(
-          color: AppColors.mainColor,
+          color: selected ? AppColors.mainColor : AppColors.mainColor.withOpacity(0.5),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(

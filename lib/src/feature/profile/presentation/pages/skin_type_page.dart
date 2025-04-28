@@ -50,68 +50,6 @@ class _SkinTypePageState extends State<SkinTypePage> {
                 ],
               ),
               const Gap(20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SkinWidgetCard(
-                    title: "Normal",
-                    imagePath: Assets.images.skinImg1.path,
-                    onTap: (){
-                      setState(() {
-                        selectedSecTitle = "Normal";
-                      });
-                      Navigator.of(context).pop(selectedSecTitle);
-                    },
-                  ),
-                  SkinWidgetCard(
-                    title: "Dry",
-                    imagePath: Assets.images.skinImg2png.path,
-                     onTap: () {
-                      setState(() {
-                        selectedSecTitle = "Dry";
-                      });
-                      Navigator.of(context).pop(selectedSecTitle);
-                    },
-                  ),
-                ],
-              ),
-              const Gap(26),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SkinWidgetCard(
-                    title: "Oily",
-                    imagePath: Assets.images.skinImg3.path,
-                     onTap: () {
-                      setState(() {
-                        selectedSecTitle = "Oily";
-                      });
-                      Navigator.of(context).pop(selectedSecTitle);
-                    },
-                  ),
-                  SkinWidgetCard(
-                    title: "Combi",
-                    imagePath: Assets.images.skinImg4.path,
-                     onTap: () {
-                      setState(() {
-                        selectedSecTitle = "Combi";
-                      });
-                      Navigator.of(context).pop(selectedSecTitle);
-                    },
-                  ),
-                ],
-              ),
-              const Gap(26),
-              SkinWidgetCard(
-                title: "Sensitive",
-                imagePath: Assets.images.skinImg5.path,
-                onTap: () {
-                  setState(() {
-                    selectedSecTitle = "Sensitive";
-                  });
-                   Navigator.of(context).pop(selectedSecTitle);
-                },
-              ),
             ],
           ),
         ));

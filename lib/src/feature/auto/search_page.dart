@@ -103,16 +103,18 @@ class _SearchPageState extends State<SearchPage> {
                 /// <--`list`-->
                 ///
                 state.maybeWhen(
-                    orElse: () => SmartRefresher(
-                          controller: refreshController,
-                          header: const RefreshClassicHeader(),
-                          onRefresh: () {
-                            BlocProvider.of<ProductCubit>(context).getProductList(search: searchController.text);
-                            refreshController.refreshCompleted();
-                          },
-                          child: const Center(
-                            child: CircularProgressIndicator.adaptive(
-                              backgroundColor: AppColors.mainColor,
+                    orElse: () => Expanded(
+                          child: SmartRefresher(
+                            controller: refreshController,
+                            header: const RefreshClassicHeader(),
+                            onRefresh: () {
+                              BlocProvider.of<ProductCubit>(context).getProductList(search: searchController.text);
+                              refreshController.refreshCompleted();
+                            },
+                            child: const Center(
+                              child: CircularProgressIndicator.adaptive(
+                                backgroundColor: AppColors.mainColor,
+                              ),
                             ),
                           ),
                         ),

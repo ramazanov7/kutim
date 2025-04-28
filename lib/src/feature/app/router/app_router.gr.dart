@@ -37,7 +37,7 @@ class ApplicationRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const ApplicationPage();
+      return WrappedRoute(child: const ApplicationPage());
     },
   );
 }
@@ -301,18 +301,41 @@ class HelpRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [InformationPage]
-class InformationRoute extends PageRouteInfo<void> {
-  const InformationRoute({List<PageRouteInfo>? children})
-    : super(InformationRoute.name, initialChildren: children);
+class InformationRoute extends PageRouteInfo<InformationRouteArgs> {
+  InformationRoute({
+    Key? key,
+    required String skinType,
+    List<PageRouteInfo>? children,
+  }) : super(
+         InformationRoute.name,
+         args: InformationRouteArgs(key: key, skinType: skinType),
+         initialChildren: children,
+       );
 
   static const String name = 'InformationRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const InformationPage();
+      final args = data.argsAs<InformationRouteArgs>();
+      return WrappedRoute(
+        child: InformationPage(key: args.key, skinType: args.skinType),
+      );
     },
   );
+}
+
+class InformationRouteArgs {
+  const InformationRouteArgs({this.key, required this.skinType});
+
+  final Key? key;
+
+  final String skinType;
+
+  @override
+  String toString() {
+    return 'InformationRouteArgs{key: $key, skinType: $skinType}';
+  }
 }
 
 /// generated route for
@@ -524,6 +547,50 @@ class RegisterRoute extends PageRouteInfo<void> {
       return WrappedRoute(child: const RegisterPage());
     },
   );
+}
+
+/// generated route for
+/// [ScanResultPage]
+class ScanResultRoute extends PageRouteInfo<ScanResultRouteArgs> {
+  ScanResultRoute({
+    Key? key,
+    XFile? image,
+    required ScanDTO scanDTO,
+    List<PageRouteInfo>? children,
+  }) : super(
+         ScanResultRoute.name,
+         args: ScanResultRouteArgs(key: key, image: image, scanDTO: scanDTO),
+         initialChildren: children,
+       );
+
+  static const String name = 'ScanResultRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ScanResultRouteArgs>();
+      return ScanResultPage(
+        key: args.key,
+        image: args.image,
+        scanDTO: args.scanDTO,
+      );
+    },
+  );
+}
+
+class ScanResultRouteArgs {
+  const ScanResultRouteArgs({this.key, this.image, required this.scanDTO});
+
+  final Key? key;
+
+  final XFile? image;
+
+  final ScanDTO scanDTO;
+
+  @override
+  String toString() {
+    return 'ScanResultRouteArgs{key: $key, image: $image, scanDTO: $scanDTO}';
+  }
 }
 
 /// generated route for

@@ -1,10 +1,18 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:kutim/src/core/rest_client/rest_client.dart';
 import 'package:kutim/src/core/utils/talker_logger_util.dart';
+import 'package:kutim/src/feature/auth/models/user_dto.dart';
 import 'package:kutim/src/feature/main/model/product_dto.dart';
+import 'package:kutim/src/feature/main/model/scan_dto.dart';
 
 abstract interface class IMainRemoteDS {
   Future<List<ProductDTO>> productList({required String search});
+
+  Future<UserDTO> skinType({required String skinType});
+
+  Future<ScanDTO> scan({XFile? image});
 }
 
 class MainRemoteDSImpl implements IMainRemoteDS {
@@ -35,6 +43,46 @@ class MainRemoteDSImpl implements IMainRemoteDS {
       return list;
     } catch (e, st) {
       TalkerLoggerUtil.talker.error('#productList - $e', e, st);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ScanDTO> scan({XFile? image}) async {
+    try {
+      final formData = FormData();
+
+      if (image != null) {
+        formData.files.add(
+          MapEntry(
+            'image',
+            await MultipartFile.fromFile(image.path),
+          ),
+        );
+      }
+
+      final Map<String, dynamic> response = await restClient.post(
+        '/main/scan',
+        body: formData,
+      );
+
+      return ScanDTO.fromJson(response);
+    } catch (e, st) {
+      TalkerLoggerUtil.talker.error('#scan - $e', e, st);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<UserDTO> skinType({required String skinType}) async {
+    try {
+      final Map<String, dynamic> response = await restClient.post(
+        '/skin_type/attach',
+        body: {'skin_type': skinType},
+      );
+      return UserDTO.fromJson(response);
+    } catch (e, st) {
+      TalkerLoggerUtil.talker.error('#skinType - $e', e, st);
       rethrow;
     }
   }

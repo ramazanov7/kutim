@@ -48,7 +48,7 @@ class ProfileRemoteDSImpl implements IProfileRemoteDS {
   Future<BasicResponse> deleteAccount() async {
     try {
       final Map<String, dynamic> response = await restClient.delete(
-        'auth/delete',
+        'profile/delete',
       );
 
       return BasicResponse.fromJson(response);
