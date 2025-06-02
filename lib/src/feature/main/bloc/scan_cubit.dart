@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:kutim/src/feature/main/data/main_repository.dart';
 import 'package:kutim/src/feature/main/model/scan_dto.dart';
 
@@ -13,13 +12,11 @@ class ScanCubit extends Cubit<ScanState> {
         super(const ScanState.initial());
   final IMainRepository _repository;
 
-  Future<void> scan({
-    XFile? image,
-  }) async {
+  Future<void> scan({required String skinType, required String url}) async {
     try {
       emit(const ScanState.loading());
 
-      final result = await _repository.scan(image: image);
+      final result = await _repository.scan(skinType: skinType, url: url);
 
       if (isClosed) return;
 

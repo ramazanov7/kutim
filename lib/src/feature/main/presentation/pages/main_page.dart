@@ -114,7 +114,7 @@ class _MainPageState extends State<MainPage> {
                   borderRadius: BorderRadius.circular(10),
                   child: InkWell(
                     onTap: () {
-                      context.router.push(const DailyRoutineRoute());
+                      context.router.push(DailyRoutineRoute());
                     },
                     borderRadius: BorderRadius.circular(10),
                     child: context.repository.authRepository.skinType != null &&

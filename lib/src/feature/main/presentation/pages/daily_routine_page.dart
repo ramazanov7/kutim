@@ -1,15 +1,20 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:kutim/src/core/constant/constants.dart';
 import 'package:kutim/src/core/gen/assets.gen.dart';
 import 'package:kutim/src/core/theme/resources.dart';
 import 'package:kutim/src/core/utils/extensions/context_extension.dart';
 import 'package:kutim/src/feature/app/router/app_router.dart';
+import 'package:kutim/src/feature/main/model/scan_dto.dart';
 
 @RoutePage()
 class DailyRoutinePage extends StatefulWidget {
-  const DailyRoutinePage({super.key});
+  const DailyRoutinePage({super.key, this.scanDTO});
+  final ScanDTO? scanDTO;
 
   @override
   State<DailyRoutinePage> createState() => _DailyRoutinePageState();
@@ -18,7 +23,14 @@ class DailyRoutinePage extends StatefulWidget {
 class _DailyRoutinePageState extends State<DailyRoutinePage> {
   int selectedDay = 0;
 
-  List<String> day = ['Fri', 'Sat', 'Sun', 'Mon'];
+  List<String> day = ['Wed', 'Thus', 'Fri', 'Sat'];
+
+  @override
+  void initState() {
+    log('${widget.scanDTO}');
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,7 +122,7 @@ class _DailyRoutinePageState extends State<DailyRoutinePage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      '${index + 3}',
+                                      '${index + 4}',
                                       style: selectedDay == index
                                           ? AppTextStyles.fs18w600.copyWith(letterSpacing: -0.41)
                                           : AppTextStyles.fs16w500.copyWith(letterSpacing: -0.41),
@@ -158,41 +170,47 @@ class _DailyRoutinePageState extends State<DailyRoutinePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            '${skincareSteps[0]['title']}',
-                            style: AppTextStyles.fs12w300
-                                .copyWith(letterSpacing: -0.41, height: 1.7, color: Colors.black.withOpacity(0.74)),
-                          ),
-                          const Gap(4),
-                          Text(
-                            '${skincareSteps[0]['step']}',
-                            style: AppTextStyles.fs12w200.copyWith(letterSpacing: -0.41),
-                          ),
-                          const Gap(10),
-                          Container(
-                              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: AppColors.textFieldBorder),
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: Image.asset(Assets.images.products.path)),
-                          const Gap(20),
-                          Text(
-                            '${skincareSteps[2]['title']}',
-                            style: AppTextStyles.fs12w300
-                                .copyWith(letterSpacing: -0.41, height: 1.7, color: Colors.black.withOpacity(0.74)),
-                          ),
-                          const Gap(4),
-                          Text(
-                            '${skincareSteps[2]['step']}',
-                            style: AppTextStyles.fs12w200.copyWith(letterSpacing: -0.41),
-                          ),
-                          const Gap(10),
-                          Container(
-                              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: AppColors.textFieldBorder),
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: Image.asset(Assets.images.products.path))
+                          if ((widget.scanDTO?.scanResults ?? []).isNotEmpty)
+                            Text(
+                              '${widget.scanDTO?.scanResults?[0].name}',
+                              style: AppTextStyles.fs12w300
+                                  .copyWith(letterSpacing: -0.41, height: 1.7, color: Colors.black.withOpacity(0.74)),
+                            ),
+                          if ((widget.scanDTO?.scanResults ?? []).isNotEmpty) const Gap(4),
+                          if ((widget.scanDTO?.scanResults ?? []).isNotEmpty)
+                            Text(
+                              '${skincareSteps[0]['step']}',
+                              style: AppTextStyles.fs12w200.copyWith(letterSpacing: -0.41),
+                            ),
+                          if ((widget.scanDTO?.scanResults ?? []).isNotEmpty) const Gap(10),
+                          if ((widget.scanDTO?.scanResults ?? []).isNotEmpty)
+                            Container(
+                                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: AppColors.textFieldBorder),
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: Image.network(widget.scanDTO?.scanResults?[0].image ?? NOT_FOUND_IMAGE)),
+                          if ((widget.scanDTO?.scanResults ?? []).length >= 3) const Gap(20),
+                          if ((widget.scanDTO?.scanResults ?? []).length >= 3)
+                            Text(
+                              '${skincareSteps[2]['title']}',
+                              style: AppTextStyles.fs12w300
+                                  .copyWith(letterSpacing: -0.41, height: 1.7, color: Colors.black.withOpacity(0.74)),
+                            ),
+                          if ((widget.scanDTO?.scanResults ?? []).length >= 3) const Gap(4),
+                          if ((widget.scanDTO?.scanResults ?? []).length >= 3)
+                            Text(
+                              '${skincareSteps[2]['step']}',
+                              style: AppTextStyles.fs12w200.copyWith(letterSpacing: -0.41),
+                            ),
+                          if ((widget.scanDTO?.scanResults ?? []).length >= 3) const Gap(10),
+                          if ((widget.scanDTO?.scanResults ?? []).length >= 3)
+                            Container(
+                                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: AppColors.textFieldBorder),
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: Image.asset(Assets.images.products.path))
                         ],
                       ),
                     ),
@@ -200,41 +218,47 @@ class _DailyRoutinePageState extends State<DailyRoutinePage> {
                     Expanded(
                       child: Column(
                         children: [
-                          Container(
-                              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: AppColors.textFieldBorder),
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: Image.asset(Assets.images.products.path)),
-                          const Gap(10),
-                          Text(
-                            '${skincareSteps[1]['title']}',
-                            style: AppTextStyles.fs12w300
-                                .copyWith(letterSpacing: -0.41, height: 1.7, color: Colors.black.withOpacity(0.74)),
-                          ),
-                          const Gap(4),
-                          Text(
-                            '${skincareSteps[1]['step']}',
-                            style: AppTextStyles.fs12w200.copyWith(letterSpacing: -0.41),
-                          ),
-                          const Gap(20),
-                          Container(
-                              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: AppColors.textFieldBorder),
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: Image.asset(Assets.images.products.path)),
-                          const Gap(10),
-                          Text(
-                            '${skincareSteps[3]['title']}',
-                            style: AppTextStyles.fs12w300
-                                .copyWith(letterSpacing: -0.41, height: 1.7, color: Colors.black.withOpacity(0.74)),
-                          ),
-                          const Gap(4),
-                          Text(
-                            '${skincareSteps[3]['step']}',
-                            style: AppTextStyles.fs12w200.copyWith(letterSpacing: -0.41),
-                          ),
+                          if ((widget.scanDTO?.scanResults ?? []).length >= 2)
+                            Container(
+                                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: AppColors.textFieldBorder),
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: Image.asset(Assets.images.products.path)),
+                          if ((widget.scanDTO?.scanResults ?? []).length >= 2) const Gap(10),
+                          if ((widget.scanDTO?.scanResults ?? []).length >= 2)
+                            Text(
+                              '${skincareSteps[1]['title']}',
+                              style: AppTextStyles.fs12w300
+                                  .copyWith(letterSpacing: -0.41, height: 1.7, color: Colors.black.withOpacity(0.74)),
+                            ),
+                          if ((widget.scanDTO?.scanResults ?? []).length >= 2) const Gap(4),
+                          if ((widget.scanDTO?.scanResults ?? []).length >= 2)
+                            Text(
+                              '${skincareSteps[1]['step']}',
+                              style: AppTextStyles.fs12w200.copyWith(letterSpacing: -0.41),
+                            ),
+                          if ((widget.scanDTO?.scanResults ?? []).length >= 4) const Gap(20),
+                          if ((widget.scanDTO?.scanResults ?? []).length >= 4)
+                            Container(
+                                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: AppColors.textFieldBorder),
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: Image.asset(Assets.images.products.path)),
+                          if ((widget.scanDTO?.scanResults ?? []).length >= 4) const Gap(10),
+                          if ((widget.scanDTO?.scanResults ?? []).length >= 4)
+                            Text(
+                              '${skincareSteps[3]['title']}',
+                              style: AppTextStyles.fs12w300
+                                  .copyWith(letterSpacing: -0.41, height: 1.7, color: Colors.black.withOpacity(0.74)),
+                            ),
+                          if ((widget.scanDTO?.scanResults ?? []).length >= 4) const Gap(4),
+                          if ((widget.scanDTO?.scanResults ?? []).length >= 4)
+                            Text(
+                              '${skincareSteps[3]['step']}',
+                              style: AppTextStyles.fs12w200.copyWith(letterSpacing: -0.41),
+                            ),
                         ],
                       ),
                     ),

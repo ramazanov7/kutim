@@ -37,7 +37,7 @@ class AdminRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const AdminPage();
+      return WrappedRoute(child: const AdminPage());
     },
   );
 }
@@ -156,29 +156,53 @@ class ContactSupportRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [DailyRoutinePage]
-class DailyRoutineRoute extends PageRouteInfo<void> {
-  const DailyRoutineRoute({List<PageRouteInfo>? children})
-    : super(DailyRoutineRoute.name, initialChildren: children);
+class DailyRoutineRoute extends PageRouteInfo<DailyRoutineRouteArgs> {
+  DailyRoutineRoute({Key? key, ScanDTO? scanDTO, List<PageRouteInfo>? children})
+    : super(
+        DailyRoutineRoute.name,
+        args: DailyRoutineRouteArgs(key: key, scanDTO: scanDTO),
+        initialChildren: children,
+      );
 
   static const String name = 'DailyRoutineRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const DailyRoutinePage();
+      final args = data.argsAs<DailyRoutineRouteArgs>(
+        orElse: () => const DailyRoutineRouteArgs(),
+      );
+      return DailyRoutinePage(key: args.key, scanDTO: args.scanDTO);
     },
   );
+}
+
+class DailyRoutineRouteArgs {
+  const DailyRoutineRouteArgs({this.key, this.scanDTO});
+
+  final Key? key;
+
+  final ScanDTO? scanDTO;
+
+  @override
+  String toString() {
+    return 'DailyRoutineRouteArgs{key: $key, scanDTO: $scanDTO}';
+  }
 }
 
 /// generated route for
 /// [DetailAvatarPage]
 class DetailAvatarRoute extends PageRouteInfo<DetailAvatarRouteArgs> {
-  DetailAvatarRoute({Key? key, String? image, List<PageRouteInfo>? children})
-    : super(
-        DetailAvatarRoute.name,
-        args: DetailAvatarRouteArgs(key: key, image: image),
-        initialChildren: children,
-      );
+  DetailAvatarRoute({
+    Key? key,
+    String? image,
+    XFile? xFile,
+    List<PageRouteInfo>? children,
+  }) : super(
+         DetailAvatarRoute.name,
+         args: DetailAvatarRouteArgs(key: key, image: image, xFile: xFile),
+         initialChildren: children,
+       );
 
   static const String name = 'DetailAvatarRoute';
 
@@ -188,21 +212,27 @@ class DetailAvatarRoute extends PageRouteInfo<DetailAvatarRouteArgs> {
       final args = data.argsAs<DetailAvatarRouteArgs>(
         orElse: () => const DetailAvatarRouteArgs(),
       );
-      return DetailAvatarPage(key: args.key, image: args.image);
+      return DetailAvatarPage(
+        key: args.key,
+        image: args.image,
+        xFile: args.xFile,
+      );
     },
   );
 }
 
 class DetailAvatarRouteArgs {
-  const DetailAvatarRouteArgs({this.key, this.image});
+  const DetailAvatarRouteArgs({this.key, this.image, this.xFile});
 
   final Key? key;
 
   final String? image;
 
+  final XFile? xFile;
+
   @override
   String toString() {
-    return 'DetailAvatarRouteArgs{key: $key, image: $image}';
+    return 'DetailAvatarRouteArgs{key: $key, image: $image, xFile: $xFile}';
   }
 }
 
@@ -585,10 +615,12 @@ class ScanResultRoute extends PageRouteInfo<ScanResultRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<ScanResultRouteArgs>();
-      return ScanResultPage(
-        key: args.key,
-        image: args.image,
-        scanDTO: args.scanDTO,
+      return WrappedRoute(
+        child: ScanResultPage(
+          key: args.key,
+          image: args.image,
+          scanDTO: args.scanDTO,
+        ),
       );
     },
   );

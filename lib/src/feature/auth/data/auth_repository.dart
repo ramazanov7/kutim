@@ -5,6 +5,8 @@ import 'dart:io';
 import 'package:kutim/src/feature/auth/data/auth_remote_ds.dart';
 import 'package:kutim/src/feature/auth/database/auth_dao.dart';
 import 'package:kutim/src/feature/auth/models/user_dto.dart';
+import 'package:kutim/src/feature/main/bloc/scan_cubit.dart';
+import 'package:kutim/src/feature/main/model/scan_dto.dart';
 
 abstract interface class IAuthRepository {
   bool get isAuthenticated;
@@ -13,8 +15,14 @@ abstract interface class IAuthRepository {
 
   int? get cityId;
 
+  ScanDTO? get scanDTO;
+
   Future setCityId({
     required int cityId,
+  });
+
+  Future setScanDTO({
+    required ScanDTO scanDTO,
   });
 
   String? get skinType;
@@ -90,6 +98,23 @@ class AuthRepositoryImpl implements IAuthRepository {
   }
 
   @override
+  ScanDTO? get scanDTO {
+    try {
+      final scanDTO = _authDao.scanDTO.value;
+      log('${_authDao.scanDTO.value}', name: 'Auth repository - scanDTO');
+      if (scanDTO != null) {
+        return ScanDTO.fromJson(
+          jsonDecode(scanDTO) as Map<String, dynamic>,
+        );
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @override
   String? get skinType {
     try {
       final s = _authDao.skinType.value;
@@ -111,6 +136,20 @@ class AuthRepositoryImpl implements IAuthRepository {
     try {
       await _authDao.cityId.setValue(cityId);
       log(name: 'City id', _authDao.cityId.value.toString());
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> setScanDTO({
+    required ScanDTO scanDTO,
+  }) async {
+    try {
+      ScanDTO.fromJson(
+        jsonDecode(_authDao.scanDTO.value!) as Map<String, dynamic>,
+      );
+      log(name: 'ScanDTO', _authDao.scanDTO.value.toString());
     } catch (e) {
       rethrow;
     }

@@ -10,7 +10,9 @@ abstract interface class IMainRepository {
 
   Future<UserDTO> skinType({required String skinType});
 
-  Future<ScanDTO> scan({XFile? image});
+  Future<ScanDTO> scan({required String skinType, required String url});
+
+  Future<ScanDTO> imagePython({XFile? image});
 
   Future<BasicResponse> createProduct({
     required String name,
@@ -35,15 +37,6 @@ class MainRepositoryImpl implements IMainRepository {
   }
 
   @override
-  Future<ScanDTO> scan({XFile? image}) async {
-    try {
-      return await _remoteDS.scan(image: image);
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  @override
   Future<UserDTO> skinType({required String skinType}) async {
     try {
       return await _remoteDS.skinType(skinType: skinType);
@@ -56,6 +49,24 @@ class MainRepositoryImpl implements IMainRepository {
   Future<BasicResponse> createProduct({required String name, required String description, XFile? image}) async {
     try {
       return await _remoteDS.createProduct(name: name, description: description, image: image);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ScanDTO> scan({required String skinType, required String url}) async {
+    try {
+      return await _remoteDS.scan(skinType: skinType, url: url);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ScanDTO> imagePython({XFile? image}) async {
+    try {
+      return await _remoteDS.imagePython(image: image);
     } catch (e) {
       rethrow;
     }

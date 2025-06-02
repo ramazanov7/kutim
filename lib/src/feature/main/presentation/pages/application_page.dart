@@ -14,6 +14,7 @@ import 'package:kutim/src/core/presentation/widgets/dialog/toaster.dart';
 import 'package:kutim/src/core/theme/resources.dart';
 import 'package:kutim/src/core/utils/extensions/context_extension.dart';
 import 'package:kutim/src/feature/app/router/app_router.dart';
+import 'package:kutim/src/feature/main/bloc/image_python_cubit.dart';
 import 'package:kutim/src/feature/main/bloc/scan_cubit.dart';
 import 'package:kutim/src/feature/main/model/scan_dto.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -30,7 +31,7 @@ class ApplicationPage extends StatefulWidget implements AutoRouteWrapper {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => ScanCubit(repository: context.repository.mainRepository),
+          create: (context) => ImagePythonCubit(repository: context.repository.mainRepository),
         ),
       ],
       child: this,
@@ -45,12 +46,12 @@ class _ApplicationPageState extends State<ApplicationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ScanCubit, ScanState>(
+    return BlocConsumer<ImagePythonCubit, ImagePythonState>(
       listener: (context, state) {
         state.maybeWhen(
           error: (message) {
             context.loaderOverlay.hide();
-            Toaster.showErrorTopShortToast(context, message);
+            Toaster.showErrorTopShortToast(context, 'No defects detected');
             //
           },
           loading: () {
@@ -252,7 +253,7 @@ class _ApplicationPageState extends State<ApplicationPage> {
                         const Gap(20),
                         CustomButton(
                             onPressed: () {
-                              BlocProvider.of<ScanCubit>(context).scan(image: image);
+                              BlocProvider.of<ImagePythonCubit>(context).imagePython(image: image);
                             },
                             style: CustomButtonStyles.mainButtonStyle(context),
                             child: const Text('Start scanning')),

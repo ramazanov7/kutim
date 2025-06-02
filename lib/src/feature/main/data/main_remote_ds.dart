@@ -13,7 +13,9 @@ abstract interface class IMainRemoteDS {
 
   Future<UserDTO> skinType({required String skinType});
 
-  Future<ScanDTO> scan({XFile? image});
+  Future<ScanDTO> scan({required String skinType, required String url});
+
+  Future<ScanDTO> imagePython({XFile? image});
 
   Future<BasicResponse> createProduct({
     required String name,
@@ -55,32 +57,6 @@ class MainRemoteDSImpl implements IMainRemoteDS {
   }
 
   @override
-  Future<ScanDTO> scan({XFile? image}) async {
-    try {
-      final formData = FormData();
-
-      if (image != null) {
-        formData.files.add(
-          MapEntry(
-            'image',
-            await MultipartFile.fromFile(image.path),
-          ),
-        );
-      }
-
-      final Map<String, dynamic> response = await restClient.post(
-        '/main/scan',
-        body: formData,
-      );
-
-      return ScanDTO.fromJson(response);
-    } catch (e, st) {
-      TalkerLoggerUtil.talker.error('#scan - $e', e, st);
-      rethrow;
-    }
-  }
-
-  @override
   Future<UserDTO> skinType({required String skinType}) async {
     try {
       final Map<String, dynamic> response = await restClient.post(
@@ -117,6 +93,46 @@ class MainRemoteDSImpl implements IMainRemoteDS {
       return BasicResponse.fromJson(response);
     } catch (e, st) {
       TalkerLoggerUtil.talker.error('#createProduct - $e', e, st);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ScanDTO> scan({required String skinType, required String url}) async {
+    try {
+      final Map<String, dynamic> response = await restClient.post(
+        '/main/scan',
+        body: {'skin_type': skinType, 'url': url},
+      );
+      return ScanDTO.fromJson(response);
+    } catch (e, st) {
+      TalkerLoggerUtil.talker.error('#scan - $e', e, st);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ScanDTO> imagePython({XFile? image}) async {
+    try {
+      final formData = FormData();
+
+      if (image != null) {
+        formData.files.add(
+          MapEntry(
+            'file',
+            await MultipartFile.fromFile(image.path),
+          ),
+        );
+      }
+
+      final Map<String, dynamic> response = await restClient.post(
+        '/main/image',
+        body: formData,
+      );
+
+      return ScanDTO.fromJson(response);
+    } catch (e, st) {
+      TalkerLoggerUtil.talker.error('#imagePython - $e', e, st);
       rethrow;
     }
   }
