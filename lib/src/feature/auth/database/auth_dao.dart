@@ -12,6 +12,14 @@ abstract class IAuthDao {
   PreferencesEntry<String> get skinType;
 
   PreferencesEntry<String> get scanDTO;
+
+  PreferencesEntry<String> get productName;
+
+  PreferencesEntry<String> get productImage;
+
+  PreferencesEntry<String> get productDescription;
+
+  PreferencesEntry<String> get productId;
 }
 
 class AuthDao extends TypedPreferencesDao implements IAuthDao {
@@ -33,4 +41,16 @@ class AuthDao extends TypedPreferencesDao implements IAuthDao {
 
   @override
   PreferencesEntry<String> get scanDTO => stringEntry('scanDTO');
+
+  @override
+  PreferencesEntry<String> get productName => stringEntry('productName');
+
+  @override
+  PreferencesEntry<String> get productImage => stringEntry('productImage');
+
+  @override
+  PreferencesEntry<String> get productId => stringEntry('productId');
+
+  @override
+  PreferencesEntry<String> get productDescription => stringEntry('productDescription');
 }

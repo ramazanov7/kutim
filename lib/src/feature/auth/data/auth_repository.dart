@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:kutim/src/feature/auth/data/auth_remote_ds.dart';
 import 'package:kutim/src/feature/auth/database/auth_dao.dart';
 import 'package:kutim/src/feature/auth/models/user_dto.dart';
-import 'package:kutim/src/feature/main/bloc/scan_cubit.dart';
 import 'package:kutim/src/feature/main/model/scan_dto.dart';
 
 abstract interface class IAuthRepository {
@@ -17,8 +16,29 @@ abstract interface class IAuthRepository {
 
   ScanDTO? get scanDTO;
 
+  String? get productDescription;
+  String? get productId;
+  String? get productImage;
+  String? get productName;
+
   Future setCityId({
     required int cityId,
+  });
+
+  Future setProductDescription({
+    required String productDescription,
+  });
+
+  Future setProductId({
+    required String productId,
+  });
+
+  Future setProductImage({
+    required String productImage,
+  });
+
+  Future setProductName({
+    required String productName,
   });
 
   Future setScanDTO({
@@ -115,6 +135,66 @@ class AuthRepositoryImpl implements IAuthRepository {
   }
 
   @override
+  String? get productImage {
+    try {
+      final productImage = _authDao.productImage.value;
+      log('${_authDao.productImage.value}', name: 'Auth repository - productImage');
+      if (productImage != null) {
+        return productImage;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @override
+  String? get productDescription {
+    try {
+      final productImage = _authDao.productImage.value;
+      log('${_authDao.productImage.value}', name: 'Auth repository - productImage');
+      if (productImage != null) {
+        return productImage;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @override
+  String? get productId {
+    try {
+      final productId = _authDao.productId.value;
+      log('${_authDao.productId.value}', name: 'Auth repository - productId');
+      if (productId != null) {
+        return productId;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @override
+  String? get productName {
+    try {
+      final productName = _authDao.productName.value;
+      log('${_authDao.productName.value}', name: 'Auth repository - productName');
+      if (productName != null) {
+        return productName;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @override
   String? get skinType {
     try {
       final s = _authDao.skinType.value;
@@ -150,6 +230,54 @@ class AuthRepositoryImpl implements IAuthRepository {
         jsonDecode(_authDao.scanDTO.value!) as Map<String, dynamic>,
       );
       log(name: 'ScanDTO', _authDao.scanDTO.value.toString());
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> setProductName({
+    required String productName,
+  }) async {
+    try {
+      await _authDao.productName.setValue(productName);
+      log(name: 'productName', _authDao.productName.value.toString());
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> setProductId({
+    required String productId,
+  }) async {
+    try {
+      await _authDao.productId.setValue(productId);
+      log(name: 'productId', _authDao.productId.value.toString());
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> setProductImage({
+    required String productImage,
+  }) async {
+    try {
+      await _authDao.productImage.setValue(productImage);
+      log(name: 'productImage', _authDao.productImage.value.toString());
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> setProductDescription({
+    required String productDescription,
+  }) async {
+    try {
+      await _authDao.productDescription.setValue(productDescription);
+      log(name: 'productDescription', _authDao.productDescription.value.toString());
     } catch (e) {
       rethrow;
     }

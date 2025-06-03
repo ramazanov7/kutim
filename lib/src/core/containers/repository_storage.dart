@@ -90,6 +90,7 @@ class RepositoryStorage implements IRepositoryStorage {
   @override
   IMainRepository get mainRepository => MainRepositoryImpl(
         remoteDS: mainRemoteDS,
+        authDao: authDao,
       );
 
   ///

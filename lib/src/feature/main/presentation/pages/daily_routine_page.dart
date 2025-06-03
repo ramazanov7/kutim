@@ -24,10 +24,18 @@ class _DailyRoutinePageState extends State<DailyRoutinePage> {
   int selectedDay = 0;
 
   List<String> day = ['Wed', 'Thus', 'Fri', 'Sat'];
+  ScanDTO? cacheScanDTO;
 
   @override
   void initState() {
     log('${widget.scanDTO}');
+    cacheScanDTO = context.repository.authRepository.scanDTO;
+    log('${cacheScanDTO?.scanResults?[0].name}', name: 'scan first product');
+    log('${cacheScanDTO?.scanResults?[1].name}', name: 'scan second product');
+    log('${cacheScanDTO?.scanResults?[2].name}', name: 'scan third product');
+    log('${cacheScanDTO?.scanResults?[3].name}', name: 'scan fourth product');
+    // log(cacheScanDTO.toString(), name: 'cacheScam');
+
     super.initState();
   }
 
@@ -170,47 +178,47 @@ class _DailyRoutinePageState extends State<DailyRoutinePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if ((widget.scanDTO?.scanResults ?? []).isNotEmpty)
+                          if ((cacheScanDTO?.scanResults ?? []).isNotEmpty)
                             Text(
-                              '${widget.scanDTO?.scanResults?[0].name}',
+                              '${cacheScanDTO?.scanResults?[0].name}',
                               style: AppTextStyles.fs12w300
                                   .copyWith(letterSpacing: -0.41, height: 1.7, color: Colors.black.withOpacity(0.74)),
                             ),
-                          if ((widget.scanDTO?.scanResults ?? []).isNotEmpty) const Gap(4),
-                          if ((widget.scanDTO?.scanResults ?? []).isNotEmpty)
+                          if ((cacheScanDTO?.scanResults ?? []).isNotEmpty) const Gap(4),
+                          if ((cacheScanDTO?.scanResults ?? []).isNotEmpty)
                             Text(
                               '${skincareSteps[0]['step']}',
-                              style: AppTextStyles.fs12w200.copyWith(letterSpacing: -0.41),
+                              style: AppTextStyles.fs12w600.copyWith(letterSpacing: -0.41),
                             ),
-                          if ((widget.scanDTO?.scanResults ?? []).isNotEmpty) const Gap(10),
-                          if ((widget.scanDTO?.scanResults ?? []).isNotEmpty)
+                          if ((cacheScanDTO?.scanResults ?? []).isNotEmpty) const Gap(10),
+                          if ((cacheScanDTO?.scanResults ?? []).isNotEmpty)
                             Container(
                                 padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
                                 decoration: BoxDecoration(
                                     border: Border.all(color: AppColors.textFieldBorder),
                                     borderRadius: BorderRadius.circular(30)),
-                                child: Image.network(widget.scanDTO?.scanResults?[0].image ?? NOT_FOUND_IMAGE)),
-                          if ((widget.scanDTO?.scanResults ?? []).length >= 3) const Gap(20),
-                          if ((widget.scanDTO?.scanResults ?? []).length >= 3)
+                                child: Image.network(cacheScanDTO?.scanResults?[0].image ?? NOT_FOUND_IMAGE)),
+                          if ((cacheScanDTO?.scanResults ?? []).length >= 3) const Gap(20),
+                          if ((cacheScanDTO?.scanResults ?? []).length >= 3)
                             Text(
-                              '${skincareSteps[2]['title']}',
+                              '${cacheScanDTO?.scanResults?[2].name}',
                               style: AppTextStyles.fs12w300
                                   .copyWith(letterSpacing: -0.41, height: 1.7, color: Colors.black.withOpacity(0.74)),
                             ),
-                          if ((widget.scanDTO?.scanResults ?? []).length >= 3) const Gap(4),
-                          if ((widget.scanDTO?.scanResults ?? []).length >= 3)
+                          if ((cacheScanDTO?.scanResults ?? []).length >= 3) const Gap(4),
+                          if ((cacheScanDTO?.scanResults ?? []).length >= 3)
                             Text(
                               '${skincareSteps[2]['step']}',
-                              style: AppTextStyles.fs12w200.copyWith(letterSpacing: -0.41),
+                              style: AppTextStyles.fs12w600.copyWith(letterSpacing: -0.41),
                             ),
-                          if ((widget.scanDTO?.scanResults ?? []).length >= 3) const Gap(10),
-                          if ((widget.scanDTO?.scanResults ?? []).length >= 3)
+                          if ((cacheScanDTO?.scanResults ?? []).length >= 3) const Gap(10),
+                          if ((cacheScanDTO?.scanResults ?? []).length >= 3)
                             Container(
                                 padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
                                 decoration: BoxDecoration(
                                     border: Border.all(color: AppColors.textFieldBorder),
                                     borderRadius: BorderRadius.circular(30)),
-                                child: Image.asset(Assets.images.products.path))
+                                child: Image.network(cacheScanDTO?.scanResults?[2].image ?? NOT_FOUND_IMAGE))
                         ],
                       ),
                     ),
@@ -218,46 +226,47 @@ class _DailyRoutinePageState extends State<DailyRoutinePage> {
                     Expanded(
                       child: Column(
                         children: [
-                          if ((widget.scanDTO?.scanResults ?? []).length >= 2)
+                          if ((cacheScanDTO?.scanResults ?? []).length >= 2)
                             Container(
                                 padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
                                 decoration: BoxDecoration(
                                     border: Border.all(color: AppColors.textFieldBorder),
                                     borderRadius: BorderRadius.circular(30)),
-                                child: Image.asset(Assets.images.products.path)),
-                          if ((widget.scanDTO?.scanResults ?? []).length >= 2) const Gap(10),
-                          if ((widget.scanDTO?.scanResults ?? []).length >= 2)
+                                child: Image.network(cacheScanDTO?.scanResults?[1].image ?? NOT_FOUND_IMAGE)),
+                          if ((cacheScanDTO?.scanResults ?? []).length >= 2) const Gap(10),
+                          if ((cacheScanDTO?.scanResults ?? []).length >= 2)
                             Text(
-                              '${skincareSteps[1]['title']}',
+                              '${cacheScanDTO?.scanResults?[1].name}',
                               style: AppTextStyles.fs12w300
                                   .copyWith(letterSpacing: -0.41, height: 1.7, color: Colors.black.withOpacity(0.74)),
                             ),
-                          if ((widget.scanDTO?.scanResults ?? []).length >= 2) const Gap(4),
-                          if ((widget.scanDTO?.scanResults ?? []).length >= 2)
+                          if ((cacheScanDTO?.scanResults ?? []).length >= 2) const Gap(4),
+                          if ((cacheScanDTO?.scanResults ?? []).length >= 2)
                             Text(
                               '${skincareSteps[1]['step']}',
-                              style: AppTextStyles.fs12w200.copyWith(letterSpacing: -0.41),
+                              style: AppTextStyles.fs12w600.copyWith(letterSpacing: -0.41),
                             ),
-                          if ((widget.scanDTO?.scanResults ?? []).length >= 4) const Gap(20),
-                          if ((widget.scanDTO?.scanResults ?? []).length >= 4)
+                          if ((cacheScanDTO?.scanResults ?? []).length >= 4) const Gap(20),
+                          if ((cacheScanDTO?.scanResults ?? []).length >= 4)
                             Container(
                                 padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
                                 decoration: BoxDecoration(
                                     border: Border.all(color: AppColors.textFieldBorder),
                                     borderRadius: BorderRadius.circular(30)),
-                                child: Image.asset(Assets.images.products.path)),
-                          if ((widget.scanDTO?.scanResults ?? []).length >= 4) const Gap(10),
-                          if ((widget.scanDTO?.scanResults ?? []).length >= 4)
+                                child: Image.network(cacheScanDTO?.scanResults?[0].image ?? NOT_FOUND_IMAGE)),
+                          if ((cacheScanDTO?.scanResults ?? []).length >= 4) const Gap(10),
+                          if ((cacheScanDTO?.scanResults ?? []).length >= 4)
                             Text(
-                              '${skincareSteps[3]['title']}',
+                              '${cacheScanDTO?.scanResults?[3].name}',
+                              // '${skincareSteps[3]['title']}',
                               style: AppTextStyles.fs12w300
                                   .copyWith(letterSpacing: -0.41, height: 1.7, color: Colors.black.withOpacity(0.74)),
                             ),
-                          if ((widget.scanDTO?.scanResults ?? []).length >= 4) const Gap(4),
-                          if ((widget.scanDTO?.scanResults ?? []).length >= 4)
+                          if ((cacheScanDTO?.scanResults ?? []).length >= 4) const Gap(4),
+                          if ((cacheScanDTO?.scanResults ?? []).length >= 4)
                             Text(
                               '${skincareSteps[3]['step']}',
-                              style: AppTextStyles.fs12w200.copyWith(letterSpacing: -0.41),
+                              style: AppTextStyles.fs12w600.copyWith(letterSpacing: -0.41),
                             ),
                         ],
                       ),

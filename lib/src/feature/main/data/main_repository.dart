@@ -1,5 +1,9 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:kutim/src/core/rest_client/models/basic_response.dart';
+import 'package:kutim/src/feature/auth/database/auth_dao.dart';
 import 'package:kutim/src/feature/auth/models/user_dto.dart';
 import 'package:kutim/src/feature/main/data/main_remote_ds.dart';
 import 'package:kutim/src/feature/main/model/product_dto.dart';
@@ -24,8 +28,11 @@ abstract interface class IMainRepository {
 class MainRepositoryImpl implements IMainRepository {
   const MainRepositoryImpl({
     required IMainRemoteDS remoteDS,
-  }) : _remoteDS = remoteDS;
+    required IAuthDao authDao,
+  })  : _remoteDS = remoteDS,
+        _authDao = authDao;
   final IMainRemoteDS _remoteDS;
+  final IAuthDao _authDao;
 
   @override
   Future<List<ProductDTO>> productList({required String search}) async {
@@ -57,7 +64,12 @@ class MainRepositoryImpl implements IMainRepository {
   @override
   Future<ScanDTO> scan({required String skinType, required String url}) async {
     try {
-      return await _remoteDS.scan(skinType: skinType, url: url);
+      final result = await _remoteDS.scan(skinType: skinType, url: url);
+
+      log('-----------------------------------', name: 'scandDTO');
+      await _authDao.scanDTO.setValue(jsonEncode(result.toJson()));
+      log('$result', name: 'auth-repo');
+      return result;
     } catch (e) {
       rethrow;
     }
